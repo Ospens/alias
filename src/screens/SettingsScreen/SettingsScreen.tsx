@@ -1,13 +1,29 @@
-import React, { memo } from "react";
+import React, { useCallback } from "react";
 import { View, Text, Button } from "react-native";
+import { observer } from "mobx-react-lite";
+import Switch from "components/Switch";
 import type { INavigatorProps } from "routing";
+import { useStore } from "stores";
 import styles from "./SettingsScreen.styles";
 
-const SettingsScreen = memo(({ navigation }: INavigatorProps<"Settings">) => (
-  <View style={styles.container}>
-    <Text>Settings</Text>
-    <Button title="Go to Home" onPress={navigation.goBack} />
-  </View>
-));
+const SettingsScreen = observer(
+  ({ navigation }: INavigatorProps<"Settings">) => {
+    const {
+      settingsStore: { penaltyForSkip, togglePenaltyForSkip },
+    } = useStore("rootStore");
+
+    const toggle = useCallback((val) => togglePenaltyForSkip(val), [
+      togglePenaltyForSkip,
+    ]);
+
+    return (
+      <View style={styles.container}>
+        <Text>Settings</Text>
+        <Switch onValueChange={toggle} value={penaltyForSkip} />
+        <Button title="Go to Home" onPress={navigation.goBack} />
+      </View>
+    );
+  }
+);
 
 export default SettingsScreen;

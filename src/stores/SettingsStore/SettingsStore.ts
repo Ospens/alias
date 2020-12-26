@@ -22,6 +22,10 @@ class SettingsStore {
     makeAutoObservable(this);
     this.rootStore = rootStore;
   }
+
+  public togglePenaltyForSkip = (value?: boolean) => {
+    this.penaltyForSkip = value || !this.penaltyForSkip;
+  };
 }
 
 export default SettingsStore;
