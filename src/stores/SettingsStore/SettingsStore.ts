@@ -23,8 +23,8 @@ class SettingsStore {
     this.rootStore = rootStore;
   }
 
-  public togglePenaltyForSkip = (value?: boolean) => {
-    this.penaltyForSkip = value || !this.penaltyForSkip;
+  public togglePenaltyForSkip = (value: boolean) => {
+    this.penaltyForSkip = value;
   };
 }
 
