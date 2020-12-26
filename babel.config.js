@@ -25,6 +25,8 @@ module.exports = {
           "stores/*": "./src/stores/*",
           routing: "./src/routing",
           "routing/*": "./src/routing/*",
+          themes: "./src/themes",
+          "themes/*": "./src/themes/*",
         },
       },
     ],

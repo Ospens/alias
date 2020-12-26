@@ -18,8 +18,11 @@ const SettingsScreen = observer(
 
     return (
       <View style={styles.container}>
-        <Text>Settings</Text>
-        <Switch onValueChange={toggle} value={penaltyForSkip} />
+        <Switch
+          title="Penalty for skip"
+          onValueChange={toggle}
+          value={penaltyForSkip}
+        />
         <Button title="Go to Home" onPress={navigation.goBack} />
       </View>
     );

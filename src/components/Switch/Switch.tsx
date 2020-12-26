@@ -1,14 +1,20 @@
 import React, { FC, memo } from "react";
-import { Switch as RNSwitch } from "react-native";
-import { ISwitch } from "components/Switch/Switch.types";
+import { View, Switch as RNSwitch, Text } from "react-native";
+import { ISwitch } from "./Switch.types";
+import styles from "./Switch.styles";
 
-const Switch: FC<ISwitch> = memo(({ onValueChange, value = false }) => {
+const Switch: FC<ISwitch> = memo(({ title, onValueChange, value = false }) => {
   return (
-    <RNSwitch
-      ios_backgroundColor="#3e3e3e"
-      onValueChange={onValueChange}
-      value={value}
-    />
+    <View style={styles.container}>
+      <Text>{title}</Text>
+      <View style={styles.switchWrapper}>
+        <RNSwitch
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={onValueChange}
+          value={value}
+        />
+      </View>
+    </View>
   );
 });
 
