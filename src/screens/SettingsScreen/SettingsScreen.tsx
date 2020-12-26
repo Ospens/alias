@@ -1,13 +1,13 @@
 import React, { memo } from "react";
 import { View, Text, Button } from "react-native";
 import type { INavigatorProps } from "routing";
-import styles from "./AnotherScreen.styles";
+import styles from "./SettingsScreen.styles";
 
-const AnotherScreen = memo(({ navigation }: INavigatorProps<"Another">) => (
+const SettingsScreen = memo(({ navigation }: INavigatorProps<"Settings">) => (
   <View style={styles.container}>
-    <Text>Details Screen</Text>
+    <Text>Settings</Text>
     <Button title="Go to Home" onPress={navigation.goBack} />
   </View>
 ));
 
-export default AnotherScreen;
+export default SettingsScreen;

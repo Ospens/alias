@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "screens/HomeScreen";
-import AnotherScreen from "screens/AnotherScreen";
+import SettingsScreen from "screens/SettingsScreen";
 import type { RootStackParamList } from "./Routing.types";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -11,12 +11,12 @@ const Routing = memo(() => (
     <Stack.Screen
       name="Home"
       component={HomeScreen}
-      options={{ title: "My home" }}
+      options={{ headerShown: false }}
     />
     <Stack.Screen
-      name="Another"
-      component={AnotherScreen}
-      options={({ route }) => ({ title: route.params.someParam })}
+      name="Settings"
+      component={SettingsScreen}
+      options={{ title: "Settings" }}
     />
   </Stack.Navigator>
 ));

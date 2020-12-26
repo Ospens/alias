@@ -1,26 +1,19 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 import { observer } from "mobx-react-lite";
-import { useStore } from "stores";
 import type { INavigatorProps } from "routing";
 import styles from "./HomeScreen.styles";
 
 const HomeScreen = observer(({ navigation }: INavigatorProps<"Home">) => {
-  const rootStore = useStore("rootStore");
-
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>Teams list</Text>
+      <Text>Team 1</Text>
+      <Text>Team 2</Text>
       <Button
-        title="Go to Another"
-        onPress={() =>
-          navigation.navigate("Another", {
-            someParam: "latest",
-          })
-        }
+        title="Settings"
+        onPress={() => navigation.navigate("Settings")}
       />
-      <Button title="double" onPress={() => rootStore.increment()} />
-      <Button title="reassign" onPress={() => rootStore.reassign()} />
     </View>
   );
 });

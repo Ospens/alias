@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import type RootStore from "../RootStore/Root.store";
+import type { RootStore } from "../RootStore";
 
-class UiStore {
+class UIStore {
   public rootStore: RootStore;
 
   public language = "en_US";
@@ -10,10 +10,6 @@ class UiStore {
     makeAutoObservable(this);
     this.rootStore = rootStore;
   }
-
-  public get isEnglish() {
-    return this.language === "en_US";
-  }
 }
 
-export default UiStore;
+export default UIStore;
