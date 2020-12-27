@@ -9,7 +9,7 @@ export default StyleSheet.create({
     justifyContent: "flex-start",
     width: "100%",
     paddingHorizontal: typography.horizontalMargin,
-    paddingVertical: 5,
+    paddingVertical: typography.inputVerticalPadding,
   },
   switchWrapper: {
     marginLeft: "auto",
