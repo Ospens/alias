@@ -1,11 +1,18 @@
-import React, { FC, memo } from "react";
+import React, { memo, PropsWithChildren } from "react";
 import { View, Text } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
-import { ISelectInput } from "./SelectPicker.types";
+import { ISelectPicker } from "./SelectPicker.types";
 import styles, { pickerSelectStyles } from "./SelectPicker.styles";
 
-const SelectPicker: FC<ISelectInput> = memo(
-  ({ title, items, value, onValueChange }) => {
+const typedMemo: <T>(props: T) => T = memo;
+
+const SelectPicker = typedMemo(
+  <T,>({
+    title,
+    items,
+    value,
+    onValueChange,
+  }: PropsWithChildren<ISelectPicker<T>>) => {
     return (
       <View style={styles.container}>
         <Text>{title}</Text>

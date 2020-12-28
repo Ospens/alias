@@ -6,6 +6,7 @@ import { useStore } from "stores";
 import Switch from "components/Switch";
 import { roundDurationSelectValues } from "stores/SettingsStore";
 import SelectPicker from "components/SelectPicker";
+import { pointsForWinSelectValues } from "stores/SettingsStore/constants";
 import styles from "./SettingsScreen.styles";
 
 const SettingsScreen = observer(
@@ -15,7 +16,9 @@ const SettingsScreen = observer(
         penaltyForSkip,
         togglePenaltyForSkip,
         toggleRoundDuration,
+        togglePointsForWin,
         roundDuration,
+        pointsForWin,
       },
     } = useStore("rootStore");
 
@@ -26,10 +29,16 @@ const SettingsScreen = observer(
     return (
       <View style={styles.container}>
         <SelectPicker
+          title="Points for win"
+          value={pointsForWin}
+          items={pointsForWinSelectValues}
+          onValueChange={togglePointsForWin}
+        />
+        <SelectPicker
           title="Round duration"
           value={roundDuration}
           items={roundDurationSelectValues}
-          onValueChange={(value) => toggleRoundDuration(value)}
+          onValueChange={toggleRoundDuration}
         />
         <Switch
           title="Penalty for skip"

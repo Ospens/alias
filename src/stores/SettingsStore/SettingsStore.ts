@@ -30,6 +30,10 @@ class SettingsStore {
   public toggleRoundDuration = (value: RoundDuration) => {
     this.roundDuration = value;
   };
+
+  public togglePointsForWin = (value: PointsForWin) => {
+    this.pointsForWin = value;
+  };
 }
 
 export default SettingsStore;
