@@ -1,4 +1,5 @@
-import SettingsStore, { PointsForWin, RoundDuration } from "./SettingsStore";
+import SettingsStore from "./SettingsStore";
+import { PointsForWin, RoundDuration } from "./SettingsStore.types";
 import { roundDurationSelectValues } from "./constants";
 
 export default SettingsStore;
