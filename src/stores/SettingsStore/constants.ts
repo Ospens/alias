@@ -1,4 +1,4 @@
-import { RoundDuration, PointsForWin } from "./SettingsStore";
+import type { RoundDuration, PointsForWin } from "./SettingsStore.types";
 
 export const roundDurationSelectValues: {
   label: string;
