@@ -1,26 +1,19 @@
 import { makeAutoObservable } from "mobx";
+import { generateUUID, getRandomElement } from "utils";
 import type { RootStore } from "../RootStore";
 import type { ITeam } from "./TeamsStore.types";
-
-const generateUUID = (): string => {
-  return `${Date.now()}-${Math.floor(Math.random() * 100)}`;
-};
-
-const getRandomElement = <T>(items: T[]): T | undefined => {
-  return items[Math.floor(Math.random() * items.length)];
-};
 
 const teamNames = ["Cats", "Dogs", "Fish", "Bears"];
 
 class TeamsStore {
-  public rootStore: RootStore;
-
-  public teams: ITeam[] = [];
-
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
   }
+
+  public rootStore: RootStore;
+
+  public teams: ITeam[] = [];
 
   get availableTeamNames() {
     const notAvailableTeamNames = this.teams.map((team) => team.name);

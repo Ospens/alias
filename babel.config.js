@@ -27,6 +27,8 @@ module.exports = {
           "routing/*": "./src/routing/*",
           themes: "./src/themes",
           "themes/*": "./src/themes/*",
+          utils: "./src/utils",
+          "utils/*": "./src/utils/*",
         },
       },
     ],
