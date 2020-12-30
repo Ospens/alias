@@ -35,7 +35,7 @@ export const groups: IWordsGroup[] = [
     name: "Базовый набор",
   },
   {
-    id: "1",
+    id: "2",
     name: "Новый год",
   },
 ];

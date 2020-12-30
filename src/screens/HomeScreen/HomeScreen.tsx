@@ -21,6 +21,10 @@ const HomeScreen = observer(({ navigation }: INavigatorProps<"Home">) => {
         title="Settings"
         onPress={() => navigation.navigate("Settings")}
       />
+      <Button
+        title="Game settings"
+        onPress={() => navigation.navigate("GameSettings")}
+      />
     </View>
   );
 });

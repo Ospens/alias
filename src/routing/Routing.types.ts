@@ -4,6 +4,7 @@ import { RouteProp } from "@react-navigation/native";
 export type RootStackParamList = {
   Home: undefined;
   Settings: undefined;
+  GameSettings: undefined;
 };
 
 type RootStack = keyof RootStackParamList;
