@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
+import WordsGroup from "components/WordsGroup";
 import styles from "./GameSettingsScreen.styles";
 
 const GameSettingsScreen = observer(() => {
@@ -10,9 +11,8 @@ const GameSettingsScreen = observer(() => {
   } = useStore("rootStore");
   return (
     <View style={styles.container}>
-      <Text>Game Settings Screen</Text>
       {groups.map((group) => (
-        <Text key={group.id}>{group.name}</Text>
+        <WordsGroup key={group.id} group={group} />
       ))}
     </View>
   );

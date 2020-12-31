@@ -1,15 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { View, Text, Button } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
-import type { ITeam } from "stores/TeamsStore";
 import styles from "./Team.styles";
+import type { TeamProps } from "./Team.types";
 
-interface TeamItemProps {
-  team: ITeam;
-}
-
-const Team = observer(({ team }: TeamItemProps) => {
+const Team: FC<TeamProps> = observer(({ team }) => {
   const {
     teamsStore: { removeTeam },
   } = useStore("rootStore");
