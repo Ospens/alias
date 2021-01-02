@@ -7,12 +7,18 @@ import styles from "./GameSettingsScreen.styles";
 
 const GameSettingsScreen = observer(() => {
   const {
-    wordsStore: { groups },
+    wordsStore: { groups, toggleCheckedGroupsIds, checkedGroupsIds },
   } = useStore("rootStore");
+
   return (
     <View style={styles.container}>
       {groups.map((group) => (
-        <WordsGroup key={group.id} group={group} />
+        <WordsGroup
+          key={group.id}
+          group={group}
+          checked={checkedGroupsIds.includes(group.id)}
+          onToggle={toggleCheckedGroupsIds}
+        />
       ))}
     </View>
   );

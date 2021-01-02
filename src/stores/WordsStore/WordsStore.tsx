@@ -16,6 +16,18 @@ class WordsStore {
   public words: IWord[];
 
   public groups: IWordsGroup[];
+
+  public checkedGroupsIds: string[] = [];
+
+  public toggleCheckedGroupsIds = (groupId: string) => {
+    const groupIndex = this.checkedGroupsIds.findIndex((id) => id === groupId);
+
+    if (groupIndex > -1) {
+      this.checkedGroupsIds.splice(groupIndex, 1);
+    } else {
+      this.checkedGroupsIds.push(groupId);
+    }
+  };
 }
 
 export default WordsStore;
