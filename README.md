@@ -10,10 +10,10 @@ Code templates for default component structure
 * index.ts
 ``` ts
 import ${COMPONENT_NAME} from "./${COMPONENT_NAME}";
-import type { I${COMPONENT_NAME} } from "./${COMPONENT_NAME}.types";
+import type { ${COMPONENT_NAME}Props } from "./${COMPONENT_NAME}.types";
 
 export default ${COMPONENT_NAME};
-export type { I${COMPONENT_NAME} };
+export type { ${COMPONENT_NAME}Props };
 ```
 
 * COMPONENT_NAME.styles.ts

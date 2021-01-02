@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { View, Text, Button } from "react-native";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
@@ -6,7 +6,7 @@ import { useStore } from "stores";
 import Team from "components/Team";
 import styles from "./HomeScreen.styles";
 
-const HomeScreen = observer(({ navigation }: INavigatorProps<"Home">) => {
+const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   const {
     teamsStore: { teams, createTeam },
   } = useStore("rootStore");
@@ -22,8 +22,9 @@ const HomeScreen = observer(({ navigation }: INavigatorProps<"Home">) => {
         onPress={() => navigation.navigate("Settings")}
       />
       <Button
-        title="Game settings"
+        title="Choose words sets"
         onPress={() => navigation.navigate("GameSettings")}
+        disabled={teams.length < 2}
       />
     </View>
   );
