@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { View, Text, Button } from "react-native";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
@@ -8,8 +8,15 @@ import styles from "./HomeScreen.styles";
 
 const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   const {
+    createGameStore,
     teamsStore: { teams, createTeam },
   } = useStore("rootStore");
+
+  const gotoGameSettings = useCallback(() => {
+    createGameStore();
+    navigation.navigate("GameSettings");
+  }, [createGameStore, navigation]);
+
   return (
     <View style={styles.container}>
       <Text>Teams: </Text>
@@ -23,7 +30,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
       />
       <Button
         title="Choose words sets"
-        onPress={() => navigation.navigate("GameSettings")}
+        onPress={gotoGameSettings}
         disabled={teams.length < 2}
       />
     </View>

@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Settings: undefined;
   GameSettings: undefined;
   Game: undefined;
+  Results: undefined;
 };
 
 type RootStack = keyof RootStackParamList;

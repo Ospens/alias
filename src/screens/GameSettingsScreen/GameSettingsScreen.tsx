@@ -24,7 +24,7 @@ const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
         ))}
         <Button
           title="Start game"
-          onPress={() => navigation.navigate("Game")}
+          onPress={() => navigation.navigate("Results")}
         />
       </View>
     );

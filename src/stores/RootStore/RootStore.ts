@@ -12,7 +12,6 @@ class RootStore {
     this.settingsStore = new SettingsStore(this);
     this.teamsStore = new TeamsStore(this);
     this.wordsStore = new WordsStore(this);
-    this.gameStore = new GameStore(this);
   }
 
   public uiStore: UIStore;
@@ -23,7 +22,15 @@ class RootStore {
 
   public wordsStore: WordsStore;
 
-  public gameStore: GameStore;
+  public gameStore: GameStore | undefined = undefined;
+
+  public createGameStore = () => {
+    this.gameStore = new GameStore(this);
+  };
+
+  public destroyGameStore = () => {
+    this.gameStore = undefined;
+  };
 }
 
 export default RootStore;

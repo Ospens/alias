@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "screens/HomeScreen";
 import SettingsScreen from "screens/SettingsScreen";
 import GameSettingsScreen from "screens/GameSettingsScreen";
+import ResultsScreen from "screens/ResultsScreen";
 import GameScreen from "screens/GameScreen";
 import type { RootStackParamList } from "./Routing.types";
 
@@ -24,6 +25,11 @@ const Routing = memo(() => (
       name="GameSettings"
       component={GameSettingsScreen}
       options={{ title: "Game Settings" }}
+    />
+    <Stack.Screen
+      name="Results"
+      component={ResultsScreen}
+      options={{ title: "Results" }}
     />
     <Stack.Screen
       name="Game"
