@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { Button, View } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
@@ -12,6 +12,10 @@ const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
       wordsStore: { groups, toggleCheckedGroupsIds, checkedGroupsIds },
     } = useStore("rootStore");
 
+    const gotoGame = useCallback(() => {
+      navigation.navigate("Results");
+    }, [navigation]);
+
     return (
       <View style={styles.container}>
         {groups.map((group) => (
@@ -22,10 +26,7 @@ const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
             onToggle={toggleCheckedGroupsIds}
           />
         ))}
-        <Button
-          title="Start game"
-          onPress={() => navigation.navigate("Results")}
-        />
+        <Button title="Start game" onPress={gotoGame} />
       </View>
     );
   }

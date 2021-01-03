@@ -12,6 +12,10 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
     teamsStore: { teams, createTeam },
   } = useStore("rootStore");
 
+  const gotoSettings = useCallback(() => {
+    navigation.navigate("Settings");
+  }, [navigation]);
+
   const gotoGameSettings = useCallback(() => {
     createGameStore();
     navigation.navigate("GameSettings");
@@ -24,10 +28,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
         <Team key={team.uuid} team={team} />
       ))}
       <Button title="Add team" onPress={createTeam} />
-      <Button
-        title="Settings"
-        onPress={() => navigation.navigate("Settings")}
-      />
+      <Button title="Settings" onPress={gotoSettings} />
       <Button
         title="Choose words sets"
         onPress={gotoGameSettings}
