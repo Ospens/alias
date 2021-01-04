@@ -3,10 +3,10 @@ import { View, Text } from "react-native";
 import styles from "./WordCard.styles";
 import type { WordCardProps } from "./WordCard.types";
 
-const WordCard: FC<WordCardProps> = memo(() => {
+const WordCard: FC<WordCardProps> = memo(({ word }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.word}>Слово</Text>
+      <Text style={styles.word}>{word}</Text>
     </View>
   );
 });

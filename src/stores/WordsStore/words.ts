@@ -33,9 +33,11 @@ export const groups: IWordsGroup[] = [
   {
     id: "1",
     name: "Базовый набор",
+    checked: false,
   },
   {
     id: "2",
     name: "Новый год",
+    checked: false,
   },
 ];

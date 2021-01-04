@@ -7,4 +7,5 @@ export interface IWord {
 export interface IWordsGroup {
   id: string;
   name: string;
+  checked: boolean;
 }

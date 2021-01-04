@@ -7,26 +7,31 @@ class WordsStore {
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
-    this.words = words;
-    this.groups = groups;
   }
+
+  public groups: IWordsGroup[] = groups;
 
   public rootStore: RootStore;
 
-  public words: IWord[];
+  public allWords: IWord[] = words;
 
-  public groups: IWordsGroup[];
+  get gameWords(): IWord[] {
+    const groupIds = this.groups.map((group) => group.id);
+    return this.allWords.filter(({ wordGroupsIds }) =>
+      groupIds.filter((groupId) => wordGroupsIds.includes(groupId))
+    );
+  }
 
-  public checkedGroupsIds: string[] = [];
-
-  public toggleCheckedGroupsIds = (groupId: string) => {
-    const groupIndex = this.checkedGroupsIds.findIndex((id) => id === groupId);
-
-    if (groupIndex > -1) {
-      this.checkedGroupsIds.splice(groupIndex, 1);
-    } else {
-      this.checkedGroupsIds.push(groupId);
-    }
+  public toggleCheckedGroup = (groupId: string) => {
+    this.groups = this.groups.map((group) => {
+      if (group.id === groupId) {
+        return {
+          ...group,
+          checked: !group.checked,
+        };
+      }
+      return group;
+    });
   };
 }
 

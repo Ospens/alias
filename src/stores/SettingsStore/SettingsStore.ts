@@ -7,6 +7,11 @@ import type {
 } from "./SettingsStore.types";
 
 class SettingsStore {
+  constructor(rootStore: RootStore) {
+    makeAutoObservable(this);
+    this.rootStore = rootStore;
+  }
+
   public rootStore: RootStore;
 
   public language: Language = "en_US";
@@ -16,11 +21,6 @@ class SettingsStore {
   public pointsForWin: PointsForWin = 25;
 
   public penaltyForSkip: boolean = false;
-
-  constructor(rootStore: RootStore) {
-    makeAutoObservable(this);
-    this.rootStore = rootStore;
-  }
 
   public togglePenaltyForSkip = (value: boolean) => {
     this.penaltyForSkip = value;

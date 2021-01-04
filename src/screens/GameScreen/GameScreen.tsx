@@ -9,6 +9,7 @@ import styles from "./GameScreen.styles";
 const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
   const {
     settingsStore: { roundDuration },
+    wordsStore: { gameWords },
     gameStore,
   } = useStore("rootStore");
 
@@ -23,7 +24,7 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
       <Text>{`Время: ${roundDuration}`}</Text>
       <Text>{currentTeam.points}</Text>
 
-      <WordCard word="Слово" />
+      <WordCard word={gameWords[0].value} />
 
       <Text>Не отгадали</Text>
       <Text>Отгадали</Text>

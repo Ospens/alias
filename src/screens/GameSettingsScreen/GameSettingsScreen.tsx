@@ -9,7 +9,7 @@ import styles from "./GameSettingsScreen.styles";
 const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
   ({ navigation }) => {
     const {
-      wordsStore: { groups, toggleCheckedGroupsIds, checkedGroupsIds },
+      wordsStore: { groups, toggleCheckedGroup },
     } = useStore("rootStore");
 
     const gotoGame = useCallback(() => {
@@ -22,8 +22,8 @@ const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
           <WordsGroup
             key={group.id}
             group={group}
-            checked={checkedGroupsIds.includes(group.id)}
-            onToggle={toggleCheckedGroupsIds}
+            checked={group.checked}
+            onToggle={toggleCheckedGroup}
           />
         ))}
         <Button title="Start game" onPress={gotoGame} />
