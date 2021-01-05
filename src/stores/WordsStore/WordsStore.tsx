@@ -15,7 +15,7 @@ class WordsStore {
 
   public allWords: IWord[] = words;
 
-  get gameWords(): IWord[] {
+  get wordsFromCheckedGroups(): IWord[] {
     const groupIds = this.groups.map((group) => group.id);
     return this.allWords.filter(({ wordGroupsIds }) =>
       groupIds.filter((groupId) => wordGroupsIds.includes(groupId))

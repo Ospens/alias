@@ -14,4 +14,23 @@ export default StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
   },
+  buttonsWrapper: {
+    marginTop: 30,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: 20,
+  },
+  button: {
+    padding: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+  },
+  decline: {
+    backgroundColor: "red",
+  },
+  guess: {
+    backgroundColor: "green",
+  },
 });

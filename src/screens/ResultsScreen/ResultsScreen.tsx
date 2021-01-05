@@ -10,8 +10,11 @@ const ResultsScreen: FC<INavigatorProps<"Results">> = observer(
     const { gameStore } = useStore("rootStore");
 
     const gotoGame = useCallback(() => {
+      if (gameStore) {
+        gameStore.startRound();
+      }
       navigation.navigate("Game");
-    }, [navigation]);
+    }, [gameStore, navigation]);
 
     if (gameStore === undefined) {
       console.error("gameStore is undefined");

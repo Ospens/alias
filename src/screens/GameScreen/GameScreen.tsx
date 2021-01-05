@@ -9,7 +9,6 @@ import styles from "./GameScreen.styles";
 const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
   const {
     settingsStore: { roundDuration },
-    wordsStore: { gameWords },
     gameStore,
   } = useStore("rootStore");
 
@@ -17,14 +16,18 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
     console.error("gameStore is undefined");
     return null;
   }
-  const { currentTeam } = gameStore;
+  const { currentTeam, currentWord, onDecline, onGuess } = gameStore;
 
   return (
     <View style={styles.container}>
       <Text>{`Время: ${roundDuration}`}</Text>
       <Text>{currentTeam.points}</Text>
 
-      <WordCard word={gameWords[0].value} />
+      {currentWord ? (
+        <WordCard word={currentWord} onGuess={onGuess} onDecline={onDecline} />
+      ) : (
+        <Text>Слова закончились :(</Text>
+      )}
 
       <Text>Не отгадали</Text>
       <Text>Отгадали</Text>
