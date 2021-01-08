@@ -16,6 +16,8 @@ const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
       navigation.navigate("Results");
     }, [navigation]);
 
+    const checkedGroups = groups.filter((g) => g.checked);
+
     return (
       <View style={styles.container}>
         {groups.map((group) => (
@@ -26,7 +28,11 @@ const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
             onToggle={toggleCheckedGroup}
           />
         ))}
-        <Button title="Start game" onPress={gotoGame} />
+        <Button
+          title="Start game"
+          onPress={gotoGame}
+          disabled={checkedGroups.length < 1}
+        />
       </View>
     );
   }

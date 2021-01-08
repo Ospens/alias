@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "green",
+    backgroundColor: "#7fffd3",
   },
   teamWrapper: {
     display: "flex",
