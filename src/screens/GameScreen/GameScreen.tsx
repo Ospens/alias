@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
 import type { INavigatorProps } from "routing";
@@ -16,6 +16,7 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
   const onExpire = useCallback(() => {
     console.log("onExpire");
   }, []);
+
   if (gameStore === undefined) {
     console.error("gameStore is undefined");
     return null;
@@ -23,22 +24,29 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
   const { currentTeam, currentWord, onDecline, onGuess } = gameStore;
 
   return (
-    <View style={styles.container}>
-      <Text>{`Очки: ${currentTeam.points}`}</Text>
-      <Timer seconds={roundDuration} onExpire={onExpire} />
+    <SafeAreaView style={styles.container}>
+      <View style={{ flex: 2 }}>
+        <Timer seconds={roundDuration} onExpire={onExpire} />
+      </View>
 
-      {currentWord ? (
-        <WordCard word={currentWord} onGuess={onGuess} onDecline={onDecline} />
-      ) : (
-        <Text>Слова закончились :(</Text>
-      )}
+      <View style={styles.wordCardWrapper}>
+        {currentWord ? (
+          <WordCard
+            word={currentWord}
+            onGuess={onGuess}
+            onDecline={onDecline}
+          />
+        ) : (
+          <Text>Слова закончились :(</Text>
+        )}
+      </View>
 
-      <Text>Не отгадали</Text>
-      <Text>Отгадали</Text>
-
-      <Text>Отгадано: 0</Text>
-      <Text>Пропущено: 0</Text>
-    </View>
+      <View style={{ flex: 2 }}>
+        <Text>Пропущено: 0</Text>
+        <Text>{`Очки: ${currentTeam.points}`}</Text>
+        <Text>Отгадано: 0</Text>
+      </View>
+    </SafeAreaView>
   );
 });
 

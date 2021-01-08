@@ -2,27 +2,14 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 2,
     backgroundColor: "#7fffd3",
   },
-  teamWrapper: {
-    display: "flex",
-    width: "100%",
+  wordCardWrapper: {
+    flex: 3,
     flexDirection: "row",
-    alignContent: "flex-start",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    borderColor: "black",
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    marginVertical: 5,
-    color: "gray",
-  },
-  activeTeam: {
-    color: "red",
+    justifyContent: "center",
+    alignItems: "stretch",
+    marginHorizontal: 30,
   },
 });

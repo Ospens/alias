@@ -2,24 +2,22 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    display: "flex",
-    height: 300,
-    alignItems: "center",
+    flex: 1,
+    minHeight: 200,
     justifyContent: "center",
     borderRadius: 15,
-    width: "90%",
     backgroundColor: "white",
   },
   word: {
     fontSize: 30,
     fontWeight: "bold",
+    textAlign: "center",
   },
   buttonsWrapper: {
     marginTop: 30,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
     paddingHorizontal: 20,
   },
   button: {
