@@ -1,4 +1,4 @@
-import { makeAutoObservable, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import type { IWord } from "stores/WordsStore";
 import { getRandomElement } from "utils";
 import type { RootStore } from "../RootStore";
@@ -10,9 +10,6 @@ import type {
 
 class GameStore {
   constructor(rootStore: RootStore) {
-    makeAutoObservable(this, {
-      wordsFromRound: observable,
-    });
     this.rootStore = rootStore;
     this.gameTeams = this.rootStore.teamsStore.teams.map((team, index) => {
       return {
@@ -22,6 +19,8 @@ class GameStore {
       };
     });
     [this.currentTeam] = this.gameTeams;
+    // need to be on the bottom line of constructor
+    makeAutoObservable(this);
   }
 
   public rootStore: RootStore;
@@ -61,6 +60,7 @@ class GameStore {
     const team = this.gameTeams.find(
       (t) => this.currentTeam && t.order > this.currentTeam.order
     );
+
     if (team) {
       this.currentTeam = team;
     } else {
@@ -84,7 +84,24 @@ class GameStore {
     const status = guessed ? "GUESSED" : "DECLINED";
     const wordIndex = this.wordsFromRound.findIndex((w) => w.id === word.id);
     this.wordsFromRound[wordIndex].status = status;
-    console.log(this.wordsFromRound[wordIndex].status);
+  };
+
+  public saveResultsAndPrepareNextRound = () => {
+    // TODO: Place penalty logic here
+    const guessedCount = this.wordsFromRound.filter(
+      (w) => w.status === "GUESSED"
+    ).length;
+
+    this.gameTeams = this.gameTeams.map((team) => {
+      if (team.uuid === this.currentTeam.uuid) {
+        return {
+          ...team,
+          points: team.points + guessedCount,
+        };
+      }
+      return team;
+    });
+    this.toggleCurrentTeam();
   };
 
   public handleQueueWords = (word: IWord, status: WordsStatus) => {
@@ -100,6 +117,8 @@ class GameStore {
   };
 
   public startRound = () => {
+    this.showResults = false;
+    this.timeOver = false;
     this.wordsFromRound = [];
     this.wordsFromRound.push(this.randomUniqWord);
   };
