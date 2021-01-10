@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observable } from "mobx";
 import type { IWord } from "stores/WordsStore";
 import { getRandomElement } from "utils";
 import type { RootStore } from "../RootStore";
@@ -10,7 +10,9 @@ import type {
 
 class GameStore {
   constructor(rootStore: RootStore) {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {
+      wordsFromRound: observable,
+    });
     this.rootStore = rootStore;
     this.gameTeams = this.rootStore.teamsStore.teams.map((team, index) => {
       return {
@@ -29,6 +31,10 @@ class GameStore {
   public gameTeams: ITeamGameInfo[];
 
   public wordsFromRound: IWordsFromRound[] = [];
+
+  public timeOver: boolean = false;
+
+  public showResults: boolean = false;
 
   get currentWord() {
     return this.wordsFromRound.find(({ status }) => status === "IDLE");
@@ -62,20 +68,35 @@ class GameStore {
     }
   };
 
+  public onTimeOver = () => {
+    this.timeOver = true;
+  };
+
   public onGuess = (word: IWord) => {
-    this.changeIdleWordStatus(word, "GUESSED");
+    this.handleQueueWords(word, "GUESSED");
   };
 
   public onDecline = (word: IWord) => {
-    this.changeIdleWordStatus(word, "DECLINED");
+    this.handleQueueWords(word, "DECLINED");
   };
 
-  public changeIdleWordStatus = (word: IWord, status: WordsStatus) => {
+  public toggleWordStatus = (word: IWord, guessed: boolean) => {
+    const status = guessed ? "GUESSED" : "DECLINED";
+    const wordIndex = this.wordsFromRound.findIndex((w) => w.id === word.id);
+    this.wordsFromRound[wordIndex].status = status;
+    console.log(this.wordsFromRound[wordIndex].status);
+  };
+
+  public handleQueueWords = (word: IWord, status: WordsStatus) => {
     const wordIndex = this.wordsFromRound.findIndex(
       (w) => w.status === "IDLE" && w.id === word.id
     );
     this.wordsFromRound[wordIndex].status = status;
-    this.wordsFromRound.push(this.randomUniqWord);
+    if (!this.timeOver) {
+      this.wordsFromRound.push(this.randomUniqWord);
+    } else {
+      this.showResults = true;
+    }
   };
 
   public startRound = () => {

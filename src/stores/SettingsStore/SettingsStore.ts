@@ -16,7 +16,7 @@ class SettingsStore {
 
   public language: Language = "en_US";
 
-  public roundDuration: RoundDuration = 30;
+  public roundDuration: RoundDuration = 10;
 
   public pointsForWin: PointsForWin = 25;
 

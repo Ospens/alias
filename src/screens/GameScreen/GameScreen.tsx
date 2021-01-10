@@ -5,6 +5,7 @@ import { useStore } from "stores";
 import type { INavigatorProps } from "routing";
 import WordCard from "components/WordCard";
 import Timer from "components/Timer";
+import RoundResults from "components/RoundResults";
 import styles from "./GameScreen.styles";
 
 const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
@@ -14,14 +15,22 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
   } = useStore("rootStore");
 
   const onExpire = useCallback(() => {
-    console.log("onExpire");
-  }, []);
+    if (gameStore) {
+      gameStore.onTimeOver();
+    }
+  }, [gameStore]);
 
   if (gameStore === undefined) {
     console.error("gameStore is undefined");
     return null;
   }
-  const { currentTeam, currentWord, onDecline, onGuess } = gameStore;
+  const {
+    currentTeam,
+    currentWord,
+    onDecline,
+    onGuess,
+    showResults,
+  } = gameStore;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,17 +38,21 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
         <Timer seconds={roundDuration} onExpire={onExpire} />
       </View>
 
-      <View style={styles.wordCardWrapper}>
-        {currentWord ? (
-          <WordCard
-            word={currentWord}
-            onGuess={onGuess}
-            onDecline={onDecline}
-          />
-        ) : (
-          <Text>Слова закончились :(</Text>
-        )}
-      </View>
+      {!showResults ? (
+        <View style={styles.wordCardWrapper}>
+          {currentWord ? (
+            <WordCard
+              word={currentWord}
+              onGuess={onGuess}
+              onDecline={onDecline}
+            />
+          ) : (
+            <Text>Слова закончились :(</Text>
+          )}
+        </View>
+      ) : (
+        <RoundResults />
+      )}
 
       <View style={{ flex: 2 }}>
         <Text>Пропущено: 0</Text>
