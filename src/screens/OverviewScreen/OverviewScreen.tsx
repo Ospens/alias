@@ -17,11 +17,12 @@ const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
     }, [gameStore, navigation]);
 
     if (gameStore === undefined) {
+      // eslint-disable-next-line no-console
       console.error("gameStore is undefined");
       return null;
     }
     const { gameTeams, currentTeam } = gameStore;
-    console.log({ currentTeam }, currentTeam.name);
+
     return (
       <View style={styles.container}>
         <Text>{`The next team is "${currentTeam?.name}"`}</Text>

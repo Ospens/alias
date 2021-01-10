@@ -1,0 +1,4 @@
+export type StoreKey =
+  | "TEAMS_STORE_TEAMS"
+  | "WORDS_STORE_GROUPS"
+  | "SETTINGS_STORE_SETTINGS";

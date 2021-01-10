@@ -18,6 +18,7 @@ const RoundResults: FC<RoundResultsProps> = observer(() => {
   }, [gameStore, navigation]);
 
   if (gameStore === undefined) {
+    // eslint-disable-next-line no-console
     console.error("gameStore is undefined");
     return null;
   }

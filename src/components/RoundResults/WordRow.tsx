@@ -8,13 +8,13 @@ const WordRow: FC<WordRowProps> = observer(({ word }) => {
   const { gameStore } = useStore("rootStore");
 
   if (gameStore === undefined) {
+    // eslint-disable-next-line no-console
     console.error("gameStore is undefined");
     return null;
   }
   const { toggleWordStatus } = gameStore;
   const onValueChange = useCallback(
     (checked: boolean) => {
-      console.log(word, checked);
       toggleWordStatus(word, checked);
     },
     [toggleWordStatus, word]

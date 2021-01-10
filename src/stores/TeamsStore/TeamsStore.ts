@@ -1,5 +1,11 @@
-import { makeAutoObservable } from "mobx";
+import {
+  makeAutoObservable,
+  runInAction,
+  autorun,
+  IReactionDisposer,
+} from "mobx";
 import { generateUUID, getRandomElement } from "utils";
+import { storeData, getData } from "stores/AsyncStorage";
 import type { RootStore } from "../RootStore";
 import type { ITeam } from "./TeamsStore.types";
 
@@ -9,9 +15,24 @@ class TeamsStore {
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
+
+    getData("TEAMS_STORE_TEAMS").then((teams) => {
+      if (teams && Array.isArray(teams)) {
+        runInAction(() => {
+          this.teams = teams;
+        });
+      }
+    });
+
+    // Need to be below makeAutoObservable(this) line
+    this.saveHandler = autorun(() => {
+      storeData("TEAMS_STORE_TEAMS", this.teams);
+    });
   }
 
   public rootStore: RootStore;
+
+  public saveHandler: null | IReactionDisposer = null;
 
   public teams: ITeam[] = [];
 

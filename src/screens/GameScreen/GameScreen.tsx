@@ -21,6 +21,7 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
   }, [gameStore]);
 
   if (gameStore === undefined) {
+    // eslint-disable-next-line no-console
     console.error("gameStore is undefined");
     return null;
   }
