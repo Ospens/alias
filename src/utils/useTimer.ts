@@ -8,32 +8,29 @@ export interface IUseTimer {
 export default function useTimer({ seconds: expiry, onExpire }: IUseTimer) {
   const [seconds, setSeconds] = useState(expiry);
   const [isRunning, setIsRunning] = useState(false);
-  const intervalRef = useRef<any>();
+  const intervalRef = useRef<any>(null);
 
-  const clearIntervalRef = () => {
+  const clearIntervalRef = useCallback(() => {
     if (intervalRef.current) {
-      setIsRunning(false);
       clearInterval(intervalRef.current);
-      intervalRef.current = undefined;
+      intervalRef.current = null;
     }
-  };
+  }, []);
 
   const handleExpire = useCallback(() => {
     clearIntervalRef();
+    setIsRunning(false);
     if (onExpire) {
       onExpire();
     }
-  }, [onExpire]);
+  }, [clearIntervalRef, onExpire]);
 
-  const restart = useCallback(
-    (newExpirySeconds: number) => {
-      if (!intervalRef.current || !isRunning) {
-        setIsRunning(true);
-      }
-      setSeconds(newExpirySeconds);
-    },
-    [isRunning]
-  );
+  const restart = useCallback((newExpirySeconds: number) => {
+    setIsRunning((prevIsRunning) => {
+      return !intervalRef.current || !prevIsRunning;
+    });
+    setSeconds(newExpirySeconds);
+  }, []);
 
   const start = useCallback(() => {
     setIsRunning(true);
@@ -46,16 +43,16 @@ export default function useTimer({ seconds: expiry, onExpire }: IUseTimer) {
           const nextState = prevState - 1;
           if (nextState <= 0) {
             handleExpire();
+            return 0;
           }
-          return prevState - 1;
+          return nextState;
         });
       }, 1000);
     }
-  }, [isRunning, handleExpire]);
-
-  useEffect(() => {
-    return clearIntervalRef;
-  }, []);
+    return () => {
+      clearIntervalRef();
+    };
+  }, [isRunning, handleExpire, clearIntervalRef]);
 
   return {
     start,
