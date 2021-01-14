@@ -5,7 +5,7 @@ import { useStore } from "stores";
 import type { INavigatorProps } from "routing";
 import WordCard from "components/WordCard";
 import Timer from "components/Timer";
-import RoundResults from "components/RoundResults";
+import RoundResults from "./RoundResults";
 import styles from "./GameScreen.styles";
 
 const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
