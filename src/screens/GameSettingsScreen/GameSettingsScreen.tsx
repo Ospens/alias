@@ -9,12 +9,14 @@ import styles from "./GameSettingsScreen.styles";
 const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
   ({ navigation }) => {
     const {
+      createGameStore,
       wordsStore: { groups, toggleCheckedGroup },
     } = useStore("rootStore");
 
     const gotoGame = useCallback(() => {
-      navigation.navigate("Results");
-    }, [navigation]);
+      createGameStore();
+      navigation.navigate("Overview");
+    }, [createGameStore, navigation]);
 
     const checkedGroups = groups.filter((g) => g.checked);
 

@@ -21,22 +21,28 @@ const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
       console.error("gameStore is undefined");
       return null;
     }
-    const { gameTeams, currentTeam } = gameStore;
+    const { gameTeams, currentTeam, winner } = gameStore;
 
     return (
       <View style={styles.container}>
-        <Text>{`The next team is "${currentTeam?.name}"`}</Text>
-        {gameTeams.map((team) => {
-          const isCurrentTeam = team.uuid === currentTeam.uuid;
-          return (
-            <View key={team.uuid} style={styles.teamWrapper}>
-              <Text style={[isCurrentTeam && styles.activeTeam]}>
-                {team.name}
-              </Text>
-              <Text>{team.points}</Text>
-            </View>
-          );
-        })}
+        {winner ? (
+          <Text>{`Team "${currentTeam?.name}" won`}</Text>
+        ) : (
+          <>
+            <Text>{`The next team is "${currentTeam?.name}"`}</Text>
+            {gameTeams.map((team) => {
+              const isCurrentTeam = team.uuid === currentTeam.uuid;
+              return (
+                <View key={team.uuid} style={styles.teamWrapper}>
+                  <Text style={[isCurrentTeam && styles.activeTeam]}>
+                    {team.name}
+                  </Text>
+                  <Text>{team.points}</Text>
+                </View>
+              );
+            })}
+          </>
+        )}
         <Button title="Play" onPress={gotoGame} />
       </View>
     );

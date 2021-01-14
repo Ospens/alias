@@ -1,11 +1,16 @@
 import React, { FC, useCallback } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
+import { IWordsFromRound } from "stores/GameStore";
 import type { RoundResultsProps } from "./RoundResults.types";
 import styles from "./RoundResults.styles";
 import WordRow from "./WordRow";
+
+const renderWordRow = ({ item }: { item: IWordsFromRound }) => {
+  return <WordRow word={item} />;
+};
 
 const RoundResults: FC<RoundResultsProps> = observer(() => {
   const { gameStore } = useStore("rootStore");
@@ -16,6 +21,7 @@ const RoundResults: FC<RoundResultsProps> = observer(() => {
     }
     navigation.goBack();
   }, [gameStore, navigation]);
+  const wordKeyExtractor = useCallback((word: IWordsFromRound) => word.id, []);
 
   if (gameStore === undefined) {
     // eslint-disable-next-line no-console
@@ -26,9 +32,11 @@ const RoundResults: FC<RoundResultsProps> = observer(() => {
 
   return (
     <View style={styles.container}>
-      {wordsFromRound.map((word) => {
-        return <WordRow key={word.id} word={word} />;
-      })}
+      <FlatList
+        data={wordsFromRound}
+        renderItem={renderWordRow}
+        keyExtractor={wordKeyExtractor}
+      />
       <TouchableOpacity onPress={onSave}>
         <Text>Save</Text>
       </TouchableOpacity>

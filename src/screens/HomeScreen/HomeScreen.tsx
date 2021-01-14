@@ -8,7 +8,6 @@ import styles from "./HomeScreen.styles";
 
 const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   const {
-    createGameStore,
     teamsStore: { teams, createTeam },
   } = useStore("rootStore");
 
@@ -17,9 +16,8 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   }, [navigation]);
 
   const gotoGameSettings = useCallback(() => {
-    createGameStore();
     navigation.navigate("GameSettings");
-  }, [createGameStore, navigation]);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

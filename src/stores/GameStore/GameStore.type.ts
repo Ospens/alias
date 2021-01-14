@@ -10,4 +10,5 @@ export interface IWordsFromRound extends IWord {
 export interface ITeamGameInfo extends ITeam {
   points: number;
   order: number;
+  rounds: number;
 }

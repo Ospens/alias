@@ -15,6 +15,7 @@ class GameStore {
       return {
         ...team,
         points: 0,
+        rounds: 0,
         order: index,
       };
     });
@@ -34,6 +35,8 @@ class GameStore {
   public timeOver: boolean = false;
 
   public showResults: boolean = false;
+
+  public winner: ITeamGameInfo | undefined = undefined;
 
   get currentWord() {
     return this.wordsFromRound.find(({ status }) => status === "IDLE");
@@ -92,15 +95,22 @@ class GameStore {
       (w) => w.status === "GUESSED"
     ).length;
 
+    this.currentTeam.points += guessedCount;
+    this.currentTeam.rounds += 1;
     this.gameTeams = this.gameTeams.map((team) => {
-      if (team.uuid === this.currentTeam.uuid) {
-        return {
-          ...team,
-          points: team.points + guessedCount,
-        };
-      }
-      return team;
+      return team.uuid === this.currentTeam.uuid ? this.currentTeam : team;
     });
+
+    const teamsRounds = this.gameTeams.map((team) => team.rounds);
+    const allTeamsFinishedRound = teamsRounds.every(
+      (round) => round === teamsRounds[0]
+    );
+    if (allTeamsFinishedRound) {
+      const { pointsForWin } = this.rootStore.settingsStore;
+      [this.winner] = this.gameTeams
+        .filter((team) => team.points > pointsForWin)
+        .sort((teamA, teamB) => teamB.points - teamA.points); // The higher points
+    }
     this.toggleCurrentTeam();
   };
 
