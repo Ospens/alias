@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
@@ -26,12 +26,21 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
     return null;
   }
   const {
+    wordsFromRound,
     currentTeam,
     currentWord,
     onDecline,
     onGuess,
     showResults,
   } = gameStore;
+
+  const guessedLength = useMemo(() => {
+    return wordsFromRound.filter((w) => w.status === "GUESSED").length;
+  }, [wordsFromRound]);
+
+  const declinedLength = useMemo(() => {
+    return wordsFromRound.filter((w) => w.status === "DECLINED").length;
+  }, [wordsFromRound]);
 
   if (showResults) {
     return (
@@ -42,7 +51,7 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flex: 2 }}>
+      <View style={styles.timerWrapper}>
         <Timer seconds={roundDuration} onExpire={onExpire} />
       </View>
 
@@ -58,10 +67,10 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
         )}
       </View>
 
-      <View style={{ flex: 2 }}>
-        <Text>Пропущено: 0</Text>
+      <View style={styles.statsWrapper}>
+        <Text>{`Пропущено: ${declinedLength}`}</Text>
         <Text>{`Очки: ${currentTeam.points}`}</Text>
-        <Text>Отгадано: 0</Text>
+        <Text>{`Отгадано: ${guessedLength}`}</Text>
       </View>
     </SafeAreaView>
   );

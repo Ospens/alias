@@ -77,7 +77,9 @@ class GameStore {
     const wordIndex = this.wordsFromRound.findIndex(
       (w) => w.value === word.value
     );
-    this.wordsFromRound[wordIndex].status = status;
+    this.wordsFromRound = Object.assign([], this.wordsFromRound, {
+      [wordIndex]: { ...this.wordsFromRound[wordIndex], status },
+    });
   };
 
   public saveResultsAndPrepareNextRound = () => {
@@ -109,9 +111,11 @@ class GameStore {
     const wordIndex = this.wordsFromRound.findIndex(
       (w) => w.status === "IDLE" && w.value === wordValue
     );
-    this.wordsFromRound[wordIndex].status = status;
+    this.wordsFromRound = Object.assign([], this.wordsFromRound, {
+      [wordIndex]: { ...this.wordsFromRound[wordIndex], status },
+    });
     if (!this.timeOver) {
-      this.wordsFromRound.push(this.randomUniqWord);
+      this.wordsFromRound = [...this.wordsFromRound, this.randomUniqWord];
     } else {
       this.showResults = true;
     }
@@ -120,8 +124,7 @@ class GameStore {
   public startRound = () => {
     this.showResults = false;
     this.timeOver = false;
-    this.wordsFromRound = [];
-    this.wordsFromRound.push(this.randomUniqWord);
+    this.wordsFromRound = [this.randomUniqWord];
   };
 }
 

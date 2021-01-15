@@ -12,4 +12,10 @@ export default StyleSheet.create({
     alignItems: "stretch",
     marginHorizontal: 30,
   },
+  timerWrapper: {
+    flex: 2,
+  },
+  statsWrapper: {
+    flex: 2,
+  },
 });
