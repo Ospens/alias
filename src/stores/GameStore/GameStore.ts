@@ -42,8 +42,9 @@ class GameStore {
   }
 
   get randomUniqWord(): IWordsFromRound {
+    const values = this.wordsFromRound.map((w) => w.value);
     return {
-      ...this.rootStore.wordsStore.getRandomUnusedWord(),
+      ...this.rootStore.wordsStore.getRandomUnusedWord(values),
       status: "IDLE",
     };
   }

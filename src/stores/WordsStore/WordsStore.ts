@@ -45,10 +45,12 @@ class WordsStore {
     );
   }
 
-  public getRandomUnusedWord = (): IWord => {
+  public getRandomUnusedWord = (excludeValues: string[] = []): IWord => {
     const usedWordsValues = this.usedWords.map((word) => word.value);
     const uniqWords = this.wordsFromCheckedGroups.filter(
-      (word) => !usedWordsValues.includes(word.value)
+      (word) =>
+        !excludeValues.includes(word.value) &&
+        !usedWordsValues.includes(word.value)
     );
     let randomWord = getRandomElement(uniqWords);
     if (!randomWord) {
