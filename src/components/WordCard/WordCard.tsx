@@ -14,7 +14,7 @@ const WordCard: FC<WordCardProps> = memo(
 
     return (
       <View style={styles.container}>
-        <Text style={styles.word}>{word.value}</Text>
+        <Text style={styles.word}>{word}</Text>
         <View style={styles.buttonsWrapper}>
           <TouchableOpacity
             onPress={onDecline}

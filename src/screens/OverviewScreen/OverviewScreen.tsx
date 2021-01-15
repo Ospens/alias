@@ -16,6 +16,10 @@ const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
       navigation.navigate("Game");
     }, [gameStore, navigation]);
 
+    const gotoMenu = useCallback(() => {
+      navigation.navigate("Home");
+    }, [navigation]);
+
     if (gameStore === undefined) {
       // eslint-disable-next-line no-console
       console.error("gameStore is undefined");
@@ -26,7 +30,10 @@ const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
     return (
       <View style={styles.container}>
         {winner ? (
-          <Text>{`Team "${currentTeam?.name}" won`}</Text>
+          <>
+            <Text>{`Team "${currentTeam?.name}" won`}</Text>
+            <Button title="Go to home" onPress={gotoMenu} />
+          </>
         ) : (
           <>
             <Text>{`The next team is "${currentTeam?.name}"`}</Text>
@@ -41,9 +48,9 @@ const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
                 </View>
               );
             })}
+            <Button title="Play" onPress={gotoGame} />
           </>
         )}
-        <Button title="Play" onPress={gotoGame} />
       </View>
     );
   }

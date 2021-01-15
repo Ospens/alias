@@ -1,7 +1,5 @@
-import type { IWord } from "stores/WordsStore";
-
 export interface WordCardProps {
-  word: IWord;
-  onGuess: (word: IWord) => void;
-  onDecline: (word: IWord) => void;
+  word: string;
+  onGuess: (word: string) => void;
+  onDecline: (word: string) => void;
 }

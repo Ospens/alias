@@ -33,27 +33,30 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
     showResults,
   } = gameStore;
 
+  if (showResults) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <RoundResults />
+      </SafeAreaView>
+    );
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 2 }}>
         <Timer seconds={roundDuration} onExpire={onExpire} />
       </View>
 
-      {!showResults ? (
-        <View style={styles.wordCardWrapper}>
-          {currentWord ? (
-            <WordCard
-              word={currentWord}
-              onGuess={onGuess}
-              onDecline={onDecline}
-            />
-          ) : (
-            <Text>Слова закончились :(</Text>
-          )}
-        </View>
-      ) : (
-        <RoundResults />
-      )}
+      <View style={styles.wordCardWrapper}>
+        {currentWord ? (
+          <WordCard
+            word={currentWord.value}
+            onGuess={onGuess}
+            onDecline={onDecline}
+          />
+        ) : (
+          <Text>Слова закончились :(</Text>
+        )}
+      </View>
 
       <View style={{ flex: 2 }}>
         <Text>Пропущено: 0</Text>

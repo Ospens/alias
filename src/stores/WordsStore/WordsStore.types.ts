@@ -1,7 +1,6 @@
 export interface IWord {
-  id: string;
   value: string;
-  wordGroupsIds: string[];
+  wordGroupId: string;
 }
 
 export interface IWordsGroup {

@@ -21,7 +21,7 @@ const WordRow: FC<WordRowProps> = observer(({ word }) => {
   );
   return (
     <Switch
-      key={word.id}
+      key={word.value}
       title={word.value}
       onValueChange={onValueChange}
       value={word.status === "GUESSED"}

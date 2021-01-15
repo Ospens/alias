@@ -5,6 +5,7 @@ import {
   runInAction,
 } from "mobx";
 import { getData, storeData } from "stores/AsyncStorage";
+import { getRandomElement } from "utils";
 import type { RootStore } from "../RootStore";
 import { IWord, IWordsGroup } from "./WordsStore.types";
 import { words, groups as defaultGroups } from "./words";
@@ -35,12 +36,32 @@ class WordsStore {
 
   public allWords: IWord[] = words;
 
+  public usedWords: IWord[] = [];
+
   get wordsFromCheckedGroups(): IWord[] {
     const groupIds = this.groups.map((group) => group.id);
-    return this.allWords.filter(({ wordGroupsIds }) =>
-      groupIds.filter((groupId) => wordGroupsIds.includes(groupId))
+    return this.allWords.filter(({ wordGroupId }) =>
+      groupIds.filter((groupId) => wordGroupId === groupId)
     );
   }
+
+  public getRandomUnusedWord = (): IWord => {
+    const usedWordsValues = this.usedWords.map((word) => word.value);
+    const uniqWords = this.wordsFromCheckedGroups.filter(
+      (word) => !usedWordsValues.includes(word.value)
+    );
+    let randomWord = getRandomElement(uniqWords);
+    if (!randomWord) {
+      console.log("refresh usedWords", this.usedWords.length);
+      this.usedWords = [];
+      randomWord = getRandomElement(uniqWords);
+    }
+    if (!randomWord) {
+      [randomWord] = this.wordsFromCheckedGroups;
+    }
+    this.usedWords.push(randomWord);
+    return randomWord;
+  };
 
   public toggleCheckedGroup = (groupId: string) => {
     this.groups = this.groups.map((group) => {

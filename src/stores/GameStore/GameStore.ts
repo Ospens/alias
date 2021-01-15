@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import type { IWord } from "stores/WordsStore";
-import { getRandomElement } from "utils";
 import type { RootStore } from "../RootStore";
 import type {
   ITeamGameInfo,
@@ -43,18 +42,8 @@ class GameStore {
   }
 
   get randomUniqWord(): IWordsFromRound {
-    const { wordsFromCheckedGroups } = this.rootStore.wordsStore;
-    const currentTeamWordsIds = this.wordsFromRound.map((word) => word.id);
-    const randomWord =
-      getRandomElement(
-        wordsFromCheckedGroups.filter(
-          (word) => !currentTeamWordsIds.includes(word.id)
-        )
-      ) ||
-      getRandomElement(wordsFromCheckedGroups) ||
-      wordsFromCheckedGroups[0];
     return {
-      ...randomWord,
+      ...this.rootStore.wordsStore.getRandomUnusedWord(),
       status: "IDLE",
     };
   }
@@ -75,17 +64,19 @@ class GameStore {
     this.timeOver = true;
   };
 
-  public onGuess = (word: IWord) => {
-    this.handleQueueWords(word, "GUESSED");
+  public onGuess = (wordValue: string) => {
+    this.handleQueueWords(wordValue, "GUESSED");
   };
 
-  public onDecline = (word: IWord) => {
-    this.handleQueueWords(word, "DECLINED");
+  public onDecline = (wordValue: string) => {
+    this.handleQueueWords(wordValue, "DECLINED");
   };
 
   public toggleWordStatus = (word: IWord, guessed: boolean) => {
     const status = guessed ? "GUESSED" : "DECLINED";
-    const wordIndex = this.wordsFromRound.findIndex((w) => w.id === word.id);
+    const wordIndex = this.wordsFromRound.findIndex(
+      (w) => w.value === word.value
+    );
     this.wordsFromRound[wordIndex].status = status;
   };
 
@@ -114,9 +105,9 @@ class GameStore {
     this.toggleCurrentTeam();
   };
 
-  public handleQueueWords = (word: IWord, status: WordsStatus) => {
+  public handleQueueWords = (wordValue: string, status: WordsStatus) => {
     const wordIndex = this.wordsFromRound.findIndex(
-      (w) => w.status === "IDLE" && w.id === word.id
+      (w) => w.status === "IDLE" && w.value === wordValue
     );
     this.wordsFromRound[wordIndex].status = status;
     if (!this.timeOver) {

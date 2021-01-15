@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from "react";
-import { Text, TouchableOpacity, View, FlatList } from "react-native";
+import { View, FlatList, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
@@ -21,7 +21,11 @@ const RoundResults: FC<RoundResultsProps> = observer(() => {
     }
     navigation.goBack();
   }, [gameStore, navigation]);
-  const wordKeyExtractor = useCallback((word: IWordsFromRound) => word.id, []);
+
+  const wordKeyExtractor = useCallback(
+    (word: IWordsFromRound) => word.value,
+    []
+  );
 
   if (gameStore === undefined) {
     // eslint-disable-next-line no-console
@@ -37,9 +41,7 @@ const RoundResults: FC<RoundResultsProps> = observer(() => {
         renderItem={renderWordRow}
         keyExtractor={wordKeyExtractor}
       />
-      <TouchableOpacity onPress={onSave}>
-        <Text>Save</Text>
-      </TouchableOpacity>
+      <Button onPress={onSave} title="Save" />
     </View>
   );
 });
