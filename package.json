@@ -9,7 +9,7 @@
     "test": "jest",
     "start-reset-cache": "rm -rf /tmp/metro-* && react-native start --reset-cache",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint-auto-fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+    "tsc-lint-auto-fix": "tsc && eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.13.2",
