@@ -110,9 +110,16 @@ class GameStore {
     );
     if (allTeamsFinishedRound) {
       const { pointsForWin } = this.rootStore.settingsStore;
-      [this.winner] = this.gameTeams
+      const winners = this.gameTeams
         .filter((team) => team.points > pointsForWin)
         .sort((teamA, teamB) => teamB.points - teamA.points); // The higher points
+      // TODO: add case when multiple teams have the same top result
+      if (
+        winners.length === 1 ||
+        (winners.length > 1 && winners[0].points !== winners[1].points)
+      ) {
+        [this.winner] = winners;
+      }
     }
     this.toggleCurrentTeam();
   };
