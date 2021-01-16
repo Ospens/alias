@@ -84,13 +84,22 @@ class GameStore {
   };
 
   public saveResultsAndPrepareNextRound = () => {
-    // TODO: Place penalty logic here
     const guessedCount = this.wordsFromRound.filter(
       (w) => w.status === "GUESSED"
     ).length;
+    const penaltyPoints = this.rootStore.settingsStore.penaltyForSkip
+      ? this.wordsFromRound.filter((w) => w.status === "DECLINED").length
+      : 0;
 
-    this.currentTeam.points += guessedCount;
-    this.currentTeam.rounds += 1;
+    const roundPoints = guessedCount - penaltyPoints;
+    this.currentTeam = {
+      ...this.currentTeam,
+      rounds: this.currentTeam.rounds + 1,
+      points:
+        roundPoints > 0
+          ? this.currentTeam.points + roundPoints
+          : this.currentTeam.points,
+    };
     this.gameTeams = this.gameTeams.map((team) => {
       return team.uuid === this.currentTeam.uuid ? this.currentTeam : team;
     });

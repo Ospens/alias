@@ -29,27 +29,23 @@ const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
 
     return (
       <View style={styles.container}>
+        {winner && <Text>{`Team "${winner.name}" won`}</Text>}
+        <Text>{`The next team is "${currentTeam.name}"`}</Text>
+        {gameTeams.map((team) => {
+          const isCurrentTeam = team.uuid === currentTeam.uuid;
+          return (
+            <View key={team.uuid} style={styles.teamWrapper}>
+              <Text style={[isCurrentTeam && styles.activeTeam]}>
+                {team.name}
+              </Text>
+              <Text>{team.points}</Text>
+            </View>
+          );
+        })}
         {winner ? (
-          <>
-            <Text>{`Team "${currentTeam?.name}" won`}</Text>
-            <Button title="Go to home" onPress={gotoMenu} />
-          </>
+          <Button title="Go to home" onPress={gotoMenu} />
         ) : (
-          <>
-            <Text>{`The next team is "${currentTeam?.name}"`}</Text>
-            {gameTeams.map((team) => {
-              const isCurrentTeam = team.uuid === currentTeam.uuid;
-              return (
-                <View key={team.uuid} style={styles.teamWrapper}>
-                  <Text style={[isCurrentTeam && styles.activeTeam]}>
-                    {team.name}
-                  </Text>
-                  <Text>{team.points}</Text>
-                </View>
-              );
-            })}
-            <Button title="Play" onPress={gotoGame} />
-          </>
+          <Button title="Play" onPress={gotoGame} />
         )}
       </View>
     );
