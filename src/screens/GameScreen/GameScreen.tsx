@@ -14,11 +14,21 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(({ navigation }) => {
     gameStore,
   } = useStore("rootStore");
 
+  const { onTimeOver, wordsFromRound } = gameStore || {};
+
   const onExpire = useCallback(() => {
-    if (gameStore) {
-      gameStore.onTimeOver();
+    if (onTimeOver) {
+      onTimeOver();
     }
-  }, [gameStore]);
+  }, [onTimeOver]);
+
+  const guessedLength = useMemo(() => {
+    return wordsFromRound?.filter((w) => w.status === "GUESSED").length || 0;
+  }, [wordsFromRound]);
+
+  const declinedLength = useMemo(() => {
+    return wordsFromRound?.filter((w) => w.status === "DECLINED").length || 0;
+  }, [wordsFromRound]);
 
   useEffect(() => {
     // TODO: change any type. Event type is to difficult
@@ -38,21 +48,12 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(({ navigation }) => {
   }
 
   const {
-    wordsFromRound,
     currentTeam,
     currentWord,
     onDecline,
     onGuess,
     showResults,
   } = gameStore;
-
-  const guessedLength = useMemo(() => {
-    return wordsFromRound.filter((w) => w.status === "GUESSED").length;
-  }, [wordsFromRound]);
-
-  const declinedLength = useMemo(() => {
-    return wordsFromRound.filter((w) => w.status === "DECLINED").length;
-  }, [wordsFromRound]);
 
   if (showResults) {
     return (
@@ -61,6 +62,7 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(({ navigation }) => {
       </SafeAreaView>
     );
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.timerWrapper}>

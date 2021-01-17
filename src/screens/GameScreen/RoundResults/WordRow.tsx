@@ -6,19 +6,21 @@ import type { WordRowProps } from "./RoundResults.types";
 
 const WordRow: FC<WordRowProps> = observer(({ word }) => {
   const { gameStore } = useStore("rootStore");
+  const { toggleWordStatus } = gameStore || {};
+  const onValueChange = useCallback(
+    (checked: boolean) => {
+      if (toggleWordStatus) {
+        toggleWordStatus(word, checked);
+      }
+    },
+    [toggleWordStatus, word]
+  );
 
   if (gameStore === undefined) {
     // eslint-disable-next-line no-console
     console.error("gameStore is undefined");
     return null;
   }
-  const { toggleWordStatus } = gameStore;
-  const onValueChange = useCallback(
-    (checked: boolean) => {
-      toggleWordStatus(word, checked);
-    },
-    [toggleWordStatus, word]
-  );
   return (
     <Switch
       title={word.value}
