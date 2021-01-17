@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC, useCallback, useMemo, useEffect } from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
@@ -8,7 +8,7 @@ import Timer from "components/Timer";
 import RoundResults from "./RoundResults";
 import styles from "./GameScreen.styles";
 
-const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
+const GameScreen: FC<INavigatorProps<"Game">> = observer(({ navigation }) => {
   const {
     settingsStore: { roundDuration },
     gameStore,
@@ -20,11 +20,23 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(() => {
     }
   }, [gameStore]);
 
+  useEffect(() => {
+    // TODO: change any type. Event type is to difficult
+    const onGoBack = (e: any) => {
+      e.preventDefault();
+    };
+    navigation.addListener("beforeRemove", onGoBack);
+    return () => {
+      navigation.removeListener("beforeRemove", onGoBack);
+    };
+  }, [navigation]);
+
   if (gameStore === undefined) {
     // eslint-disable-next-line no-console
     console.error("gameStore is undefined");
     return null;
   }
+
   const {
     wordsFromRound,
     currentTeam,
