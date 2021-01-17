@@ -8,7 +8,8 @@ export interface IUseTimer {
 export default function useTimer({ seconds: expiry, onExpire }: IUseTimer) {
   const [seconds, setSeconds] = useState(expiry);
   const [isRunning, setIsRunning] = useState(false);
-  const intervalRef = useRef<any>(null);
+  // eslint-disable-next-line no-undef
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const clearIntervalRef = useCallback(() => {
     if (intervalRef.current) {
@@ -36,6 +37,10 @@ export default function useTimer({ seconds: expiry, onExpire }: IUseTimer) {
     setIsRunning(true);
   }, []);
 
+  const pause = useCallback(() => {
+    setIsRunning(false);
+  }, []);
+
   useEffect(() => {
     if (!intervalRef.current && isRunning) {
       intervalRef.current = setInterval(() => {
@@ -57,6 +62,7 @@ export default function useTimer({ seconds: expiry, onExpire }: IUseTimer) {
   return {
     start,
     seconds,
+    pause,
     restart,
     isRunning,
   };

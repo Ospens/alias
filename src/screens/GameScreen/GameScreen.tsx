@@ -30,16 +30,16 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(({ navigation }) => {
     return wordsFromRound?.filter((w) => w.status === "DECLINED").length || 0;
   }, [wordsFromRound]);
 
-  useEffect(() => {
-    // TODO: change any type. Event type is to difficult
-    const onGoBack = (e: any) => {
-      e.preventDefault();
-    };
-    navigation.addListener("beforeRemove", onGoBack);
-    return () => {
-      navigation.removeListener("beforeRemove", onGoBack);
-    };
-  }, [navigation]);
+  // useEffect(() => {
+  //   // TODO: change any type. Event type is to difficult
+  //   const onGoBack = (e: any) => {
+  //     e.preventDefault();
+  //   };
+  //   navigation.addListener("beforeRemove", onGoBack);
+  //   return () => {
+  //     navigation.removeListener("beforeRemove", onGoBack);
+  //   };
+  // }, [navigation]);
 
   if (gameStore === undefined) {
     // eslint-disable-next-line no-console

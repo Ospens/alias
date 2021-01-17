@@ -14,13 +14,14 @@ const renderWordRow = ({ item }: { item: IWordsFromRound }) => {
 
 const RoundResults: FC<RoundResultsProps> = observer(() => {
   const { gameStore } = useStore("rootStore");
+  const { saveResultsAndPrepareNextRound } = gameStore || {};
   const navigation = useNavigation();
   const onSave = useCallback(() => {
-    if (gameStore) {
-      gameStore.saveResultsAndPrepareNextRound();
+    if (saveResultsAndPrepareNextRound) {
+      saveResultsAndPrepareNextRound();
     }
     navigation.goBack();
-  }, [gameStore, navigation]);
+  }, [saveResultsAndPrepareNextRound, navigation]);
 
   const wordKeyExtractor = useCallback(
     (word: IWordsFromRound) => word.value,
