@@ -5,6 +5,7 @@ import SettingsScreen from "screens/SettingsScreen";
 import GameSettingsScreen from "screens/GameSettingsScreen";
 import OverviewScreen from "screens/OverviewScreen";
 import GameScreen from "screens/GameScreen";
+import { SCREEN_OPTIONS } from "./Routing.utils";
 import type { RootStackParamList } from "./Routing.types";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -14,12 +15,12 @@ const Routing = memo(() => (
     <Stack.Screen
       name="Home"
       component={HomeScreen}
-      options={{ headerShown: false }}
+      options={SCREEN_OPTIONS.HOME}
     />
     <Stack.Screen
       name="Settings"
       component={SettingsScreen}
-      options={{ title: "Settings" }}
+      options={SCREEN_OPTIONS.SETTINGS}
     />
     <Stack.Screen
       name="GameSettings"
