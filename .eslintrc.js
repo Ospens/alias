@@ -8,6 +8,7 @@ module.exports = {
     "no-use-before-define": "off",
     "import/no-unresolved": "error",
     "react/jsx-curly-newline": "off",
+    "import/prefer-default-export": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
     "react/prop-types": "off",

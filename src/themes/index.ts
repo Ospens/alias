@@ -1,4 +1,2 @@
-import { typography } from "./typography";
-
-export default typography;
-export { typography };
+export { typography } from "./typography";
+export { colors } from "./colors";
