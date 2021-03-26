@@ -1,18 +1,23 @@
 import { StyleSheet } from "react-native";
+import { colors } from "themes";
 
 export default StyleSheet.create({
   container: {
     display: "flex",
-    width: "100%",
     flexDirection: "row",
-    alignContent: "flex-start",
-    justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    borderColor: "black",
-    borderTopWidth: 1,
+    justifyContent: "space-between",
+    height: 54,
+    borderColor: colors.borders.grey,
+    borderWidth: 1,
     borderBottomWidth: 1,
-    marginVertical: 5,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+  },
+  title: {
+    display: "flex",
+    color: colors.text.black,
+    fontWeight: "600",
+    fontSize: 18,
   },
 });

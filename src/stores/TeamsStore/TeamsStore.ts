@@ -9,7 +9,7 @@ import { storeData, getData } from "stores/AsyncStorage";
 import type { RootStore } from "../RootStore";
 import type { ITeam } from "./TeamsStore.types";
 
-const teamNames = ["Cats", "Dogs", "Fish", "Bears"];
+const teamNames = ["Ученые коты", "Верные псы", "Эрудированные совы"];
 
 class TeamsStore {
   constructor(rootStore: RootStore) {

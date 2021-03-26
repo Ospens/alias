@@ -21,10 +21,11 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Teams: </Text>
-      {teams.map((team) => (
-        <Team key={team.uuid} team={team} />
-      ))}
+      <View>
+        {teams.map((team) => (
+          <Team key={team.uuid} team={team} />
+        ))}
+      </View>
       <Button title="Add team" onPress={createTeam} />
       <Button title="Settings" onPress={gotoSettings} />
       <Button
