@@ -1,5 +1,5 @@
 import TeamsStore from "./TeamsStore";
-import { ITeam } from "./TeamsStore.types";
+import { Team } from "./Team";
 
 export default TeamsStore;
-export type { ITeam };
+export type { Team };

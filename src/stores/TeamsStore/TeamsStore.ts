@@ -4,59 +4,54 @@ import {
   autorun,
   IReactionDisposer,
 } from "mobx";
-import { generateUUID, getRandomElement } from "utils";
 import { storeData, getData } from "stores/AsyncStorage";
+import { IWord } from "stores/WordsStore";
+import { ALL_TEAMS } from "stores/TeamsStore/TeamsStore.utils";
+import { Team } from "./Team";
 import type { RootStore } from "../RootStore";
-import type { ITeam } from "./TeamsStore.types";
-
-const teamNames = ["Ученые коты", "Верные псы", "Эрудированные совы"];
+import { TeamData } from "./TeamsStore.types";
 
 class TeamsStore {
+  public rootStore: RootStore;
+
+  public saveHandler: null | IReactionDisposer = null;
+
+  public teams: Team[] = [];
+
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
 
     getData("TEAMS_STORE_TEAMS").then((teams) => {
-      if (teams && Array.isArray(teams)) {
-        runInAction(() => {
-          this.teams = teams;
-        });
-      }
+      runInAction(() => {
+        if (teams && Array.isArray(teams)) {
+          teams.forEach((team: TeamData) => {
+            this.createTeam(team);
+          });
+        }
+      });
     });
 
-    // Need to be below makeAutoObservable(this) line
+    // Need to be below makeAutoObservable line
     this.saveHandler = autorun(() => {
-      storeData("TEAMS_STORE_TEAMS", this.teams);
+      storeData(
+        "TEAMS_STORE_TEAMS",
+        // store create the error. TypeError: cyclic object value
+        this.teams.map((t) => ({ ...t, store: null }))
+      );
     });
   }
 
-  public rootStore: RootStore;
-
-  public saveHandler: null | IReactionDisposer = null;
-
-  public teams: ITeam[] = [];
-
-  get availableTeamNames() {
-    const notAvailableTeamNames = this.teams.map((team) => team.name);
-    return teamNames.filter((name) => !notAvailableTeamNames.includes(name));
+  get hasAvailableTeam(): boolean {
+    return this.teams.length < ALL_TEAMS.length;
   }
 
-  public createTeam = () => {
-    const name =
-      getRandomElement(this.availableTeamNames) ||
-      `Team #${this.teams.length + 1}`;
-    const team: ITeam = {
-      uuid: generateUUID(),
-      name,
-    };
+  public createTeam = (data?: TeamData) => {
+    const team = new Team(this, data);
     this.teams.push(team);
   };
 
-  // public updateTeam = (team: ITeam) => {
-  //   // const team = this.teams.find((t) = > t.uuid === team.uuid);
-  // };
-
-  public removeTeam = (team: ITeam) => {
+  public removeTeam = (team: Team) => {
     this.teams = this.teams.filter((t) => t.uuid !== team.uuid);
   };
 }

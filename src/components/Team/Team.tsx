@@ -1,8 +1,7 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import { Text, Button } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { observer } from "mobx-react-lite";
-import { useStore } from "stores";
 import { colors } from "themes";
 import styles from "./Team.styles";
 import type { TeamProps } from "./Team.types";
@@ -14,19 +13,9 @@ const backgroundGradientProps = {
 };
 
 const Team: FC<TeamProps> = observer(({ team }) => {
-  const {
-    teamsStore: { removeTeam },
-  } = useStore("rootStore");
-
-  const handleRemove = useCallback(() => {
-    removeTeam(team);
-  }, [removeTeam, team]);
-
-  // TODO: the first color should be given from team
-  const gradientColors = useMemo(
-    () => [colors.teams.purple, colors.transparent],
-    []
-  );
+  const gradientColors = useMemo(() => [team.color, colors.transparent], [
+    team.color,
+  ]);
 
   return (
     <LinearGradient
@@ -35,7 +24,7 @@ const Team: FC<TeamProps> = observer(({ team }) => {
       style={styles.container}
     >
       <Text style={styles.title}>{team.name}</Text>
-      <Button title="R" onPress={handleRemove} />
+      <Button title="R" onPress={team.removeTeam} />
     </LinearGradient>
   );
 });

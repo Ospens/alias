@@ -10,6 +10,7 @@ const colors = {
     purple: "rgba(70,64,219,0.5)",
     pink: "rgba(242,82,157,0.5)",
     brown: "rgba(191,17,17,0.5)",
+    grey: "#C4C4C4",
   },
 
   buttons: {
