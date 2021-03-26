@@ -27,7 +27,11 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
     <View style={styles.container}>
       <View>
         {teams.map((team) => (
-          <Team key={team.uuid} team={team} />
+          <Team
+            key={team.uuid}
+            team={team}
+            containerStyle={styles.teamContainer}
+          />
         ))}
       </View>
       <Button

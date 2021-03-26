@@ -7,4 +7,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.background,
   },
+  teamContainer: {
+    marginBottom: 15,
+  },
 });
