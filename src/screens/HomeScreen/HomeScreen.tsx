@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
 import { useStore } from "stores";
 import Team from "components/Team";
+import MainLayout from "components/MainLayout";
 import styles from "./HomeScreen.styles";
 
 const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
@@ -24,7 +25,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   }, [createTeam]);
 
   return (
-    <View style={styles.container}>
+    <MainLayout style={styles.container}>
       <View>
         {teams.map((team) => (
           <Team
@@ -45,7 +46,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
         onPress={gotoGameSettings}
         disabled={teams.length < 2}
       />
-    </View>
+    </MainLayout>
   );
 });
 
