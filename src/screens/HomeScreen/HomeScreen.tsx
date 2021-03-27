@@ -1,10 +1,13 @@
 import React, { FC, useCallback } from "react";
-import { View, Button } from "react-native";
+import { View, Button, Text } from "react-native";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
 import { useStore } from "stores";
 import Team from "components/Team";
 import MainLayout from "components/MainLayout";
+import RectangleButton from "components/ReactangleButton";
+import { PlusIcon } from "components/svg";
+import { colors } from "themes";
 import styles from "./HomeScreen.styles";
 
 const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
@@ -35,11 +38,14 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
           />
         ))}
       </View>
-      <Button
-        title="Add team"
-        onPress={handleCreateTeam}
-        disabled={!hasAvailableTeam}
-      />
+      {hasAvailableTeam && (
+        <RectangleButton
+          onPress={handleCreateTeam}
+          style={styles.addTeamButton}
+        >
+          <PlusIcon fill={colors.buttons.accept} />
+        </RectangleButton>
+      )}
       <Button title="Settings" onPress={gotoSettings} />
       <Button
         title="Choose words sets"

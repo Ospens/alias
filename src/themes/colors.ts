@@ -18,6 +18,7 @@ const colors = {
   },
 
   borders: {
+    black: "#000000",
     grey: "#A3BFD9",
   },
 
