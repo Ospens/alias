@@ -1,12 +1,12 @@
-import React, { FC, useCallback } from "react";
-import { View, Button, Text } from "react-native";
+import React, { FC, useCallback, useMemo } from "react";
+import { View } from "react-native";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
 import { useStore } from "stores";
 import Team from "components/Team";
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
-import { PlusIcon } from "components/svg";
+import { GearIcon, PlusIcon } from "components/svg";
 import { colors } from "themes";
 import styles from "./HomeScreen.styles";
 
@@ -27,8 +27,27 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
     createTeam();
   }, [createTeam]);
 
+  const bottomPanel = useMemo(() => {
+    return (
+      <>
+        <RectangleButton
+          onPress={gotoGameSettings}
+          style={styles.settingButton}
+        >
+          <GearIcon />
+        </RectangleButton>
+        <RectangleButton
+          title="Далее"
+          onPress={gotoWordsChoice}
+          style={styles.nextButton}
+          disabled={teams.length < 2}
+        />
+      </>
+    );
+  }, [gotoGameSettings, gotoWordsChoice, teams.length]);
+
   return (
-    <MainLayout style={styles.container}>
+    <MainLayout style={styles.container} bottomPanel={bottomPanel}>
       <View>
         {teams.map((team) => (
           <Team
@@ -46,16 +65,6 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
           <PlusIcon fill={colors.buttons.accept} />
         </RectangleButton>
       )}
-
-      <RectangleButton onPress={gotoGameSettings} style={styles.settingButton}>
-        <PlusIcon />
-      </RectangleButton>
-      <RectangleButton
-        title="Далее"
-        onPress={gotoWordsChoice}
-        style={styles.nextButton}
-        disabled={teams.length < 2}
-      />
     </MainLayout>
   );
 });

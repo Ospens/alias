@@ -5,6 +5,15 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  childrenWrapper: {
+    flex: 1,
+    marginHorizontal: 20,
+  },
+  bottomPanelWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    height: 54,
     marginHorizontal: 20,
   },
 });

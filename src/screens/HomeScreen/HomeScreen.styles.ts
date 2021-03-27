@@ -16,9 +16,10 @@ export default StyleSheet.create({
   settingButton: {
     width: 54,
     height: 54,
-    marginBottom: 15,
+    marginRight: 20,
   },
   nextButton: {
-    marginBottom: 15,
+    height: 54,
+    flex: 1,
   },
 });
