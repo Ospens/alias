@@ -5,7 +5,6 @@ import {
   IReactionDisposer,
 } from "mobx";
 import { storeData, getData } from "stores/AsyncStorage";
-import { IWord } from "stores/WordsStore";
 import { ALL_TEAMS } from "stores/TeamsStore/TeamsStore.utils";
 import { Team } from "./Team";
 import type { RootStore } from "../RootStore";

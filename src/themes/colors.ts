@@ -22,6 +22,8 @@ const colors = {
   },
 
   transparent: "rgba(255,255,255,0)",
+  black: "#000000",
+  pink: "#F2529D",
 };
 
 export { colors };

@@ -1,9 +1,16 @@
 import React, { memo } from "react";
-import Svg, { Path } from "react-native-svg";
+import Svg, { Path, SvgProps } from "react-native-svg";
+import { colors } from "themes";
 
-const CloseSquare = memo((props) => {
+const CloseSquare = memo((props: SvgProps) => {
   return (
-    <Svg width={20} height={20} viewBox="0 0 20 20" fill="#200E32" {...props}>
+    <Svg
+      width={20}
+      height={20}
+      viewBox="0 0 20 20"
+      fill={colors.black}
+      {...props}
+    >
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

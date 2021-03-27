@@ -30,7 +30,7 @@ const Team = observer(({ team, containerStyle }: TeamProps) => {
     >
       <Text style={styles.title}>{team.name}</Text>
       <TouchableOpacity onPress={team.removeTeam}>
-        <CloseSquare />
+        <CloseSquare fill={colors.pink} />
       </TouchableOpacity>
     </LinearGradient>
   );
