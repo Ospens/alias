@@ -3,7 +3,7 @@ import { Text, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { colors } from "themes";
-import { CloseSquare } from "components/svg";
+import { CloseIcon } from "components/svg";
 import styles from "./Team.styles";
 import type { TeamProps } from "./Team.types";
 
@@ -30,7 +30,7 @@ const Team = observer(({ team, containerStyle }: TeamProps) => {
     >
       <Text style={styles.title}>{team.name}</Text>
       <TouchableOpacity onPress={team.removeTeam}>
-        <CloseSquare fill={colors.pink} />
+        <CloseIcon fill={colors.pink} />
       </TouchableOpacity>
     </LinearGradient>
   );

@@ -1,1 +1,1 @@
-export { CloseSquare } from "./CloseSquare";
+export { CloseIcon } from "./CloseIcon";

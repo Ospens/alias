@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import Svg, { Path, SvgProps } from "react-native-svg";
 import { colors } from "themes";
 
-const CloseSquare = memo((props: SvgProps) => {
+const CloseIcon = memo((props: SvgProps) => {
   return (
     <Svg
       width={20}
@@ -20,4 +20,4 @@ const CloseSquare = memo((props: SvgProps) => {
   );
 });
 
-export { CloseSquare };
+export { CloseIcon };
