@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
-import { Text, Button } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { colors } from "themes";
+import { CloseSquare } from "components/svg";
 import styles from "./Team.styles";
 import type { TeamProps } from "./Team.types";
 
@@ -28,7 +29,9 @@ const Team = observer(({ team, containerStyle }: TeamProps) => {
       style={wrapperStyle}
     >
       <Text style={styles.title}>{team.name}</Text>
-      <Button title="R" onPress={team.removeTeam} />
+      <TouchableOpacity onPress={team.removeTeam}>
+        <CloseSquare />
+      </TouchableOpacity>
     </LinearGradient>
   );
 });
