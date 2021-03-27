@@ -15,11 +15,11 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
     teamsStore: { teams, createTeam, hasAvailableTeam },
   } = useStore("rootStore");
 
-  const gotoWordsChoice = useCallback(() => {
+  const gotoSettings = useCallback(() => {
     navigation.navigate("Settings");
   }, [navigation]);
 
-  const gotoGameSettings = useCallback(() => {
+  const gotoWordsChoice = useCallback(() => {
     navigation.navigate("GameSettings");
   }, [navigation]);
 
@@ -30,10 +30,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   const bottomPanel = useMemo(() => {
     return (
       <>
-        <RectangleButton
-          onPress={gotoGameSettings}
-          style={styles.settingButton}
-        >
+        <RectangleButton onPress={gotoSettings} style={styles.settingButton}>
           <GearIcon />
         </RectangleButton>
         <RectangleButton
@@ -44,7 +41,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
         />
       </>
     );
-  }, [gotoGameSettings, gotoWordsChoice, teams.length]);
+  }, [gotoSettings, gotoWordsChoice, teams.length]);
 
   return (
     <MainLayout style={styles.container} bottomPanel={bottomPanel}>
