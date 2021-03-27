@@ -10,7 +10,6 @@ export default StyleSheet.create({
     height: 54,
     borderColor: colors.borders.grey,
     borderWidth: 1,
-    borderBottomWidth: 1,
     paddingHorizontal: 20,
     borderRadius: 15,
   },

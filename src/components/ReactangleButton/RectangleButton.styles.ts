@@ -9,9 +9,11 @@ export default StyleSheet.create({
     justifyContent: "center",
     height: 54,
     borderColor: colors.borders.black,
-    borderWidth: 1,
-    borderBottomWidth: 1,
+    borderWidth: 2,
     paddingHorizontal: 20,
     borderRadius: 15,
+  },
+  title: {
+    fontSize: 18,
   },
 });

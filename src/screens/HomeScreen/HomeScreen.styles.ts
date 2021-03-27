@@ -11,5 +11,14 @@ export default StyleSheet.create({
   addTeamButton: {
     marginBottom: 15,
     borderColor: colors.buttons.accept,
+    borderWidth: 1,
+  },
+  settingButton: {
+    width: 54,
+    height: 54,
+    marginBottom: 15,
+  },
+  nextButton: {
+    marginBottom: 15,
   },
 });

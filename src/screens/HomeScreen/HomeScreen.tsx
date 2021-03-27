@@ -15,7 +15,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
     teamsStore: { teams, createTeam, hasAvailableTeam },
   } = useStore("rootStore");
 
-  const gotoSettings = useCallback(() => {
+  const gotoWordsChoice = useCallback(() => {
     navigation.navigate("Settings");
   }, [navigation]);
 
@@ -46,10 +46,14 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
           <PlusIcon fill={colors.buttons.accept} />
         </RectangleButton>
       )}
-      <Button title="Settings" onPress={gotoSettings} />
-      <Button
-        title="Choose words sets"
-        onPress={gotoGameSettings}
+
+      <RectangleButton onPress={gotoGameSettings} style={styles.settingButton}>
+        <PlusIcon />
+      </RectangleButton>
+      <RectangleButton
+        title="Далее"
+        onPress={gotoWordsChoice}
+        style={styles.nextButton}
         disabled={teams.length < 2}
       />
     </MainLayout>
