@@ -9,6 +9,7 @@ export default StyleSheet.create({
   childrenWrapper: {
     flex: 1,
     marginHorizontal: 20,
+    marginTop: 25,
   },
   bottomPanelWrapper: {
     display: "flex",

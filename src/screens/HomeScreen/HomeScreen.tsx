@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo } from "react";
-import { View } from "react-native";
+import { FlatList } from "react-native";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
 import { useStore } from "stores";
@@ -8,7 +8,10 @@ import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
 import { GearIcon, PlusIcon } from "components/svg";
 import { colors } from "themes";
+import type { Team as TeamItem } from "stores/TeamsStore";
 import styles from "./HomeScreen.styles";
+
+const keyExtractor = (team: TeamItem) => team.uuid;
 
 const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   const {
@@ -45,15 +48,18 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
 
   return (
     <MainLayout style={styles.container} bottomPanel={bottomPanel}>
-      <View>
-        {teams.map((team) => (
+      <FlatList
+        data={teams}
+        keyExtractor={keyExtractor}
+        // TODO: when renderItem in useCallback observer changes doesn't work
+        renderItem={({ item: team }) => (
           <Team
             key={team.uuid}
             team={team}
             containerStyle={styles.teamContainer}
           />
-        ))}
-      </View>
+        )}
+      />
       {hasAvailableTeam && (
         <RectangleButton
           onPress={handleCreateTeam}
