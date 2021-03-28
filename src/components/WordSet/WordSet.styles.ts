@@ -41,5 +41,3 @@ export default StyleSheet.create({
     alignContent: "center",
   },
 });
-
-// with 75%

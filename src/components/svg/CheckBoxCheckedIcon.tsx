@@ -5,7 +5,7 @@ import { colors } from "themes";
 const CheckBoxCheckedIcon = memo((props: SvgProps) => {
   return (
     <Svg
-      width={3}
+      width={20}
       height={20}
       viewBox="0 0 20 20"
       fill={colors.black}

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { observer } from "mobx-react-lite";
 import { CheckBoxCheckedIcon, CheckBoxUncheckedIcon } from "components/svg";
@@ -7,11 +7,12 @@ import styles from "./WordSet.styles";
 import type { WordSetProps } from "./WordSet.types";
 
 const WordSet: FC<WordSetProps> = observer(({ set, containerStyle }) => {
+  const wrapperStyle = useMemo(() => [styles.container, containerStyle], [
+    containerStyle,
+  ]);
+
   return (
-    <TouchableOpacity
-      onPress={set.toggleCheck}
-      style={[styles.container, containerStyle]}
-    >
+    <TouchableOpacity onPress={set.toggleCheck} style={wrapperStyle}>
       <View style={styles.infoWrapper}>
         <Text style={styles.title}>{set.name}</Text>
         <View style={styles.subInfo}>
