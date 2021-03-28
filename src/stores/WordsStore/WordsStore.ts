@@ -6,40 +6,37 @@ import {
 } from "mobx";
 import { getData, storeData } from "stores/AsyncStorage";
 import { getRandomElement } from "utils";
-import type { RootStore } from "../RootStore";
-import { IWord, IWordSet } from "./WordsStore.types";
-import { words, groups as defaultGroups } from "./words";
+import WordSet from "./WordSet";
+import { IWord } from "./WordsStore.types";
+import { words, WORD_SETS } from "./words";
 
 class WordsStore {
-  constructor(rootStore: RootStore) {
-    getData("WORDS_STORE_GROUPS").then((groups) => {
-      if (groups && Array.isArray(groups)) {
-        runInAction(() => {
-          this.groups = groups;
-        });
-      }
-    });
-
-    makeAutoObservable(this);
-    // Need to be below makeAutoObservable(this) line
-    this.saveHandler = autorun(() => {
-      storeData("WORDS_STORE_GROUPS", this.groups);
-    });
-    this.rootStore = rootStore;
-  }
-
-  public rootStore: RootStore;
-
-  public saveHandler: null | IReactionDisposer = null;
-
-  public groups: IWordSet[] = defaultGroups;
+  public wordSets: WordSet[] = WORD_SETS;
 
   public allWords: IWord[] = words;
 
   public usedWords: IWord[] = [];
 
+  private saveHandler: IReactionDisposer;
+
+  constructor() {
+    getData("WORDS_STORE_GROUPS").then((wordSets) => {
+      if (wordSets && Array.isArray(wordSets)) {
+        runInAction(() => {
+          this.wordSets = wordSets.map((set) => new WordSet(set));
+        });
+      }
+    });
+
+    makeAutoObservable(this);
+    // Need to be below makeAutoObservable line
+    this.saveHandler = autorun(() => {
+      storeData("WORDS_STORE_GROUPS", this.wordSets);
+    });
+  }
+
   get wordsFromCheckedGroups(): IWord[] {
-    const groupIds = this.groups.map((group) => group.id);
+    const groupIds = this.wordSets.map((group) => group.id);
     return this.allWords.filter(({ wordGroupId }) =>
       groupIds.filter((groupId) => wordGroupId === groupId)
     );
@@ -63,18 +60,6 @@ class WordsStore {
     }
     this.usedWords.push(randomWord);
     return randomWord;
-  };
-
-  public toggleCheckedGroup = (groupId: string) => {
-    this.groups = this.groups.map((group) => {
-      if (group.id === groupId) {
-        return {
-          ...group,
-          checked: !group.checked,
-        };
-      }
-      return group;
-    });
   };
 }
 

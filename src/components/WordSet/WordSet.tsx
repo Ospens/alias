@@ -1,19 +1,14 @@
-import React, { FC, memo, useCallback } from "react";
+import React, { FC } from "react";
 import { Text, TouchableOpacity } from "react-native";
+import { observer } from "mobx-react-lite";
 import styles from "./WordSet.styles";
 import type { WordSetProps } from "./WordSet.types";
 
-const WordSet: FC<WordSetProps> = memo(({ group, checked, onToggle }) => {
-  const onPress = useCallback(() => {
-    if (onToggle) {
-      onToggle(group.id);
-    }
-  }, [group.id, onToggle]);
-
+const WordSet: FC<WordSetProps> = observer(({ set }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text>{group.name}</Text>
-      {checked && <Text>Checked</Text>}
+    <TouchableOpacity onPress={set.toggleCheck} style={styles.container}>
+      <Text>{set.name}</Text>
+      {set.checked && <Text>Checked</Text>}
     </TouchableOpacity>
   );
 });

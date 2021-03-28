@@ -10,7 +10,7 @@ const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
   ({ navigation }) => {
     const {
       createGameStore,
-      wordsStore: { groups, toggleCheckedGroup },
+      wordsStore: { wordSets },
     } = useStore("rootStore");
 
     const gotoGame = useCallback(() => {
@@ -18,17 +18,12 @@ const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
       navigation.navigate("Overview");
     }, [createGameStore, navigation]);
 
-    const checkedGroups = groups.filter((g) => g.checked);
+    const checkedGroups = wordSets.filter((g) => g.checked);
 
     return (
       <View style={styles.container}>
-        {groups.map((group) => (
-          <WordSet
-            key={group.id}
-            group={group}
-            checked={group.checked}
-            onToggle={toggleCheckedGroup}
-          />
+        {wordSets.map((set) => (
+          <WordSet key={set.id} set={set} />
         ))}
         <Button
           title="Start game"

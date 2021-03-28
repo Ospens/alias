@@ -1,4 +1,5 @@
-import type { IWord, IWordSet } from "./WordsStore.types";
+import WordSet from "stores/WordsStore/WordSet";
+import type { IWord } from "./WordsStore.types";
 import baseAsset from "./words/baseAsset";
 
 export const words: IWord[] = baseAsset.map((value) => ({
@@ -33,15 +34,7 @@ export const words: IWord[] = baseAsset.map((value) => ({
 //   },
 // ];
 
-export const groups: IWordSet[] = [
-  {
-    id: "1",
-    name: "Базовый набор",
-    checked: false,
-  },
-  {
-    id: "2",
-    name: "Новый год",
-    checked: false,
-  },
+export const WORD_SETS: WordSet[] = [
+  new WordSet({ name: "Базовый набор", words: baseAsset, checked: false }),
+  new WordSet({ name: "Новый год", words: ["test"], checked: false }),
 ];

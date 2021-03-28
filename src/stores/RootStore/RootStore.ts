@@ -11,7 +11,7 @@ class RootStore {
     this.uiStore = new UIStore(this);
     this.settingsStore = new SettingsStore(this);
     this.teamsStore = new TeamsStore(this);
-    this.wordsStore = new WordsStore(this);
+    this.wordsStore = new WordsStore();
   }
 
   public uiStore: UIStore;
