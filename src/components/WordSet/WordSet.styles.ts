@@ -3,9 +3,17 @@ import { colors } from "themes";
 
 export default StyleSheet.create({
   container: {
-    flexDirection: "row",
+    borderRadius: 15,
+    height: 70,
+  },
+  backgroundImage: {
     borderWidth: 2,
+    borderRadius: 15,
     borderColor: colors.borders.grey,
+    opacity: 0.3,
+  },
+  imageContainer: {
+    flexDirection: "row",
     borderRadius: 15,
     height: 70,
     paddingHorizontal: 20,

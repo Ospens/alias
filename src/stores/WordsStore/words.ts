@@ -1,4 +1,5 @@
 import WordSet from "stores/WordsStore/WordSet";
+import booksImg from "assets/images/books.png";
 import type { IWord } from "./WordsStore.types";
 import baseAsset from "./words/baseAsset";
 
@@ -35,6 +36,16 @@ export const words: IWord[] = baseAsset.map((value) => ({
 // ];
 
 export const WORD_SETS: WordSet[] = [
-  new WordSet({ name: "Базовый набор", words: baseAsset, checked: false }),
-  new WordSet({ name: "Новый год", words: ["test"], checked: false }),
+  new WordSet({
+    name: "Базовый набор",
+    words: baseAsset,
+    checked: false,
+    image: booksImg,
+  }),
+  new WordSet({
+    name: "Новый год",
+    words: ["test"],
+    checked: false,
+    image: booksImg,
+  }),
 ];

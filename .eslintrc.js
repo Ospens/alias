@@ -31,7 +31,7 @@ module.exports = {
     "import/resolver": {
       typescript: {},
       node: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".png"],
       },
     },
   },

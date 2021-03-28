@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { generateUUID } from "utils";
+import { ImageSourcePropType } from "react-native";
 
 class WordSet {
   public id: string;
@@ -8,11 +9,14 @@ class WordSet {
 
   public checked: boolean;
 
+  public image: ImageSourcePropType;
+
   public words: string[];
 
-  constructor(data: Pick<WordSet, "name" | "words" | "checked">) {
+  constructor(data: Pick<WordSet, "name" | "words" | "checked" | "image">) {
     this.id = generateUUID();
     this.name = data.name;
+    this.image = data.image;
     this.checked = data.checked || false;
     this.words = data.words || [];
 

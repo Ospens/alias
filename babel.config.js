@@ -15,6 +15,7 @@ module.exports = {
           ".jsx",
           ".js",
           ".json",
+          ".png",
         ],
         alias: {
           screens: "./src/screens",
@@ -29,6 +30,8 @@ module.exports = {
           "themes/*": "./src/themes/*",
           utils: "./src/utils",
           "utils/*": "./src/utils/*",
+          assets: "./src/assets",
+          "assets/*": "./src/assets/*",
         },
       },
     ],
