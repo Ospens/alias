@@ -20,7 +20,7 @@ class WordSet {
   }
 
   get exampleWords(): string[] {
-    return this.words.filter((_, i) => i < 3);
+    return this.words.filter((w) => w.length < 6).slice(0, 3);
   }
 
   public toggleCheck = () => {
