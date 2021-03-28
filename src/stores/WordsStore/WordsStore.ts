@@ -7,7 +7,7 @@ import {
 import { getData, storeData } from "stores/AsyncStorage";
 import { getRandomElement } from "utils";
 import type { RootStore } from "../RootStore";
-import { IWord, IWordsGroup } from "./WordsStore.types";
+import { IWord, IWordSet } from "./WordsStore.types";
 import { words, groups as defaultGroups } from "./words";
 
 class WordsStore {
@@ -32,7 +32,7 @@ class WordsStore {
 
   public saveHandler: null | IReactionDisposer = null;
 
-  public groups: IWordsGroup[] = defaultGroups;
+  public groups: IWordSet[] = defaultGroups;
 
   public allWords: IWord[] = words;
 

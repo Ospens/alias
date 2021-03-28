@@ -3,7 +3,7 @@ import { Button, View } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
 import type { INavigatorProps } from "routing";
-import WordsGroup from "components/WordsGroup";
+import WordSet from "components/WordSet";
 import styles from "./WordSetsScreen.styles";
 
 const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
@@ -23,7 +23,7 @@ const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
     return (
       <View style={styles.container}>
         {groups.map((group) => (
-          <WordsGroup
+          <WordSet
             key={group.id}
             group={group}
             checked={group.checked}

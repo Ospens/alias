@@ -1,5 +1,5 @@
 import WordsStore from "./WordsStore";
-import { IWordsGroup, IWord } from "./WordsStore.types";
+import { IWordSet, IWord } from "./WordsStore.types";
 
 export default WordsStore;
-export type { IWordsGroup, IWord };
+export type { IWordSet, IWord };

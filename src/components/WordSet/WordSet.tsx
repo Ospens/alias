@@ -1,9 +1,9 @@
 import React, { FC, memo, useCallback } from "react";
 import { Text, TouchableOpacity } from "react-native";
-import styles from "./WordsGroup.styles";
-import type { WordsGroupProps } from "./WordsGroup.types";
+import styles from "./WordSet.styles";
+import type { WordSetProps } from "./WordSet.types";
 
-const WordsGroup: FC<WordsGroupProps> = memo(({ group, checked, onToggle }) => {
+const WordSet: FC<WordSetProps> = memo(({ group, checked, onToggle }) => {
   const onPress = useCallback(() => {
     if (onToggle) {
       onToggle(group.id);
@@ -18,4 +18,4 @@ const WordsGroup: FC<WordsGroupProps> = memo(({ group, checked, onToggle }) => {
   );
 });
 
-export default WordsGroup;
+export default WordSet;

@@ -3,7 +3,7 @@ export interface IWord {
   wordGroupId: string;
 }
 
-export interface IWordsGroup {
+export interface IWordSet {
   id: string;
   name: string;
   checked: boolean;
