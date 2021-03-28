@@ -4,9 +4,9 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
 import type { INavigatorProps } from "routing";
 import WordsGroup from "components/WordsGroup";
-import styles from "./GameSettingsScreen.styles";
+import styles from "./WordSetsScreen.styles";
 
-const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
+const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
   ({ navigation }) => {
     const {
       createGameStore,
@@ -40,4 +40,4 @@ const GameSettingsScreen: FC<INavigatorProps<"GameSettings">> = observer(
   }
 );
 
-export default GameSettingsScreen;
+export default WordSetsScreen;

@@ -4,7 +4,7 @@ import { RouteProp } from "@react-navigation/native";
 export type RootStackParamList = {
   Home: undefined;
   Settings: undefined;
-  GameSettings: undefined;
+  WordSets: undefined;
   Game: undefined;
   Overview: undefined;
 };

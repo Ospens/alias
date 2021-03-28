@@ -23,7 +23,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   }, [navigation]);
 
   const gotoWordsChoice = useCallback(() => {
-    navigation.navigate("GameSettings");
+    navigation.navigate("WordSets");
   }, [navigation]);
 
   const handleCreateTeam = useCallback(() => {

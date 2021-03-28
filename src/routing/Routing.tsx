@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "screens/HomeScreen";
 import SettingsScreen from "screens/SettingsScreen";
-import GameSettingsScreen from "screens/GameSettingsScreen";
+import WordSetsScreen from "screens/WordSetsScreen";
 import OverviewScreen from "screens/OverviewScreen";
 import GameScreen from "screens/GameScreen";
 import { SCREEN_OPTIONS } from "./Routing.utils";
@@ -23,8 +23,8 @@ const Routing = memo(() => (
       options={SCREEN_OPTIONS.SETTINGS}
     />
     <Stack.Screen
-      name="GameSettings"
-      component={GameSettingsScreen}
+      name="WordSets"
+      component={WordSetsScreen}
       options={{ title: "Game Settings" }}
     />
     <Stack.Screen
