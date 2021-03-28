@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { observer } from "mobx-react-lite";
+import { CheckBoxCheckedIcon, CheckBoxUncheckedIcon } from "components/svg";
+import { colors } from "themes";
 import styles from "./WordSet.styles";
 import type { WordSetProps } from "./WordSet.types";
 
@@ -18,8 +20,15 @@ const WordSet: FC<WordSetProps> = observer(({ set, containerStyle }) => {
         </View>
       </View>
       <View style={styles.checkWrapper}>
-        {/* {set.checked && <Text>Checked</Text>} */}
-        <Text>Checked</Text>
+        {set.checked ? (
+          <CheckBoxCheckedIcon
+            width={35}
+            height={35}
+            fill={colors.buttons.accept}
+          />
+        ) : (
+          <CheckBoxUncheckedIcon width={35} height={35} fill={colors.black} />
+        )}
       </View>
     </TouchableOpacity>
   );

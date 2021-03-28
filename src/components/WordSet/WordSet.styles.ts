@@ -11,8 +11,9 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
   infoWrapper: {
-    width: "80%",
+    flex: 1,
     justifyContent: "center",
+    marginRight: 15,
   },
   subInfo: {
     display: "flex",
@@ -23,7 +24,6 @@ export default StyleSheet.create({
     color: colors.text.black,
     fontSize: 18,
     fontWeight: "600",
-    marginBottom: 5,
   },
   wordsCount: {
     color: colors.text.black,
@@ -39,7 +39,6 @@ export default StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignContent: "center",
-    width: "20%",
   },
 });
 
