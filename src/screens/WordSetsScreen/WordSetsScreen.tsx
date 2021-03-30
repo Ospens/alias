@@ -1,7 +1,8 @@
 import React, { FC, useCallback, useMemo } from "react";
-import { Button } from "react-native";
+import { FlatList } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
+import { WordSet as WordSetItem } from "stores/WordsStore";
 import type { INavigatorProps } from "routing";
 import WordSet from "components/WordSet";
 import MainLayout from "components/MainLayout";
@@ -10,6 +11,8 @@ import styles, {
   backButtonStyle,
   nextButtonStyle,
 } from "./WordSetsScreen.styles";
+
+const keyExtractor = (team: WordSetItem) => team.id.toString();
 
 const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
   ({ navigation }) => {
@@ -49,13 +52,18 @@ const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
 
     return (
       <MainLayout style={styles.container} bottomPanel={bottomPanel}>
-        {wordSets.map((set) => (
-          <WordSet
-            key={set.id}
-            set={set}
-            containerStyle={styles.wordContainer}
-          />
-        ))}
+        <FlatList
+          data={wordSets}
+          keyExtractor={keyExtractor}
+          // TODO: when renderItem in useCallback observer changes doesn't work
+          renderItem={({ item: set }) => (
+            <WordSet
+              key={set.id}
+              set={set}
+              containerStyle={styles.wordContainer}
+            />
+          )}
+        />
       </MainLayout>
     );
   }

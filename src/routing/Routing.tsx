@@ -25,7 +25,7 @@ const Routing = memo(() => (
     <Stack.Screen
       name="WordSets"
       component={WordSetsScreen}
-      options={{ title: "Game Settings" }}
+      options={SCREEN_OPTIONS.WORD_SETS}
     />
     <Stack.Screen
       name="Overview"

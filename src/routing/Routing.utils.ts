@@ -3,6 +3,8 @@ import { StackNavigationOptions } from "@react-navigation/stack";
 
 const defaultScreenOptions: StackNavigationOptions = {
   title: "",
+  headerLeft: () => null,
+  headerBackTitleVisible: false,
   headerStyle: {
     backgroundColor: colors.background,
   },
@@ -21,6 +23,10 @@ const SCREEN_OPTIONS = {
   SETTINGS: {
     ...defaultScreenOptions,
     title: "Настройки",
+  },
+  WORD_SETS: {
+    ...defaultScreenOptions,
+    title: "Выбор набора слов",
   },
 };
 
