@@ -1,11 +1,11 @@
-import WordSet from "stores/WordsStore/WordSet";
 import booksImg from "assets/images/books.png";
+import animalsImg from "assets/images/animals.png";
 import type { IWord } from "./WordsStore.types";
 import baseAsset from "./words/baseAsset";
 
 export const words: IWord[] = baseAsset.map((value) => ({
   value,
-  wordGroupId: "1",
+  wordGroupId: 1,
 }));
 
 // export const words: IWord[] = [
@@ -35,17 +35,19 @@ export const words: IWord[] = baseAsset.map((value) => ({
 //   },
 // ];
 
-export const WORD_SETS: WordSet[] = [
-  new WordSet({
+export const WORD_SETS_DATA = [
+  {
+    id: 1,
     name: "Базовый набор",
     words: baseAsset,
     checked: false,
     image: booksImg,
-  }),
-  new WordSet({
+  },
+  {
+    id: 2,
     name: "Новый год",
     words: ["test"],
     checked: false,
-    image: booksImg,
-  }),
+    image: animalsImg,
+  },
 ];

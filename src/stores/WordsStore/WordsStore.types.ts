@@ -2,7 +2,7 @@ import type WordSet from "./WordSet";
 
 export interface IWord {
   value: string;
-  wordGroupId: string;
+  wordGroupId: number;
 }
 
 export type IWordSet = WordSet;

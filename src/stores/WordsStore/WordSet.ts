@@ -3,7 +3,7 @@ import { generateUUID } from "utils";
 import { ImageSourcePropType } from "react-native";
 
 class WordSet {
-  public id: string;
+  public id: number;
 
   public name: string;
 
@@ -13,8 +13,10 @@ class WordSet {
 
   public words: string[];
 
-  constructor(data: Pick<WordSet, "name" | "words" | "checked" | "image">) {
-    this.id = generateUUID();
+  constructor(
+    data: Pick<WordSet, "id" | "name" | "words" | "checked" | "image">
+  ) {
+    this.id = data.id ?? generateUUID();
     this.name = data.name;
     this.image = data.image;
     this.checked = data.checked || false;
