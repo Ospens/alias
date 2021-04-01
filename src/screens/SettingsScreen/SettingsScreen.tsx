@@ -23,9 +23,10 @@ const SettingsScreen = observer(
       },
     } = useStore("rootStore");
 
-    const toggle = useCallback((val) => togglePenaltyForSkip(val), [
-      togglePenaltyForSkip,
-    ]);
+    const handlePenaltyForSkip = useCallback(
+      (val) => togglePenaltyForSkip(val),
+      [togglePenaltyForSkip]
+    );
 
     const bottomPanel = useMemo(() => {
       return (
@@ -39,36 +40,44 @@ const SettingsScreen = observer(
 
     return (
       <MainLayout style={styles.container} bottomPanel={bottomPanel}>
-        <Switch
-          title="Звук"
-          onValueChange={() => {}}
-          value={false}
-          style={styles.row}
-        />
-        <Switch
-          title="Вибрация"
-          onValueChange={() => {}}
-          value={false}
-          style={styles.row}
-        />
+        {/* <Switch */}
+        {/*  title="Звук" */}
+        {/*  onValueChange={() => {}} */}
+        {/*  value={false} */}
+        {/*  style={styles.row} */}
+        {/* /> */}
+        {/* <Switch */}
+        {/*  title="Вибрация" */}
+        {/*  onValueChange={() => {}} */}
+        {/*  value={false} */}
+        {/*  style={styles.row} */}
+        {/* /> */}
         <Switch
           title="Отнимать очки за не отгаданные слова"
-          onValueChange={toggle}
+          onValueChange={handlePenaltyForSkip}
           value={penaltyForSkip}
           style={styles.row}
         />
         <SelectPicker
-          title="Points for win"
+          title="Очки для победы"
           value={pointsForWin}
           items={pointsForWinSelectValues}
           onValueChange={togglePointsForWin}
+          wrapperStyle={styles.row}
         />
         <SelectPicker
-          title="Round duration"
+          title="Длительность раунда"
           value={roundDuration}
           items={roundDurationSelectValues}
           onValueChange={toggleRoundDuration}
+          wrapperStyle={styles.row}
         />
+        {/* <SelectPicker */}
+        {/*  title="Язык слов" */}
+        {/*  value="Русский" */}
+        {/*  items={{ label: "Русский", value: "Русский" }} */}
+        {/*  onValueChange={() => {}} */}
+        {/* /> */}
       </MainLayout>
     );
   }

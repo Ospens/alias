@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { typography } from "themes";
+import { colors } from "themes";
 
 export default StyleSheet.create({
   container: {
@@ -7,9 +7,6 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    width: "100%",
-    paddingHorizontal: typography.horizontalMargin,
-    paddingVertical: typography.inputVerticalPadding,
   },
   pickerWrapper: {
     marginLeft: "auto",
@@ -19,22 +16,22 @@ export default StyleSheet.create({
 export const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
+    width: 50,
+    paddingVertical: 5,
+    textAlign: "center",
     borderWidth: 1,
     borderColor: "gray",
-    borderRadius: 4,
-    color: "black",
-    paddingRight: 30, // to ensure the text is never behind the icon
+    borderRadius: 5,
+    color: colors.black,
   },
   inputAndroid: {
     fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: "purple",
-    borderRadius: 8,
-    color: "black",
-    paddingRight: 30, // to ensure the text is never behind the icon
+    width: 50,
+    paddingVertical: 5,
+    textAlign: "center",
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    color: colors.black,
   },
 });

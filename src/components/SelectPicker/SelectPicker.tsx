@@ -1,5 +1,5 @@
-import React, { memo, PropsWithChildren } from "react";
-import { View, Text } from "react-native";
+import React, { memo, PropsWithChildren, useMemo } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { ISelectPicker } from "./SelectPicker.types";
 import styles, { pickerSelectStyles } from "./SelectPicker.styles";
@@ -11,10 +11,15 @@ const SelectPicker = typedMemo(
     title,
     items,
     value,
+    wrapperStyle,
     onValueChange,
   }: PropsWithChildren<ISelectPicker<T>>) => {
+    const containerStyles = useMemo(
+      () => StyleSheet.flatten([styles.container, wrapperStyle]),
+      [wrapperStyle]
+    );
     return (
-      <View style={styles.container}>
+      <View style={containerStyles}>
         <Text>{title}</Text>
         <View style={styles.pickerWrapper}>
           <RNPickerSelect
