@@ -1,5 +1,4 @@
-import React, { useCallback } from "react";
-import { View, Button } from "react-native";
+import React, { useCallback, useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
 import { useStore } from "stores";
@@ -7,6 +6,8 @@ import Switch from "components/Switch";
 import { roundDurationSelectValues } from "stores/SettingsStore";
 import SelectPicker from "components/SelectPicker";
 import { pointsForWinSelectValues } from "stores/SettingsStore/constants";
+import MainLayout from "components/MainLayout";
+import RectangleButton from "components/ReactangleButton";
 import styles from "./SettingsScreen.styles";
 
 const SettingsScreen = observer(
@@ -26,8 +27,36 @@ const SettingsScreen = observer(
       togglePenaltyForSkip,
     ]);
 
+    const bottomPanel = useMemo(() => {
+      return (
+        <RectangleButton
+          title="Назад"
+          onPress={navigation.goBack}
+          style={styles.buttonBack}
+        />
+      );
+    }, [navigation.goBack]);
+
     return (
-      <View style={styles.container}>
+      <MainLayout style={styles.container} bottomPanel={bottomPanel}>
+        <Switch
+          title="Звук"
+          onValueChange={() => {}}
+          value={false}
+          style={styles.row}
+        />
+        <Switch
+          title="Вибрация"
+          onValueChange={() => {}}
+          value={false}
+          style={styles.row}
+        />
+        <Switch
+          title="Отнимать очки за не отгаданные слова"
+          onValueChange={toggle}
+          value={penaltyForSkip}
+          style={styles.row}
+        />
         <SelectPicker
           title="Points for win"
           value={pointsForWin}
@@ -40,13 +69,7 @@ const SettingsScreen = observer(
           items={roundDurationSelectValues}
           onValueChange={toggleRoundDuration}
         />
-        <Switch
-          title="Penalty for skip"
-          onValueChange={toggle}
-          value={penaltyForSkip}
-        />
-        <Button title="Go to Home" onPress={navigation.goBack} />
-      </View>
+      </MainLayout>
     );
   }
 );
