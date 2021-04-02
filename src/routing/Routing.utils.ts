@@ -28,6 +28,10 @@ const SCREEN_OPTIONS = {
     ...defaultScreenOptions,
     title: "Выбор набора слов",
   },
+  OVERVIEW: {
+    ...defaultScreenOptions,
+    title: "Подготовка",
+  },
 };
 
 export { SCREEN_OPTIONS };

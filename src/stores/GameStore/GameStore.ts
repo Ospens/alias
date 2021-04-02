@@ -8,6 +8,20 @@ import type {
 } from "./GameStore.type";
 
 class GameStore {
+  public rootStore: RootStore;
+
+  public currentTeam: ITeamGameInfo;
+
+  public gameTeams: ITeamGameInfo[];
+
+  public wordsFromRound: IWordsFromRound[] = [];
+
+  public timeOver: boolean = false;
+
+  public showResults: boolean = false;
+
+  public winner: ITeamGameInfo | undefined = undefined;
+
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     this.gameTeams = this.rootStore.teamsStore.teams.map((team, index) => {
@@ -22,20 +36,6 @@ class GameStore {
     // need to be on the bottom line of constructor
     makeAutoObservable(this);
   }
-
-  public rootStore: RootStore;
-
-  public currentTeam: ITeamGameInfo;
-
-  public gameTeams: ITeamGameInfo[];
-
-  public wordsFromRound: IWordsFromRound[] = [];
-
-  public timeOver: boolean = false;
-
-  public showResults: boolean = false;
-
-  public winner: ITeamGameInfo | undefined = undefined;
 
   get currentWord() {
     return this.wordsFromRound.find(({ status }) => status === "IDLE");

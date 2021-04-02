@@ -30,7 +30,7 @@ const Routing = memo(() => (
     <Stack.Screen
       name="Overview"
       component={OverviewScreen}
-      options={{ title: "Results" }}
+      options={SCREEN_OPTIONS.OVERVIEW}
     />
     <Stack.Screen
       name="Game"

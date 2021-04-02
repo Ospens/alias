@@ -6,12 +6,7 @@ import { colors } from "themes";
 import { CloseIcon } from "components/svg";
 import styles from "./Team.styles";
 import type { TeamProps } from "./Team.types";
-
-const backgroundGradientProps = {
-  start: { x: 0, y: 0 },
-  end: { x: 1, y: 0 },
-  locations: [0, 0.35],
-};
+import { backgroundGradientProps } from "./Team.utils";
 
 const Team = observer(({ team, containerStyle }: TeamProps) => {
   const gradientColors = useMemo(() => [team.color, colors.transparent], [

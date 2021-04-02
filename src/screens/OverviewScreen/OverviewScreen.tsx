@@ -1,8 +1,15 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { View, Text, Button } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
 import type { INavigatorProps } from "routing";
+import { TeamWithScore } from "components/Team";
+import MainLayout from "components/MainLayout";
+import RectangleButton from "components/ReactangleButton";
+import {
+  backButtonStyle,
+  nextButtonStyle,
+} from "screens/WordSetsScreen/WordSetsScreen.styles";
 import styles from "./OverviewScreen.styles";
 
 const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
@@ -27,27 +34,46 @@ const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
     }
     const { gameTeams, currentTeam, winner } = gameStore;
 
+    const bottomPanel = useMemo(() => {
+      return (
+        <>
+          <RectangleButton
+            title="Назад"
+            onPress={gotoMenu}
+            style={backButtonStyle}
+          />
+
+          {winner ? (
+            <RectangleButton
+              title="Меню"
+              onPress={gotoMenu}
+              style={nextButtonStyle}
+            />
+          ) : (
+            <RectangleButton
+              title="Играть"
+              onPress={gotoGame}
+              style={nextButtonStyle}
+            />
+          )}
+        </>
+      );
+    }, [gotoMenu, winner, gotoGame]);
+
     return (
-      <View style={styles.container}>
+      <MainLayout style={styles.container} bottomPanel={bottomPanel}>
         {winner && <Text>{`Team "${winner.name}" won`}</Text>}
-        <Text>{`The next team is "${currentTeam.name}"`}</Text>
+        <Text>{`Очередь команды "${currentTeam.name}"`}</Text>
         {gameTeams.map((team) => {
-          const isCurrentTeam = team.uuid === currentTeam.uuid;
           return (
-            <View key={team.uuid} style={styles.teamWrapper}>
-              <Text style={[isCurrentTeam && styles.activeTeam]}>
-                {team.name}
-              </Text>
-              <Text>{team.points}</Text>
-            </View>
+            <TeamWithScore
+              key={team.uuid}
+              containerStyle={styles.teamWrapper}
+              team={team}
+            />
           );
         })}
-        {winner ? (
-          <Button title="Go to home" onPress={gotoMenu} />
-        ) : (
-          <Button title="Play" onPress={gotoGame} />
-        )}
-      </View>
+      </MainLayout>
     );
   }
 );

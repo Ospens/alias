@@ -19,4 +19,10 @@ export default StyleSheet.create({
     fontWeight: "600",
     fontSize: 18,
   },
+  score: {
+    display: "flex",
+    color: colors.text.black,
+    fontWeight: "600",
+    fontSize: 18,
+  },
 });

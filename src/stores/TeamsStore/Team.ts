@@ -3,9 +3,9 @@ import { generateUUID } from "utils";
 import { colors } from "themes";
 import { ALL_TEAMS } from "./TeamsStore.utils";
 import type TeamsStore from "./TeamsStore";
-import type { TeamData } from "./TeamsStore.types";
+import type { ITeam, TeamData } from "./TeamsStore.types";
 
-export class Team {
+export class Team implements ITeam {
   private store: TeamsStore;
 
   public uuid: string;
