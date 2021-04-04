@@ -1,12 +1,16 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, NavigatorScreenParams } from "@react-navigation/native";
 
 export type RootStackParamList = {
   Home: undefined;
   Settings: undefined;
   WordSets: undefined;
-  Game: undefined;
+  Game: NavigatorScreenParams<GameStackParamList>;
+};
+
+export type GameStackParamList = {
   Overview: undefined;
+  Round: undefined;
 };
 
 type RootStack = keyof RootStackParamList;

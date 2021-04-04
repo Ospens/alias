@@ -1,12 +1,11 @@
 import React, { FC, useCallback } from "react";
 import Switch from "components/Switch";
 import { observer } from "mobx-react-lite";
-import { useStore } from "stores";
+import { useGameStore } from "routing/GameRouting.store";
 import type { WordRowProps } from "./RoundResults.types";
 
 const WordRow: FC<WordRowProps> = observer(({ word }) => {
-  const { gameStore } = useStore("rootStore");
-  const { toggleWordStatus } = gameStore || {};
+  const { toggleWordStatus } = useGameStore();
   const onValueChange = useCallback(
     (checked: boolean) => {
       if (toggleWordStatus) {
@@ -16,11 +15,6 @@ const WordRow: FC<WordRowProps> = observer(({ word }) => {
     [toggleWordStatus, word]
   );
 
-  if (gameStore === undefined) {
-    // eslint-disable-next-line no-console
-    console.error("gameStore is undefined");
-    return null;
-  }
   return (
     <Switch
       title={word.value}

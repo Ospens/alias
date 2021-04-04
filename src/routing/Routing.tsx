@@ -3,9 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "screens/HomeScreen";
 import SettingsScreen from "screens/SettingsScreen";
 import WordSetsScreen from "screens/WordSetsScreen";
-import OverviewScreen from "screens/OverviewScreen";
-import GameScreen from "screens/GameScreen";
 import { SCREEN_OPTIONS } from "./Routing.utils";
+import { GameRouting } from "./GameRouting";
 import type { RootStackParamList } from "./Routing.types";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -28,14 +27,9 @@ const Routing = memo(() => (
       options={SCREEN_OPTIONS.WORD_SETS}
     />
     <Stack.Screen
-      name="Overview"
-      component={OverviewScreen}
-      options={SCREEN_OPTIONS.OVERVIEW}
-    />
-    <Stack.Screen
       name="Game"
-      component={GameScreen}
-      options={{ title: "Game", headerShown: false, gestureEnabled: false }}
+      component={GameRouting}
+      options={{ headerShown: false }}
     />
   </Stack.Navigator>
 ));

@@ -1,8 +1,6 @@
 import React, { FC, useCallback, useMemo } from "react";
-import { View, Text, Button } from "react-native";
+import { Text } from "react-native";
 import { observer } from "mobx-react-lite";
-import { useStore } from "stores";
-import type { INavigatorProps } from "routing";
 import { TeamWithScore } from "components/Team";
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
@@ -10,29 +8,24 @@ import {
   backButtonStyle,
   nextButtonStyle,
 } from "screens/WordSetsScreen/WordSetsScreen.styles";
+import { useGameStore } from "routing/GameRouting.store";
+import type { INavigatorProps } from "routing";
 import styles from "./OverviewScreen.styles";
 
-const OverviewScreen: FC<INavigatorProps<"Overview">> = observer(
-  ({ navigation }) => {
-    const { gameStore } = useStore("rootStore");
+const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
+  ({ navigation: { navigate } }) => {
+    const { startRound, gameTeams, currentTeam, winner } = useGameStore();
 
     const gotoGame = useCallback(() => {
-      if (gameStore) {
-        gameStore.startRound();
-      }
-      navigation.navigate("Game");
-    }, [gameStore, navigation]);
+      startRound();
+      navigate("Game", {
+        screen: "Round",
+      });
+    }, [navigate, startRound]);
 
     const gotoMenu = useCallback(() => {
-      navigation.navigate("Home");
-    }, [navigation]);
-
-    if (gameStore === undefined) {
-      // eslint-disable-next-line no-console
-      console.error("gameStore is undefined");
-      return null;
-    }
-    const { gameTeams, currentTeam, winner } = gameStore;
+      navigate("WordSets");
+    }, [navigate]);
 
     const bottomPanel = useMemo(() => {
       return (

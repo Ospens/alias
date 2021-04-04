@@ -41,11 +41,19 @@ class TeamsStore {
     });
   }
 
+  private generateTeamData = () => {
+    const notAvailableTeams = this.teams.map((team) => team.uuid);
+    const team = ALL_TEAMS.filter(
+      ({ uuid }) => !notAvailableTeams.includes(uuid)
+    )?.[0];
+    return { ...team, order: this.teams.length };
+  };
+
   get hasAvailableTeam(): boolean {
     return this.teams.length < ALL_TEAMS.length;
   }
 
-  public createTeam = (data?: TeamData) => {
+  public createTeam = (data: TeamData = this.generateTeamData()) => {
     const team = new Team(this, data);
     this.teams.push(team);
   };

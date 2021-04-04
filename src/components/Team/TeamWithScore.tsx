@@ -3,14 +3,14 @@ import { Text } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { observer } from "mobx-react-lite";
 import { colors } from "themes";
-import { useStore } from "stores";
+import { useGameStore } from "routing/GameRouting.store";
 import styles from "./Team.styles";
 import type { TeamWithScoreProps } from "./Team.types";
 import { backgroundGradientProps } from "./Team.utils";
 
 const TeamWithScore = observer(
   ({ team, containerStyle }: TeamWithScoreProps) => {
-    const { currentTeam } = useStore("rootStore").gameStore!;
+    const { currentTeam } = useGameStore();
     const gradientColors = useMemo(() => [team.color, colors.transparent], [
       team.color,
     ]);

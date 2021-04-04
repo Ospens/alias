@@ -17,7 +17,6 @@ const keyExtractor = (team: WordSetItem) => team.id.toString();
 const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
   ({ navigation }) => {
     const {
-      createGameStore,
       wordsStore: { wordSets },
     } = useStore("rootStore");
 
@@ -26,9 +25,10 @@ const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
     }, [navigation]);
 
     const gotoGame = useCallback(() => {
-      createGameStore();
-      navigation.navigate("Overview");
-    }, [createGameStore, navigation]);
+      navigation.navigate("Game", {
+        screen: "Overview",
+      });
+    }, [navigation]);
 
     const checkedGroups = wordSets.filter((g) => g.checked);
 

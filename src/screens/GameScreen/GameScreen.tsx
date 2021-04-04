@@ -1,33 +1,34 @@
-import React, { FC, useCallback, useMemo, useEffect } from "react";
+import React, { useMemo } from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
 import type { INavigatorProps } from "routing";
 import WordCard from "components/WordCard";
 import Timer from "components/Timer";
-import RoundResults from "./RoundResults";
+import { useGameStore } from "routing/GameRouting.store";
 import styles from "./GameScreen.styles";
+import RoundResults from "./RoundResults";
 
-const GameScreen: FC<INavigatorProps<"Game">> = observer(({ navigation }) => {
+const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
   const {
     settingsStore: { roundDuration },
-    gameStore,
   } = useStore("rootStore");
-
-  const { onTimeOver, wordsFromRound } = gameStore || {};
-
-  const onExpire = useCallback(() => {
-    if (onTimeOver) {
-      onTimeOver();
-    }
-  }, [onTimeOver]);
+  const {
+    handleTimeOver,
+    wordsFromRound,
+    currentTeam,
+    currentWord,
+    onDecline,
+    onGuess,
+    showResults,
+  } = useGameStore();
 
   const guessedLength = useMemo(() => {
-    return wordsFromRound?.filter((w) => w.status === "GUESSED").length || 0;
+    return wordsFromRound.filter((w) => w.status === "GUESSED").length || 0;
   }, [wordsFromRound]);
 
   const declinedLength = useMemo(() => {
-    return wordsFromRound?.filter((w) => w.status === "DECLINED").length || 0;
+    return wordsFromRound.filter((w) => w.status === "DECLINED").length || 0;
   }, [wordsFromRound]);
 
   // useEffect(() => {
@@ -41,20 +42,6 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(({ navigation }) => {
   //   };
   // }, [navigation]);
 
-  if (gameStore === undefined) {
-    // eslint-disable-next-line no-console
-    console.error("gameStore is undefined");
-    return null;
-  }
-
-  const {
-    currentTeam,
-    currentWord,
-    onDecline,
-    onGuess,
-    showResults,
-  } = gameStore;
-
   if (showResults) {
     return (
       <SafeAreaView style={styles.container}>
@@ -66,7 +53,7 @@ const GameScreen: FC<INavigatorProps<"Game">> = observer(({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.timerWrapper}>
-        <Timer seconds={roundDuration} onExpire={onExpire} />
+        <Timer seconds={roundDuration} onExpire={handleTimeOver} />
       </View>
 
       <View style={styles.wordCardWrapper}>

@@ -24,14 +24,7 @@ class GameStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.gameTeams = this.rootStore.teamsStore.teams.map((team, index) => {
-      return {
-        ...team,
-        points: 0,
-        rounds: 0,
-        order: index,
-      };
-    });
+    this.gameTeams = this.rootStore.teamsStore.teams;
     [this.currentTeam] = this.gameTeams;
     // need to be on the bottom line of constructor
     makeAutoObservable(this);
@@ -61,7 +54,7 @@ class GameStore {
     }
   };
 
-  public onTimeOver = () => {
+  public handleTimeOver = () => {
     this.timeOver = true;
   };
 

@@ -1,5 +1,5 @@
 const colors = {
-  background: "rgba(255,255,236,0.4)",
+  background: "#F9F9F2",
   headerText: "#000000",
 
   text: {

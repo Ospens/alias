@@ -1,7 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { generateUUID } from "utils";
 import { colors } from "themes";
-import { ALL_TEAMS } from "./TeamsStore.utils";
 import type TeamsStore from "./TeamsStore";
 import type { ITeam, TeamData } from "./TeamsStore.types";
 
@@ -14,28 +13,22 @@ export class Team implements ITeam {
 
   public color: string;
 
-  constructor(store: TeamsStore, data?: TeamData) {
-    makeAutoObservable(this);
-    this.store = store;
-    const team = data || this.generateTeamData();
-    this.uuid = team.uuid;
-    this.name = team.name;
-    this.color = team.color;
-  }
+  public points: number;
 
-  private generateTeamData = () => {
-    const notAvailableTeams = this.store.teams.map((team) => team.uuid);
-    const team = ALL_TEAMS.filter(
-      ({ uuid }) => !notAvailableTeams.includes(uuid)
-    )[0];
-    return (
-      team ?? {
-        uuid: generateUUID(),
-        name: `Команда ${notAvailableTeams.length + 1}`,
-        color: colors.teams.grey,
-      }
-    );
-  };
+  public rounds: number;
+
+  public order: number;
+
+  constructor(store: TeamsStore, data: TeamData) {
+    this.store = store;
+    this.uuid = data.uuid ?? generateUUID();
+    this.name = data.name ?? `Команда ${data.order + 1}`;
+    this.color = data?.color ?? colors.teams.grey;
+    this.points = 0;
+    this.rounds = 0;
+    this.order = data.order;
+    makeAutoObservable(this);
+  }
 
   public removeTeam = () => {
     this.store.removeTeam(this);
