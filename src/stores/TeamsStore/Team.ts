@@ -13,20 +13,11 @@ export class Team implements ITeam {
 
   public color: string;
 
-  public points: number;
-
-  public rounds: number;
-
-  public order: number;
-
   constructor(store: TeamsStore, data: TeamData) {
     this.store = store;
     this.uuid = data.uuid ?? generateUUID();
-    this.name = data.name ?? `Команда ${data.order + 1}`;
+    this.name = data.name;
     this.color = data?.color ?? colors.teams.grey;
-    this.points = 0;
-    this.rounds = 0;
-    this.order = data.order;
     makeAutoObservable(this);
   }
 

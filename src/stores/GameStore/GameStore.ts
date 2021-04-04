@@ -24,7 +24,14 @@ class GameStore {
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.gameTeams = this.rootStore.teamsStore.teams;
+    this.gameTeams = this.rootStore.teamsStore.teams.map((team, index) => {
+      return {
+        ...team,
+        points: 0,
+        rounds: 0,
+        order: index,
+      };
+    });
     [this.currentTeam] = this.gameTeams;
     // need to be on the bottom line of constructor
     makeAutoObservable(this);

@@ -46,7 +46,7 @@ class TeamsStore {
     const team = ALL_TEAMS.filter(
       ({ uuid }) => !notAvailableTeams.includes(uuid)
     )[0];
-    return { ...team, order: this.teams.length };
+    return { ...team, name: `Команда ${this.teams.length + 1}` };
   };
 
   get hasAvailableTeam(): boolean {
