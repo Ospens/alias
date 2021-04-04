@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo } from "react";
-import { Text } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { observer } from "mobx-react-lite";
 import { TeamWithScore } from "components/Team";
 import MainLayout from "components/MainLayout";
@@ -55,17 +55,19 @@ const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
 
     return (
       <MainLayout style={styles.container} bottomPanel={bottomPanel}>
-        {winner && <Text>{`Team "${winner.name}" won`}</Text>}
-        <Text>{`Очередь команды "${currentTeam.name}"`}</Text>
-        {gameTeams.map((team) => {
-          return (
+        <ScrollView>
+          <Text style={styles.queueText}>
+            {`Очередь команды "${currentTeam.name}"`}
+          </Text>
+          {gameTeams.map((team) => (
             <TeamWithScore
               key={team.uuid}
               containerStyle={styles.teamWrapper}
               team={team}
             />
-          );
-        })}
+          ))}
+        </ScrollView>
+        <Text style={styles.roundNumber}>Круг: 1</Text>
       </MainLayout>
     );
   }

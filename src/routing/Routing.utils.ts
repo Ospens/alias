@@ -28,6 +28,7 @@ const SCREEN_OPTIONS = {
     ...defaultScreenOptions,
     title: "Выбор набора слов",
   },
+  GAME_ROUTING: { headerShown: false },
   OVERVIEW: {
     ...defaultScreenOptions,
     title: "Подготовка",

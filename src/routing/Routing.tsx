@@ -29,7 +29,7 @@ const Routing = memo(() => (
     <Stack.Screen
       name="Game"
       component={GameRouting}
-      options={{ headerShown: false }}
+      options={SCREEN_OPTIONS.GAME_ROUTING}
     />
   </Stack.Navigator>
 ));

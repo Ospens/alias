@@ -41,11 +41,11 @@ class TeamsStore {
     });
   }
 
-  private generateTeamData = () => {
+  private generateTeamData = (): TeamData => {
     const notAvailableTeams = this.teams.map((team) => team.uuid);
     const team = ALL_TEAMS.filter(
       ({ uuid }) => !notAvailableTeams.includes(uuid)
-    )?.[0];
+    )[0];
     return { ...team, order: this.teams.length };
   };
 
