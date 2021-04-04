@@ -32,6 +32,10 @@ class WordSet {
   public toggleCheck = () => {
     this.checked = !this.checked;
   };
+
+  public setCheck = (value: boolean) => {
+    this.checked = value;
+  };
 }
 
 export default WordSet;

@@ -20,16 +20,13 @@ class WordsStore {
   private saveHandler: IReactionDisposer;
 
   constructor() {
-    getData("WORDS_STORE_GROUPS").then((checkedSetIds) => {
+    this.wordSets = WORD_SETS_DATA.map((set) => new WordSet(set));
+    getData("WORDS_STORE_GROUPS").then((checkedSetIds: unknown) => {
       runInAction(() => {
         if (checkedSetIds && Array.isArray(checkedSetIds)) {
-          this.wordSets = WORD_SETS_DATA.map(
-            (set) =>
-              new WordSet({
-                ...set,
-                checked: checkedSetIds.includes(set.id),
-              })
-          );
+          checkedSetIds.forEach((c) => {
+            this.wordSets.find((id) => id === c.id)?.setCheck(true);
+          });
         }
       });
     });
