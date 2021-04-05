@@ -24,8 +24,8 @@ class WordsStore {
     getData("WORDS_STORE_GROUPS").then((checkedSetIds: unknown) => {
       runInAction(() => {
         if (checkedSetIds && Array.isArray(checkedSetIds)) {
-          checkedSetIds.forEach((c) => {
-            this.wordSets.find((id) => id === c.id)?.setCheck(true);
+          checkedSetIds.forEach((checkedId) => {
+            this.wordSets.find(({ id }) => id === checkedId)?.setCheck(true);
           });
         }
       });

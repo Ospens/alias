@@ -1,9 +1,10 @@
-import React, { FC, memo, useCallback } from "react";
+import React, { FC, useCallback } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { observer } from "mobx-react-lite";
 import styles from "./WordCard.styles";
 import type { WordCardProps } from "./WordCard.types";
 
-const WordCard: FC<WordCardProps> = memo(
+const WordCard: FC<WordCardProps> = observer(
   ({ word, onGuess: onGuessProp, onDecline: onDeclineProp }) => {
     const onGuess = useCallback(() => {
       onGuessProp(word);
