@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import type { IWord } from "stores/WordsStore";
-import type { RootStore } from "../RootStore";
+import { Team } from "stores/TeamsStore";
+import type { IWord, WordsStore } from "../WordsStore";
 import type {
   ITeamGameInfo,
   IWordsFromRound,
@@ -8,7 +8,11 @@ import type {
 } from "./GameStore.type";
 
 class GameStore {
-  public rootStore: RootStore;
+  private readonly wordsStore: WordsStore;
+
+  private readonly penaltyForSkip: boolean;
+
+  private readonly pointsForWin: number;
 
   public currentTeam: ITeamGameInfo;
 
@@ -22,9 +26,16 @@ class GameStore {
 
   public winner: ITeamGameInfo | undefined = undefined;
 
-  constructor(rootStore: RootStore) {
-    this.rootStore = rootStore;
-    this.gameTeams = this.rootStore.teamsStore.teams.map((team, index) => {
+  constructor(
+    wordsStore: WordsStore,
+    teams: Team[],
+    penaltyForSkip: boolean,
+    pointsForWin: number
+  ) {
+    this.wordsStore = wordsStore;
+    this.pointsForWin = pointsForWin;
+    this.penaltyForSkip = penaltyForSkip;
+    this.gameTeams = teams.map((team, index) => {
       return {
         ...team,
         points: 0,
@@ -33,7 +44,7 @@ class GameStore {
       };
     });
     [this.currentTeam] = this.gameTeams;
-    // need to be on the bottom line of constructor
+    // need to be after assignments
     makeAutoObservable(this);
   }
 
@@ -44,7 +55,7 @@ class GameStore {
   get randomUniqWord(): IWordsFromRound {
     const values = this.wordsFromRound.map((w) => w.value);
     return {
-      ...this.rootStore.wordsStore.getRandomUnusedWord(values),
+      ...this.wordsStore.getRandomUnusedWord(values),
       status: "IDLE",
     };
   }
@@ -87,7 +98,7 @@ class GameStore {
     const guessedCount = this.wordsFromRound.filter(
       (w) => w.status === "GUESSED"
     ).length;
-    const penaltyPoints = this.rootStore.settingsStore.penaltyForSkip
+    const penaltyPoints = this.penaltyForSkip
       ? this.wordsFromRound.filter((w) => w.status === "DECLINED").length
       : 0;
 
@@ -109,9 +120,8 @@ class GameStore {
       (round) => round === teamsRounds[0]
     );
     if (allTeamsFinishedRound) {
-      const { pointsForWin } = this.rootStore.settingsStore;
       const winners = this.gameTeams
-        .filter((team) => team.points > pointsForWin)
+        .filter((team) => team.points > this.pointsForWin)
         .sort((teamA, teamB) => teamB.points - teamA.points); // The higher points
       // TODO: add case when multiple teams have the same top result
       if (
