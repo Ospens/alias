@@ -34,8 +34,7 @@ export const GameRouting = observer(() => {
         <GameStack.Screen
           name="Round"
           component={GameScreen}
-          options={SCREEN_OPTIONS.OVERVIEW}
-          // options={{ title: "Game", headerShown: false, gestureEnabled: false }}
+          options={SCREEN_OPTIONS.ROUND}
         />
       </GameStack.Navigator>
     </GameStoreProvider>

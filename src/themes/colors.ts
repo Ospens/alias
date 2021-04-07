@@ -4,6 +4,7 @@ const colors = {
 
   text: {
     black: "#000000",
+    white: "#FFFFFF",
   },
 
   teams: {
@@ -15,6 +16,7 @@ const colors = {
 
   buttons: {
     accept: "#3DD9AD",
+    decline: "#F2529D",
   },
 
   borders: {
@@ -24,6 +26,8 @@ const colors = {
 
   transparent: "rgba(255,255,255,0)",
   black: "#000000",
+  white: "#FFFFFF",
+  grey: "#ECECEC",
   pink: "#F2529D",
 };
 

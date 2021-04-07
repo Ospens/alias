@@ -48,14 +48,26 @@ class GameStore {
     makeAutoObservable(this);
   }
 
+  get guessedCount() {
+    return (
+      this.wordsFromRound.filter((w) => w.status === "GUESSED").length || 0
+    );
+  }
+
+  get declinedCount() {
+    return (
+      this.wordsFromRound.filter((w) => w.status === "DECLINED").length || 0
+    );
+  }
+
   get currentWord() {
     return this.wordsFromRound.find(({ status }) => status === "IDLE");
   }
 
   get randomUniqWord(): IWordsFromRound {
-    const values = this.wordsFromRound.map((w) => w.value);
+    const wordValues = this.wordsFromRound.map((w) => w.value);
     return {
-      ...this.wordsStore.getRandomUnusedWord(values),
+      ...this.wordsStore.getRandomUnusedWord(wordValues),
       status: "IDLE",
     };
   }
@@ -76,12 +88,12 @@ class GameStore {
     this.timeOver = true;
   };
 
-  public onGuess = (wordValue: string) => {
-    this.handleQueueWords(wordValue, "GUESSED");
+  public guessCurrentWord = () => {
+    this.handleQueueWords(this.currentWord, "GUESSED");
   };
 
-  public onDecline = (wordValue: string) => {
-    this.handleQueueWords(wordValue, "DECLINED");
+  public declineCurrentWord = () => {
+    this.handleQueueWords(this.currentWord, "DECLINED");
   };
 
   public toggleWordStatus = (word: IWord, guessed: boolean) => {
@@ -89,9 +101,7 @@ class GameStore {
     const wordIndex = this.wordsFromRound.findIndex(
       (w) => w.value === word.value
     );
-    this.wordsFromRound = Object.assign([], this.wordsFromRound, {
-      [wordIndex]: { ...this.wordsFromRound[wordIndex], status },
-    });
+    this.wordsFromRound[wordIndex].status = status;
   };
 
   public saveResultsAndPrepareNextRound = () => {
@@ -134,15 +144,15 @@ class GameStore {
     this.toggleCurrentTeam();
   };
 
-  public handleQueueWords = (wordValue: string, status: WordsStatus) => {
+  public handleQueueWords = (word: IWord, status: WordsStatus) => {
     const wordIndex = this.wordsFromRound.findIndex(
-      (w) => w.status === "IDLE" && w.value === wordValue
+      (w) => w.status === "IDLE" && w.value === word.value
     );
-    this.wordsFromRound = Object.assign([], this.wordsFromRound, {
-      [wordIndex]: { ...this.wordsFromRound[wordIndex], status },
-    });
+
+    this.wordsFromRound[wordIndex].status = status;
+
     if (!this.timeOver) {
-      this.wordsFromRound = [...this.wordsFromRound, this.randomUniqWord];
+      this.wordsFromRound.push(this.randomUniqWord);
     } else {
       this.showResults = true;
     }

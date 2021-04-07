@@ -28,10 +28,13 @@ const SCREEN_OPTIONS = {
     ...defaultScreenOptions,
     title: "Выбор набора слов",
   },
-  GAME_ROUTING: { headerShown: false },
+  GAME_ROUTING: { headerShown: false, gestureEnabled: false },
   OVERVIEW: {
     ...defaultScreenOptions,
     title: "Подготовка",
+  },
+  ROUND: {
+    headerShown: false,
   },
 };
 
