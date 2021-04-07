@@ -12,7 +12,7 @@ class GameStore {
 
   private readonly penaltyForSkip: boolean;
 
-  private readonly pointsForWin: number;
+  public readonly pointsForWin: number;
 
   public currentTeam: ITeamGameInfo;
 
@@ -48,18 +48,6 @@ class GameStore {
     makeAutoObservable(this);
   }
 
-  get guessedCount() {
-    return (
-      this.wordsFromRound.filter((w) => w.status === "GUESSED").length || 0
-    );
-  }
-
-  get declinedCount() {
-    return (
-      this.wordsFromRound.filter((w) => w.status === "DECLINED").length || 0
-    );
-  }
-
   get currentWord() {
     return this.wordsFromRound.find(({ status }) => status === "IDLE");
   }
@@ -89,11 +77,15 @@ class GameStore {
   };
 
   public guessCurrentWord = () => {
-    this.handleQueueWords(this.currentWord, "GUESSED");
+    if (this.currentWord) {
+      this.handleQueueWords(this.currentWord, "GUESSED");
+    }
   };
 
   public declineCurrentWord = () => {
-    this.handleQueueWords(this.currentWord, "DECLINED");
+    if (this.currentWord) {
+      this.handleQueueWords(this.currentWord, "DECLINED");
+    }
   };
 
   public toggleWordStatus = (word: IWord, guessed: boolean) => {

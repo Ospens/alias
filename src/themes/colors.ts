@@ -29,6 +29,7 @@ const colors = {
   white: "#FFFFFF",
   grey: "#ECECEC",
   pink: "#F2529D",
+  yellow: "#D9CA43",
 };
 
 export { colors };

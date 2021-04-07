@@ -8,11 +8,25 @@ export default StyleSheet.create({
   wordCardWrapper: {
     flex: 3,
   },
-  timerWrapper: {
+  topWrapper: {
     flex: 2,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  statsWrapper: {
-    flex: 2,
+  pauseButton: {
+    flex: 1,
+  },
+  score: {
+    flex: 1,
+    textAlign: "right",
+    color: colors.yellow,
+    fontWeight: "800",
+    fontSize: 28,
+    lineHeight: 28,
+  },
+  currentScore: {
+    color: colors.yellow,
+    fontSize: 18,
   },
   declineButton: {
     flex: 1,

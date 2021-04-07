@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
 import WordCard from "components/WordCard";
@@ -7,6 +7,8 @@ import Timer from "components/Timer";
 import { useGameStore } from "routing/GameRouting.store";
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
+import { PauseIcon } from "components/svg";
+import { colors } from "themes";
 import styles from "./GameScreen.styles";
 import RoundResults from "./RoundResults";
 
@@ -16,14 +18,13 @@ const GameScreen = observer(() => {
   } = useStore("rootStore");
 
   const {
-    guessedCount,
-    declinedCount,
     handleTimeOver,
-    currentTeam,
     currentWord,
     declineCurrentWord,
     guessCurrentWord,
     showResults,
+    currentTeam,
+    pointsForWin,
   } = useGameStore();
 
   const bottomPanel = useMemo(() => {
@@ -55,8 +56,15 @@ const GameScreen = observer(() => {
 
   return (
     <MainLayout bottomPanel={bottomPanel}>
-      <View style={styles.timerWrapper}>
+      <View style={styles.topWrapper}>
+        <TouchableOpacity style={styles.pauseButton}>
+          <PauseIcon fill={colors.yellow} />
+        </TouchableOpacity>
         <Timer seconds={roundDuration} onExpire={handleTimeOver} />
+        <Text style={styles.score}>
+          <Text style={styles.currentScore}>{`${currentTeam.points}/`}</Text>
+          {pointsForWin}
+        </Text>
       </View>
 
       <View style={styles.wordCardWrapper}>
@@ -65,12 +73,6 @@ const GameScreen = observer(() => {
         ) : (
           <Text>Слова закончились :(</Text>
         )}
-      </View>
-
-      <View style={styles.statsWrapper}>
-        <Text>{`Пропущено: ${declinedCount}`}</Text>
-        <Text>{`Очки: ${currentTeam.points}`}</Text>
-        <Text>{`Отгадано: ${guessedCount}`}</Text>
       </View>
     </MainLayout>
   );
