@@ -7,6 +7,10 @@ const colors = {
     white: "#FFFFFF",
   },
 
+  overlay: {
+    background: "rgba(0,0,0,0.9)",
+  },
+
   teams: {
     purple: "rgba(70,64,219,0.5)",
     pink: "rgba(242,82,157,0.5)",

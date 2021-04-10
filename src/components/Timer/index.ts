@@ -1,5 +1,5 @@
 import Timer from "./Timer";
-import type { TimerProps } from "./Timer.types";
+import type { TimerProps, TimerRef } from "./Timer.types";
 
 export default Timer;
-export type { TimerProps };
+export type { TimerProps, TimerRef };
