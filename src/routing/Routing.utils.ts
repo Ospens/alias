@@ -35,6 +35,12 @@ const SCREEN_OPTIONS = {
   },
   ROUND: {
     headerShown: false,
+    gestureEnabled: false,
+  },
+  ROUND_RESULTS: {
+    ...defaultScreenOptions,
+    title: "Результаты",
+    gestureEnabled: false,
   },
 };
 

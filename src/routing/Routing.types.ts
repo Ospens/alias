@@ -11,6 +11,7 @@ export type RootStackParamList = {
 export type GameStackParamList = {
   Overview: undefined;
   Round: undefined;
+  RoundResults: undefined;
 };
 
 type RootStack = keyof RootStackParamList;

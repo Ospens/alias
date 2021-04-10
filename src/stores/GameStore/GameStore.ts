@@ -76,16 +76,18 @@ class GameStore {
     this.timeOver = true;
   };
 
-  public guessCurrentWord = () => {
+  public guessCurrentWord = async () => {
     if (this.currentWord) {
       this.handleQueueWords(this.currentWord, "GUESSED");
     }
+    return this.showResults;
   };
 
-  public declineCurrentWord = () => {
+  public declineCurrentWord = async () => {
     if (this.currentWord) {
       this.handleQueueWords(this.currentWord, "DECLINED");
     }
+    return this.showResults;
   };
 
   public toggleWordStatus = (word: IWord, guessed: boolean) => {

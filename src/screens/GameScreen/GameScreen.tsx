@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { observer } from "mobx-react-lite";
 import { useStore } from "stores";
 import WordCard from "components/WordCard";
@@ -11,10 +11,10 @@ import RectangleButton from "components/ReactangleButton";
 import { PauseIcon } from "components/svg";
 import { colors } from "themes";
 import PauseOverlay from "screens/GameScreen/PauseOverlay";
+import type { INavigatorProps } from "routing";
 import styles from "./GameScreen.styles";
-import RoundResults from "./RoundResults";
 
-const GameScreen = observer(() => {
+const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
   const {
     settingsStore: { roundDuration },
   } = useStore("rootStore");
@@ -24,13 +24,32 @@ const GameScreen = observer(() => {
     currentWord,
     declineCurrentWord,
     guessCurrentWord,
-    showResults,
     currentTeam,
     pointsForWin,
   } = useGameStore();
 
   const timerRef = useRef<TimerRef>(null);
   const [isPaused, setIsPaused] = useState(false);
+
+  const handleDeclineCurrentWord = useCallback(() => {
+    declineCurrentWord().then((showResults) => {
+      if (showResults) {
+        navigation.navigate("Game", {
+          screen: "RoundResults",
+        });
+      }
+    });
+  }, [declineCurrentWord, navigation]);
+
+  const handleGuessCurrentWord = useCallback(() => {
+    guessCurrentWord().then((showResults) => {
+      if (showResults) {
+        navigation.navigate("Game", {
+          screen: "RoundResults",
+        });
+      }
+    });
+  }, [guessCurrentWord, navigation]);
 
   const pauseTimer = useCallback(() => {
     timerRef.current?.pause();
@@ -47,27 +66,19 @@ const GameScreen = observer(() => {
       <>
         <RectangleButton
           title="Пропустить"
-          onPress={declineCurrentWord}
+          onPress={handleDeclineCurrentWord}
           style={styles.declineButton}
           textStyle={styles.declineButtonTitle}
         />
         <RectangleButton
           title="Правильно"
-          onPress={guessCurrentWord}
+          onPress={handleGuessCurrentWord}
           style={styles.guessButton}
           textStyle={styles.guessButtonTitle}
         />
       </>
     );
-  }, [declineCurrentWord, guessCurrentWord]);
-
-  if (showResults) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <RoundResults />
-      </SafeAreaView>
-    );
-  }
+  }, [handleDeclineCurrentWord, handleGuessCurrentWord]);
 
   return (
     <>
@@ -87,11 +98,7 @@ const GameScreen = observer(() => {
           </Text>
         </View>
         <View style={styles.wordCardWrapper}>
-          {currentWord ? (
-            <WordCard word={currentWord} />
-          ) : (
-            <Text>Слова закончились :(</Text>
-          )}
+          {currentWord && <WordCard word={currentWord} />}
         </View>
       </MainLayout>
       <PauseOverlay isPaused={isPaused} onResume={resumeTimer} />

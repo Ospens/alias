@@ -1,6 +1,6 @@
 import type { IWordsFromRound } from "stores/GameStore";
 
-export interface RoundResultsProps {}
+export interface RoundResultsScreenProps {}
 
 export interface WordRowProps {
   word: IWordsFromRound;
