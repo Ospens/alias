@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useMemo } from "react";
 import GameScreen from "screens/GameScreen";
 import OverviewScreen from "screens/OverviewScreen";
 import RoundResultsScreen from "screens/RoundResultsScreen";
@@ -12,16 +12,24 @@ import { GameStoreProvider } from "./GameRouting.store";
 
 const GameStack = createStackNavigator<GameStackParamList>();
 
-// TODO observer and memo not working. Need to check why
+// TODO: even with observer make rerenders
 export const GameRouting = observer(() => {
   const {
     teamsStore: { teams },
-    settingsStore: { penaltyForSkip, pointsForWin },
+    settingsStore: { penaltyForSkip, pointsForWin, roundDuration },
     wordsStore,
   } = useRootStore();
 
-  const { current: gameStore } = useRef(
-    new GameStore(wordsStore, teams, penaltyForSkip, pointsForWin)
+  const gameStore = useMemo(
+    () =>
+      new GameStore(
+        wordsStore,
+        teams,
+        penaltyForSkip,
+        pointsForWin,
+        roundDuration
+      ),
+    [penaltyForSkip, pointsForWin, roundDuration, teams, wordsStore]
   );
 
   return (

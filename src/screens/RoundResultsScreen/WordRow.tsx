@@ -10,9 +10,7 @@ const WordRow: FC<WordRowProps> = observer(({ word }) => {
 
   const onValueChange = useCallback(
     (checked: boolean) => {
-      if (toggleWordStatus) {
-        toggleWordStatus(word, checked);
-      }
+      toggleWordStatus(word, checked);
     },
     [toggleWordStatus, word]
   );
@@ -22,7 +20,7 @@ const WordRow: FC<WordRowProps> = observer(({ word }) => {
       style={styles.wordRow}
       title={word.value}
       onValueChange={onValueChange}
-      value={word.status === "GUESSED"}
+      value={word.guessed}
     />
   );
 });

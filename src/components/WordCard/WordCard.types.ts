@@ -1,5 +1,5 @@
-import { IWordsFromRound } from "stores/GameStore";
+import { IWord } from "stores/WordsStore";
 
 export interface WordCardProps {
-  word: IWordsFromRound;
+  word: IWord;
 }

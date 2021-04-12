@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { observer } from "mobx-react-lite";
-import { useStore } from "stores";
 import WordCard from "components/WordCard";
 import Timer from "components/Timer";
 import type { TimerRef } from "components/Timer";
@@ -16,16 +15,13 @@ import styles from "./GameScreen.styles";
 
 const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
   const {
-    settingsStore: { roundDuration },
-  } = useStore("rootStore");
-
-  const {
     handleTimeOver,
     currentWord,
     declineCurrentWord,
     guessCurrentWord,
     currentTeam,
     pointsForWin,
+    roundDuration,
   } = useGameStore();
 
   const timerRef = useRef<TimerRef>(null);

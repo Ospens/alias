@@ -1,11 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { Team } from "stores/TeamsStore";
 import type { IWord, WordsStore } from "../WordsStore";
-import type {
-  ITeamGameInfo,
-  IWordsFromRound,
-  WordsStatus,
-} from "./GameStore.type";
+import type { ITeamGameInfo, IWordsFromRound } from "./GameStore.type";
 
 class GameStore {
   private readonly wordsStore: WordsStore;
@@ -13,6 +9,8 @@ class GameStore {
   private readonly penaltyForSkip: boolean;
 
   public readonly pointsForWin: number;
+
+  public readonly roundDuration: number;
 
   public currentTeam: ITeamGameInfo;
 
@@ -24,17 +22,23 @@ class GameStore {
 
   public showResults: boolean = false;
 
+  public currentWord: IWord;
+
   public winner: ITeamGameInfo | undefined = undefined;
 
   constructor(
     wordsStore: WordsStore,
     teams: Team[],
     penaltyForSkip: boolean,
-    pointsForWin: number
+    pointsForWin: number,
+    roundDuration: number
   ) {
+    console.log("===> GameStore constructor");
     this.wordsStore = wordsStore;
     this.pointsForWin = pointsForWin;
     this.penaltyForSkip = penaltyForSkip;
+    this.roundDuration = roundDuration;
+    this.currentWord = this.wordsStore.getRandomUnusedWord();
     this.gameTeams = teams.map((team, index) => {
       return {
         ...team,
@@ -46,18 +50,6 @@ class GameStore {
     [this.currentTeam] = this.gameTeams;
     // need to be after assignments
     makeAutoObservable(this);
-  }
-
-  get currentWord() {
-    return this.wordsFromRound.find(({ status }) => status === "IDLE");
-  }
-
-  get randomUniqWord(): IWordsFromRound {
-    const wordValues = this.wordsFromRound.map((w) => w.value);
-    return {
-      ...this.wordsStore.getRandomUnusedWord(wordValues),
-      status: "IDLE",
-    };
   }
 
   public toggleCurrentTeam = () => {
@@ -77,33 +69,26 @@ class GameStore {
   };
 
   public guessCurrentWord = async () => {
-    if (this.currentWord) {
-      this.handleQueueWords(this.currentWord, "GUESSED");
-    }
+    this.handleQueueWords(true);
     return this.showResults;
   };
 
   public declineCurrentWord = async () => {
-    if (this.currentWord) {
-      this.handleQueueWords(this.currentWord, "DECLINED");
-    }
+    this.handleQueueWords(false);
     return this.showResults;
   };
 
-  public toggleWordStatus = (word: IWord, guessed: boolean) => {
-    const status = guessed ? "GUESSED" : "DECLINED";
+  public toggleWordStatus = (word: IWordsFromRound, guessed: boolean) => {
     const wordIndex = this.wordsFromRound.findIndex(
       (w) => w.value === word.value
     );
-    this.wordsFromRound[wordIndex].status = status;
+    this.wordsFromRound[wordIndex].guessed = guessed;
   };
 
   public saveResultsAndPrepareNextRound = () => {
-    const guessedCount = this.wordsFromRound.filter(
-      (w) => w.status === "GUESSED"
-    ).length;
+    const guessedCount = this.wordsFromRound.filter((w) => w.guessed).length;
     const penaltyPoints = this.penaltyForSkip
-      ? this.wordsFromRound.filter((w) => w.status === "DECLINED").length
+      ? this.wordsFromRound.filter((w) => !w.guessed).length
       : 0;
 
     const roundPoints = guessedCount - penaltyPoints;
@@ -138,16 +123,13 @@ class GameStore {
     this.toggleCurrentTeam();
   };
 
-  public handleQueueWords = (word: IWord, status: WordsStatus) => {
-    const wordIndex = this.wordsFromRound.findIndex(
-      (w) => w.status === "IDLE" && w.value === word.value
-    );
+  public handleQueueWords = (guessed: boolean) => {
+    this.wordsFromRound.push({ ...this.currentWord, guessed });
 
-    this.wordsFromRound[wordIndex].status = status;
+    const wordValues = this.wordsFromRound.map((w) => w.value);
+    this.currentWord = this.wordsStore.getRandomUnusedWord(wordValues);
 
-    if (!this.timeOver) {
-      this.wordsFromRound.push(this.randomUniqWord);
-    } else {
+    if (this.timeOver) {
       this.showResults = true;
     }
   };
@@ -155,7 +137,7 @@ class GameStore {
   public startRound = () => {
     this.showResults = false;
     this.timeOver = false;
-    this.wordsFromRound = [this.randomUniqWord];
+    this.wordsFromRound = [];
   };
 }
 
