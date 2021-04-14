@@ -15,10 +15,14 @@ export default StyleSheet.create({
     marginVertical: 30,
     textAlign: "center",
   },
-  roundNumber: {
-    fontSize: 14,
-    textAlign: "center",
-    marginTop: "auto",
-    marginBottom: 15,
+  winnerWrapper: {
+    flex: 1,
+    justifyContent: "center",
   },
+  winnerTeam: {
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  tadaSmile: { fontSize: 70 },
 });

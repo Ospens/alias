@@ -15,21 +15,17 @@ const renderWordRow = ({ item }: { item: IWordsFromRound }) => {
 };
 
 const RoundResultsScreen: FC<RoundResultsScreenProps> = observer(() => {
-  const {
-    saveResultsAndPrepareNextRound,
-    wordsFromRound,
-    startRound,
-  } = useGameStore();
+  const { saveResults, wordsFromRound, startRound } = useGameStore();
   const navigation = useNavigation();
 
   const handleSave = useCallback(() => {
-    saveResultsAndPrepareNextRound();
+    saveResults();
     navigation.navigate("Game", {
       screen: "Overview",
     });
 
     startRound();
-  }, [saveResultsAndPrepareNextRound, navigation, startRound]);
+  }, [saveResults, navigation, startRound]);
 
   const wordKeyExtractor = useCallback(
     (word: IWordsFromRound) => word.value,

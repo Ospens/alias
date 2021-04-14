@@ -22,6 +22,7 @@ const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
     currentTeam,
     pointsForWin,
     roundDuration,
+    pointsFromRound,
   } = useGameStore();
 
   const timerRef = useRef<TimerRef>(null);
@@ -89,7 +90,9 @@ const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
             ref={timerRef}
           />
           <Text style={styles.score}>
-            <Text style={styles.currentScore}>{`${currentTeam.points}/`}</Text>
+            <Text style={styles.currentScore}>
+              {`${currentTeam.points + pointsFromRound}/`}
+            </Text>
             {pointsForWin}
           </Text>
         </View>

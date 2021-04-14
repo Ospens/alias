@@ -1,5 +1,5 @@
-import React, { FC, useCallback, useMemo } from "react";
-import { ScrollView, Text } from "react-native";
+import React, { FC, useCallback, useEffect, useMemo } from "react";
+import { ScrollView, Text, View } from "react-native";
 import { observer } from "mobx-react-lite";
 import { TeamWithScore } from "components/Team";
 import MainLayout from "components/MainLayout";
@@ -13,7 +13,8 @@ import type { INavigatorProps } from "routing";
 import styles from "./OverviewScreen.styles";
 
 const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
-  ({ navigation: { navigate } }) => {
+  ({ navigation }) => {
+    const { navigate, setOptions } = navigation;
     const { startRound, gameTeams, currentTeam, winner } = useGameStore();
 
     const gotoGame = useCallback(() => {
@@ -23,11 +24,27 @@ const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
       });
     }, [navigate, startRound]);
 
+    useEffect(() => {
+      if (winner) {
+        setOptions({ title: "" });
+      }
+    }, [setOptions, winner]);
+
     const gotoMenu = useCallback(() => {
       navigate("WordSets");
     }, [navigate]);
 
     const bottomPanel = useMemo(() => {
+      if (winner) {
+        return (
+          <RectangleButton
+            title="Меню"
+            onPress={gotoMenu}
+            style={nextButtonStyle}
+          />
+        );
+      }
+
       return (
         <>
           <RectangleButton
@@ -35,39 +52,38 @@ const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
             onPress={gotoMenu}
             style={backButtonStyle}
           />
-
-          {winner ? (
-            <RectangleButton
-              title="Меню"
-              onPress={gotoMenu}
-              style={nextButtonStyle}
-            />
-          ) : (
-            <RectangleButton
-              title="Играть"
-              onPress={gotoGame}
-              style={nextButtonStyle}
-            />
-          )}
+          <RectangleButton
+            title="Играть"
+            onPress={gotoGame}
+            style={nextButtonStyle}
+          />
         </>
       );
     }, [gotoMenu, winner, gotoGame]);
 
     return (
       <MainLayout style={styles.container} bottomPanel={bottomPanel}>
-        <ScrollView>
-          <Text style={styles.queueText}>
-            {`Очередь команды "${currentTeam.name}"`}
-          </Text>
-          {gameTeams.map((team) => (
-            <TeamWithScore
-              key={team.uuid}
-              containerStyle={styles.teamWrapper}
-              team={team}
-            />
-          ))}
-        </ScrollView>
-        <Text style={styles.roundNumber}>Круг: 1</Text>
+        {winner ? (
+          <View style={styles.winnerWrapper}>
+            <Text style={styles.winnerTeam}>
+              <Text style={styles.tadaSmile}>&#127881;</Text>
+              {`\n Победила команда "${winner.name}"`}
+            </Text>
+          </View>
+        ) : (
+          <ScrollView>
+            <Text style={styles.queueText}>
+              {`Очередь команды "${currentTeam.name}"`}
+            </Text>
+            {gameTeams.map((team) => (
+              <TeamWithScore
+                key={team.uuid}
+                containerStyle={styles.teamWrapper}
+                team={team}
+              />
+            ))}
+          </ScrollView>
+        )}
       </MainLayout>
     );
   }

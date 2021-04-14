@@ -52,6 +52,15 @@ class GameStore {
     makeAutoObservable(this);
   }
 
+  get pointsFromRound(): number {
+    const guessedCount = this.wordsFromRound.filter((w) => w.guessed).length;
+    const penaltyPoints = this.penaltyForSkip
+      ? this.wordsFromRound.filter((w) => !w.guessed).length
+      : 0;
+
+    return guessedCount - penaltyPoints;
+  }
+
   public toggleCurrentTeam = () => {
     const team = this.gameTeams.find(
       (t) => this.currentTeam && t.order > this.currentTeam.order
@@ -85,30 +94,23 @@ class GameStore {
     this.wordsFromRound[wordIndex].guessed = guessed;
   };
 
-  public saveResultsAndPrepareNextRound = () => {
-    const guessedCount = this.wordsFromRound.filter((w) => w.guessed).length;
-    const penaltyPoints = this.penaltyForSkip
-      ? this.wordsFromRound.filter((w) => !w.guessed).length
-      : 0;
+  public saveResults = () => {
+    this.currentTeam.rounds += 1;
+    this.currentTeam.points =
+      this.pointsFromRound > 0
+        ? this.currentTeam.points + this.pointsFromRound
+        : this.currentTeam.points;
 
-    const roundPoints = guessedCount - penaltyPoints;
-    this.currentTeam = {
-      ...this.currentTeam,
-      rounds: this.currentTeam.rounds + 1,
-      points:
-        roundPoints > 0
-          ? this.currentTeam.points + roundPoints
-          : this.currentTeam.points,
-    };
-    this.gameTeams = this.gameTeams.map((team) => {
-      return team.uuid === this.currentTeam.uuid ? this.currentTeam : team;
-    });
+    const currentTeamIndex = this.gameTeams.findIndex(
+      (team) => team.uuid === this.currentTeam.uuid
+    );
+    this.gameTeams[currentTeamIndex] = this.currentTeam;
 
     const teamsRounds = this.gameTeams.map((team) => team.rounds);
-    const allTeamsFinishedRound = teamsRounds.every(
+    const isAllTeamsFinishRound = teamsRounds.every(
       (round) => round === teamsRounds[0]
     );
-    if (allTeamsFinishedRound) {
+    if (isAllTeamsFinishRound) {
       const winners = this.gameTeams
         .filter((team) => team.points > this.pointsForWin)
         .sort((teamA, teamB) => teamB.points - teamA.points); // The higher points
