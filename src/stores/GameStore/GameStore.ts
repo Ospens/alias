@@ -113,7 +113,7 @@ class GameStore {
     );
     if (isAllTeamsFinishRound) {
       const winners = this.gameTeams
-        .filter((team) => team.points > this.pointsForWin)
+        .filter((team) => team.points >= this.pointsForWin)
         .sort((teamA, teamB) => teamB.points - teamA.points); // The higher points
       // TODO: add case when multiple teams have the same top result
       if (

@@ -12,6 +12,7 @@ const defaultScreenOptions: StackNavigationOptions = {
     fontWeight: "800",
     color: colors.headerText,
     fontSize: 24,
+    textAlign: "center",
   },
 };
 

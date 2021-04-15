@@ -13,7 +13,7 @@ import { TeamData } from "./TeamsStore.types";
 class TeamsStore {
   public rootStore: RootStore;
 
-  public saveHandler: null | IReactionDisposer = null;
+  public saveHandler: IReactionDisposer | null = null;
 
   public teams: Team[] = [];
 

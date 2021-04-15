@@ -12,7 +12,6 @@ const MainLayout: FC<MainLayoutProps> = memo(
     return (
       <SafeAreaView style={styles.container}>
         <View style={childrenStyle}>{children}</View>
-
         <View style={styles.bottomPanelWrapper}>{bottomPanel}</View>
       </SafeAreaView>
     );

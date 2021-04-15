@@ -16,5 +16,6 @@ export default StyleSheet.create({
     flexDirection: "row",
     height: 54,
     marginHorizontal: 20,
+    marginBottom: 25,
   },
 });
