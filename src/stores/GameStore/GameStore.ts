@@ -58,7 +58,8 @@ class GameStore {
       ? this.wordsFromRound.filter((w) => !w.guessed).length
       : 0;
 
-    return guessedCount - penaltyPoints;
+    const points = guessedCount - penaltyPoints;
+    return points > 0 ? points : 0;
   }
 
   public toggleCurrentTeam = () => {
