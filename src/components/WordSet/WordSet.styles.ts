@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "themes";
+import { colors, fonts } from "themes";
 
 export default StyleSheet.create({
   container: {
@@ -29,19 +29,19 @@ export default StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
+    ...fonts.types.medium,
     color: colors.text.black,
     fontSize: 18,
-    fontWeight: "600",
   },
   wordsCount: {
+    ...fonts.types.medium,
     color: colors.text.black,
     fontSize: 12,
-    fontWeight: "400",
   },
   exampleWords: {
+    ...fonts.types.medium,
     color: colors.text.black,
     fontSize: 12,
-    fontWeight: "400",
   },
   checkWrapper: {
     display: "flex",

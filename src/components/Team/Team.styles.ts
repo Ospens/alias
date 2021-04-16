@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "themes";
+import { colors, fonts } from "themes";
 
 export default StyleSheet.create({
   container: {
@@ -14,9 +14,9 @@ export default StyleSheet.create({
     borderRadius: 15,
   },
   title: {
+    ...fonts.types.medium,
     display: "flex",
     color: colors.text.black,
-    fontWeight: "600",
     fontSize: 18,
   },
   score: {

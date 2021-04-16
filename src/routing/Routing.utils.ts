@@ -1,4 +1,4 @@
-import { colors } from "themes";
+import { colors, fonts } from "themes";
 import { StackNavigationOptions } from "@react-navigation/stack";
 
 const defaultScreenOptions: StackNavigationOptions = {
@@ -9,7 +9,7 @@ const defaultScreenOptions: StackNavigationOptions = {
     backgroundColor: colors.background,
   },
   headerTitleStyle: {
-    fontWeight: "800",
+    ...fonts.types.bold,
     color: colors.headerText,
     fontSize: 24,
     textAlign: "center",
