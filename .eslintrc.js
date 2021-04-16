@@ -7,6 +7,7 @@ module.exports = {
     // note you must disable the base rule as it can report incorrect errors
     "no-use-before-define": "off",
     "import/no-unresolved": "error",
+    "prettier/prettier": ["warn"],
     "react/jsx-props-no-spreading": "off",
     "react/jsx-curly-newline": "off",
     "import/prefer-default-export": "off",
