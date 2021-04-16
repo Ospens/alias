@@ -20,7 +20,7 @@ export default StyleSheet.create({
     zIndex: 2,
   },
   word: {
-    ...fonts.types.medium,
+    ...fonts.types.bold,
     fontSize: 30,
     textAlign: "center",
   },

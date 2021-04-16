@@ -33,7 +33,11 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   const bottomPanel = useMemo(() => {
     return (
       <>
-        <RectangleButton onPress={gotoSettings} style={styles.settingButton}>
+        <RectangleButton
+          onPress={gotoSettings}
+          style={styles.settingButton}
+          isSquare
+        >
           <GearIcon />
         </RectangleButton>
         <RectangleButton

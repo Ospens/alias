@@ -13,6 +13,10 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 15,
   },
+  square: {
+    width: 54,
+    height: 54,
+  },
   title: {
     ...fonts.types.medium,
     fontSize: 18,

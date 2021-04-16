@@ -7,10 +7,8 @@ import type { INavigatorProps } from "routing";
 import WordSet from "components/WordSet";
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
-import styles, {
-  backButtonStyle,
-  nextButtonStyle,
-} from "./WordSetsScreen.styles";
+import { ArrowIcon } from "components/svg";
+import styles from "./WordSetsScreen.styles";
 
 const keyExtractor = (team: WordSetItem) => team.id.toString();
 
@@ -35,15 +33,13 @@ const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
     const bottomPanel = useMemo(() => {
       return (
         <>
-          <RectangleButton
-            title="Назад"
-            onPress={goBack}
-            style={backButtonStyle}
-          />
+          <RectangleButton isSquare onPress={goBack} style={styles.backButton}>
+            <ArrowIcon />
+          </RectangleButton>
           <RectangleButton
             title="Далее"
             onPress={gotoGame}
-            style={nextButtonStyle}
+            style={styles.nextButton}
             disabled={checkedGroups.length < 1}
           />
         </>

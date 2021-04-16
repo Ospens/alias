@@ -25,5 +25,14 @@ export default StyleSheet.create({
     fontSize: 32,
     textAlign: "center",
   },
-  tadaSmile: { fontSize: 70 },
+  tadaSmile: {
+    fontSize: 70,
+  },
+  backButton: {
+    marginRight: 10,
+  },
+  nextButton: {
+    flex: 1,
+    marginLeft: 10,
+  },
 });

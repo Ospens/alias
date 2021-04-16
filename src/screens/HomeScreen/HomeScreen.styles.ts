@@ -14,8 +14,6 @@ export default StyleSheet.create({
     borderWidth: 1,
   },
   settingButton: {
-    width: 54,
-    height: 54,
     marginRight: 20,
   },
   nextButton: {

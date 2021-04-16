@@ -8,20 +8,13 @@ const styles = StyleSheet.create({
   wordContainer: {
     marginBottom: 15,
   },
-  bottomButton: {
-    height: 54,
+  backButton: {
+    marginRight: 10,
+  },
+  nextButton: {
     flex: 1,
+    marginLeft: 10,
   },
 });
-
-export const backButtonStyle = StyleSheet.flatten([
-  styles.bottomButton,
-  { marginRight: 10 },
-]);
-
-export const nextButtonStyle = StyleSheet.flatten([
-  styles.bottomButton,
-  { marginLeft: 10 },
-]);
 
 export default styles;

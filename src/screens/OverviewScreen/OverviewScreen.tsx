@@ -4,12 +4,9 @@ import { observer } from "mobx-react-lite";
 import { TeamWithScore } from "components/Team";
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
-import {
-  backButtonStyle,
-  nextButtonStyle,
-} from "screens/WordSetsScreen/WordSetsScreen.styles";
 import { useGameStore } from "routing/GameRouting.store";
 import type { INavigatorProps } from "routing";
+import { ArrowIcon } from "components/svg";
 import styles from "./OverviewScreen.styles";
 
 const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
@@ -40,7 +37,7 @@ const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
           <RectangleButton
             title="Меню"
             onPress={gotoMenu}
-            style={nextButtonStyle}
+            style={styles.nextButton}
           />
         );
       }
@@ -48,14 +45,16 @@ const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
       return (
         <>
           <RectangleButton
-            title="Назад"
+            isSquare
             onPress={gotoMenu}
-            style={backButtonStyle}
-          />
+            style={styles.backButton}
+          >
+            <ArrowIcon />
+          </RectangleButton>
           <RectangleButton
             title="Играть"
             onPress={gotoGame}
-            style={nextButtonStyle}
+            style={styles.nextButton}
           />
         </>
       );
