@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "themes";
+import { colors, fonts } from "themes";
 
 export default StyleSheet.create({
   container: {
@@ -20,8 +20,8 @@ export default StyleSheet.create({
     zIndex: 2,
   },
   word: {
+    ...fonts.types.medium,
     fontSize: 30,
-    fontWeight: "bold",
     textAlign: "center",
   },
   nextCard: {

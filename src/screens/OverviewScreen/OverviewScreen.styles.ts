@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { fonts } from "themes";
 
 export default StyleSheet.create({
   container: {
@@ -10,8 +11,8 @@ export default StyleSheet.create({
     marginVertical: 5,
   },
   queueText: {
-    fontSize: 20,
-    fontWeight: "bold",
+    ...fonts.types.bold,
+    fontSize: 18,
     marginVertical: 30,
     textAlign: "center",
   },
@@ -20,8 +21,8 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   winnerTeam: {
+    ...fonts.types.bold,
     fontSize: 32,
-    fontWeight: "bold",
     textAlign: "center",
   },
   tadaSmile: { fontSize: 70 },

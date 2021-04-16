@@ -73,7 +73,7 @@ const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
         ) : (
           <ScrollView>
             <Text style={styles.queueText}>
-              {`Очередь команды "${currentTeam.name}"`}
+              {`Очередь команды\n"${currentTeam.name}"`}
             </Text>
             {gameTeams.map((team) => (
               <TeamWithScore

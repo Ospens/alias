@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { fonts } from "themes";
 
 export default StyleSheet.create({
   container: {
@@ -6,8 +7,8 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   seconds: {
+    ...fonts.types.bold,
     lineHeight: 64,
     fontSize: 64,
-    fontWeight: "800",
   },
 });

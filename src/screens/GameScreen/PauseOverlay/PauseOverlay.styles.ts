@@ -22,7 +22,6 @@ export default StyleSheet.create({
     marginBottom: 30,
   },
   resumeButtonTitle: {
-    fontWeight: "bold",
     color: colors.text.white,
   },
   menuButton: {
@@ -31,7 +30,6 @@ export default StyleSheet.create({
     backgroundColor: colors.buttons.decline,
   },
   menuButtonTitle: {
-    fontWeight: "bold",
     color: colors.text.white,
   },
 });
