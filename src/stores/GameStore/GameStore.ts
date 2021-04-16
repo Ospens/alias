@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
 import { Team } from "stores/TeamsStore";
-import type { IWord, WordsStore } from "../WordsStore";
+import type { IWord, IWordsStore } from "../WordsStore";
 import type { ITeamGameInfo, IWordsFromRound } from "./GameStore.type";
 
 class GameStore {
-  private readonly wordsStore: WordsStore;
+  private readonly wordsStore: IWordsStore;
 
   private readonly penaltyForSkip: boolean;
 
@@ -27,7 +27,7 @@ class GameStore {
   public winner: ITeamGameInfo | undefined = undefined;
 
   constructor(
-    wordsStore: WordsStore,
+    wordsStore: IWordsStore,
     teams: Team[],
     penaltyForSkip: boolean,
     pointsForWin: number,
