@@ -13,6 +13,18 @@ import type {
 } from "./SettingsStore.types";
 
 class SettingsStore {
+  public rootStore: RootStore;
+
+  public saveHandler: null | IReactionDisposer = null;
+
+  public language: Language = "en_US";
+
+  public roundDuration: RoundDuration = 10;
+
+  public pointsForWin: PointsForWin = 25;
+
+  public penaltyForSkip: boolean = false;
+
   constructor(rootStore: RootStore) {
     getData("SETTINGS_STORE_SETTINGS").then((settings) => {
       if (settings) {
@@ -48,18 +60,6 @@ class SettingsStore {
     });
     this.rootStore = rootStore;
   }
-
-  public rootStore: RootStore;
-
-  public saveHandler: null | IReactionDisposer = null;
-
-  public language: Language = "en_US";
-
-  public roundDuration: RoundDuration = 10;
-
-  public pointsForWin: PointsForWin = 25;
-
-  public penaltyForSkip: boolean = false;
 
   public togglePenaltyForSkip = (value: boolean) => {
     this.penaltyForSkip = value;
