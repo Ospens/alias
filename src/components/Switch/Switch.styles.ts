@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { fonts } from "themes";
 
 export default StyleSheet.create({
   container: {
@@ -7,6 +8,8 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   title: {
+    ...fonts.types.regular,
+    paddingRight: 30,
     maxWidth: "80%",
   },
   switchWrapper: {

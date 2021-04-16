@@ -20,11 +20,12 @@ const SelectPicker = typedMemo(
     );
     return (
       <View style={containerStyles}>
-        <Text>{title}</Text>
+        <Text style={styles.title}>{title}</Text>
         <View style={styles.pickerWrapper}>
           <RNPickerSelect
             onValueChange={onValueChange}
             items={items}
+            useNativeAndroidPickerStyle={false}
             value={value}
             style={pickerSelectStyles}
           />

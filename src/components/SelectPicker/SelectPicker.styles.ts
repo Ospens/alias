@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors } from "themes";
+import { colors, fonts } from "themes";
 
 export default StyleSheet.create({
   container: {
@@ -10,6 +10,9 @@ export default StyleSheet.create({
   },
   pickerWrapper: {
     marginLeft: "auto",
+  },
+  title: {
+    ...fonts.types.regular,
   },
 });
 

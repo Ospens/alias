@@ -9,6 +9,6 @@ export default StyleSheet.create({
   },
   row: {
     marginBottom: 15,
-    height: 32,
+    minHeight: 32,
   },
 });
