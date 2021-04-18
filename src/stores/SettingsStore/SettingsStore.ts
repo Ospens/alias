@@ -5,7 +5,7 @@ import {
   runInAction,
 } from "mobx";
 import { getData, storeData } from "stores/AsyncStorage";
-import type { RootStore } from "../RootStore";
+import type { IRootStore } from "../RootStore";
 import type {
   Language,
   RoundDuration,
@@ -13,11 +13,11 @@ import type {
 } from "./SettingsStore.types";
 
 class SettingsStore {
-  public rootStore: RootStore;
+  public rootStore: IRootStore;
 
   public saveHandler: null | IReactionDisposer = null;
 
-  public language: Language = "en_US";
+  public language: Language = "en";
 
   public roundDuration: RoundDuration = 10;
 
@@ -25,7 +25,7 @@ class SettingsStore {
 
   public penaltyForSkip: boolean = false;
 
-  constructor(rootStore: RootStore) {
+  constructor(rootStore: IRootStore) {
     getData("SETTINGS_STORE_SETTINGS").then((settings) => {
       if (settings) {
         runInAction(() => {

@@ -3,6 +3,7 @@ import UIStore from "../UIStore/UIStore";
 import SettingsStore from "../SettingsStore";
 import TeamsStore from "../TeamsStore";
 import WordsStore from "../WordsStore";
+import I18NStore from "../I18NStore";
 
 class RootStore {
   public uiStore: UIStore;
@@ -13,13 +14,16 @@ class RootStore {
 
   public wordsStore: WordsStore;
 
+  public i18NStore: I18NStore;
+
   constructor() {
     this.uiStore = new UIStore(this);
     this.settingsStore = new SettingsStore(this);
     this.teamsStore = new TeamsStore(this);
     this.wordsStore = new WordsStore();
+    this.i18NStore = new I18NStore(this);
     makeAutoObservable(this);
   }
 }
 
-export default RootStore;
+export default new RootStore();

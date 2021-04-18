@@ -7,17 +7,17 @@ import {
 import { storeData, getData } from "stores/AsyncStorage";
 import { ALL_TEAMS } from "stores/TeamsStore/TeamsStore.utils";
 import { Team } from "./Team";
-import type { RootStore } from "../RootStore";
+import type { IRootStore } from "../RootStore";
 import { TeamData } from "./TeamsStore.types";
 
 class TeamsStore {
-  public rootStore: RootStore;
+  public rootStore: IRootStore;
 
   public saveHandler: IReactionDisposer | null = null;
 
   public teams: Team[] = [];
 
-  constructor(rootStore: RootStore) {
+  constructor(rootStore: IRootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
 

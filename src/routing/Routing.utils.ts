@@ -1,5 +1,6 @@
 import { colors, fonts } from "themes";
 import { StackNavigationOptions } from "@react-navigation/stack";
+import { Locale } from "stores/I18NStore";
 
 const defaultScreenOptions: StackNavigationOptions = {
   title: "",
@@ -16,10 +17,10 @@ const defaultScreenOptions: StackNavigationOptions = {
   },
 };
 
-const SCREEN_OPTIONS = {
+export const getScreenOptions = (locale: Locale) => ({
   HOME: {
     ...defaultScreenOptions,
-    title: "Список команд",
+    title: locale.routing.homeTitle,
   },
   SETTINGS: {
     ...defaultScreenOptions,
@@ -29,7 +30,10 @@ const SCREEN_OPTIONS = {
     ...defaultScreenOptions,
     title: "Выбор набора слов",
   },
-  GAME_ROUTING: { headerShown: false, gestureEnabled: false },
+  GAME_ROUTING: {
+    headerShown: false,
+    gestureEnabled: false,
+  },
   OVERVIEW: {
     ...defaultScreenOptions,
     title: "Подготовка",
@@ -43,6 +47,4 @@ const SCREEN_OPTIONS = {
     title: "Результаты",
     gestureEnabled: false,
   },
-};
-
-export { SCREEN_OPTIONS };
+});

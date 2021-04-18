@@ -1,12 +1,12 @@
 import { makeAutoObservable } from "mobx";
-import type { RootStore } from "../RootStore";
+import type { IRootStore } from "../RootStore";
 
 class UIStore {
-  public rootStore: RootStore;
+  public rootStore: IRootStore;
 
   public language = "en_US";
 
-  constructor(rootStore: RootStore) {
+  constructor(rootStore: IRootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
   }

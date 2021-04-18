@@ -2,7 +2,7 @@ import React from "react";
 import RootStore from "./RootStore/RootStore";
 
 export const stores = Object.freeze({
-  rootStore: new RootStore(),
+  rootStore: RootStore,
 });
 
 export const storesContext = React.createContext(stores);
@@ -15,3 +15,4 @@ export const useStore = <T extends keyof typeof stores>(
 ): typeof stores[T] => React.useContext(storesContext)[store];
 
 export const useRootStore = () => React.useContext(storesContext).rootStore;
+export const useLocale = () => useRootStore().i18NStore.locale;
