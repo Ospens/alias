@@ -83,4 +83,6 @@ const SettingsScreen = observer(
   }
 );
 
+SettingsScreen.displayName = "SettingsScreen";
+
 export default SettingsScreen;

@@ -41,4 +41,6 @@ const Routing = observer(() => {
   );
 });
 
+Routing.displayName = "Routing";
+
 export default Routing;

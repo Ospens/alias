@@ -31,4 +31,6 @@ const Team = observer(({ team, containerStyle }: TeamProps) => {
   );
 });
 
+Team.displayName = "Team";
+
 export default Team;

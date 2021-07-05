@@ -20,4 +20,6 @@ const GearIcon = memo((props: SvgProps) => {
   );
 });
 
+GearIcon.displayName = "GearIcon";
+
 export { GearIcon };

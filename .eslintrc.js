@@ -10,6 +10,7 @@ module.exports = {
     "prettier/prettier": ["warn"],
     "react/jsx-props-no-spreading": "off",
     "react/jsx-curly-newline": "off",
+    "react/display-name": 2,
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],

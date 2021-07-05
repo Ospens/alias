@@ -21,4 +21,6 @@ const PlusIcon = memo((props: SvgProps) => {
   );
 });
 
+PlusIcon.displayName = "PlusIcon";
+
 export { PlusIcon };

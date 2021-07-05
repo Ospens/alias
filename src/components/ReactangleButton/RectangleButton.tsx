@@ -31,4 +31,6 @@ const RectangleButton: FC<RectangleButtonProps> = memo(
   }
 );
 
+RectangleButton.displayName = "RectangleButton";
+
 export default RectangleButton;

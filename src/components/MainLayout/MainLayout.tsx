@@ -18,4 +18,6 @@ const MainLayout: FC<MainLayoutProps> = memo(
   }
 );
 
+MainLayout.displayName = "MainLayout";
+
 export default MainLayout;

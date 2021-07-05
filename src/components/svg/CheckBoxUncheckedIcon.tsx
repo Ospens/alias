@@ -20,4 +20,6 @@ const CheckBoxUncheckedIcon = memo((props: SvgProps) => {
   );
 });
 
+CheckBoxUncheckedIcon.displayName = "CheckBoxUncheckedIcon";
+
 export { CheckBoxUncheckedIcon };

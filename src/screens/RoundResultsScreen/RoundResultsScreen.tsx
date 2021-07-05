@@ -55,4 +55,6 @@ const RoundResultsScreen: FC<RoundResultsScreenProps> = observer(() => {
   );
 });
 
+RoundResultsScreen.displayName = "RoundResultsScreen";
+
 export default RoundResultsScreen;

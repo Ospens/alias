@@ -20,4 +20,6 @@ const CloseIcon = memo((props: SvgProps) => {
   );
 });
 
+CloseIcon.displayName = "CloseIcon";
+
 export { CloseIcon };

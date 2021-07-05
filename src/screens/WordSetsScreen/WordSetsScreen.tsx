@@ -65,4 +65,6 @@ const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
   }
 );
 
+WordSetsScreen.displayName = "WordSetsScreen";
+
 export default WordSetsScreen;

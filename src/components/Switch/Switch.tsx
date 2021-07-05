@@ -24,4 +24,6 @@ const Switch = memo(
   }
 );
 
+Switch.displayName = "Switch";
+
 export default Switch;

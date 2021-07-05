@@ -34,4 +34,6 @@ const PauseOverlay: FC<PauseOverlayProps> = memo(({ onResume, isPaused }) => {
   );
 });
 
+PauseOverlay.displayName = "PauseOverlay";
+
 export default PauseOverlay;

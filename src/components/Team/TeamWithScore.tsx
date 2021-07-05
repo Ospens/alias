@@ -33,4 +33,6 @@ const TeamWithScore = observer(
   }
 );
 
+TeamWithScore.displayName = "TeamWithScore";
+
 export default TeamWithScore;

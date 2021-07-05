@@ -76,4 +76,6 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   );
 });
 
+HomeScreen.displayName = "HomeScreen";
+
 export default HomeScreen;

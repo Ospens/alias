@@ -20,4 +20,6 @@ const PauseIcon = memo((props: SvgProps) => {
   );
 });
 
+PauseIcon.displayName = "PauseIcon";
+
 export { PauseIcon };

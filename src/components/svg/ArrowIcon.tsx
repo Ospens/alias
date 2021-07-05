@@ -21,4 +21,6 @@ const ArrowIcon = memo((props: SvgProps) => {
   );
 });
 
+ArrowIcon.displayName = "ArrowIcon";
+
 export { ArrowIcon };

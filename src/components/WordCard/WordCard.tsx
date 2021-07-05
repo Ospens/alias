@@ -15,4 +15,6 @@ const WordCard: FC<WordCardProps> = observer(({ word }) => {
   );
 });
 
+WordCard.displayName = "WordCard";
+
 export default WordCard;

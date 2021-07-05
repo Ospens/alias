@@ -25,4 +25,6 @@ const WordRow: FC<WordRowProps> = observer(({ word }) => {
   );
 });
 
+WordRow.displayName = "WordRow";
+
 export default WordRow;

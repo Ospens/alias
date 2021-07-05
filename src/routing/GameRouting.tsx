@@ -57,3 +57,5 @@ export const GameRouting = observer(() => {
     </GameStoreProvider>
   );
 });
+
+GameRouting.displayName = "GameRouting";

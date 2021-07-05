@@ -20,4 +20,6 @@ const CheckBoxCheckedIcon = memo((props: SvgProps) => {
   );
 });
 
+CheckBoxCheckedIcon.displayName = "CheckBoxCheckedIcon";
+
 export { CheckBoxCheckedIcon };

@@ -88,4 +88,6 @@ const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
   }
 );
 
+OverviewScreen.displayName = "OverviewScreen";
+
 export default OverviewScreen;

@@ -105,4 +105,6 @@ const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
   );
 });
 
+GameScreen.displayName = "GameScreen";
+
 export default GameScreen;

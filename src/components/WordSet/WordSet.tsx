@@ -44,4 +44,6 @@ const WordSet: FC<WordSetProps> = observer(({ set, containerStyle }) => {
   );
 });
 
+WordSet.displayName = "WordSet";
+
 export default WordSet;
