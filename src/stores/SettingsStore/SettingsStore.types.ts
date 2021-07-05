@@ -1,4 +1,5 @@
-export type Language = "en" | "ru";
+// export type Language = "en" | "ru";
+export type Language = "ru";
 
 // TODO: remove 10
 export type RoundDuration = 10 | 30 | 60 | 90;

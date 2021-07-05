@@ -17,7 +17,7 @@ class SettingsStore {
 
   public saveHandler: null | IReactionDisposer = null;
 
-  public language: Language = "en";
+  public language: Language = "ru";
 
   public roundDuration: RoundDuration = 10;
 

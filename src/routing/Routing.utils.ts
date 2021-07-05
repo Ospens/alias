@@ -24,11 +24,11 @@ export const getScreenOptions = (locale: Locale) => ({
   },
   SETTINGS: {
     ...defaultScreenOptions,
-    title: "Настройки",
+    title: locale.routing.settingsTitle,
   },
   WORD_SETS: {
     ...defaultScreenOptions,
-    title: "Выбор набора слов",
+    title: locale.routing.wordSetsTitle,
   },
   GAME_ROUTING: {
     headerShown: false,
@@ -36,7 +36,7 @@ export const getScreenOptions = (locale: Locale) => ({
   },
   OVERVIEW: {
     ...defaultScreenOptions,
-    title: "Подготовка",
+    title: locale.routing.overviewTitle,
   },
   ROUND: {
     headerShown: false,
@@ -44,7 +44,7 @@ export const getScreenOptions = (locale: Locale) => ({
   },
   ROUND_RESULTS: {
     ...defaultScreenOptions,
-    title: "Результаты",
+    title: locale.routing.roundResultsTitle,
     gestureEnabled: false,
   },
 });
