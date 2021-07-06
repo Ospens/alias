@@ -43,10 +43,15 @@ class TeamsStore {
 
   private generateTeamData = (): TeamData => {
     const notAvailableTeams = this.teams.map((team) => team.uuid);
-    const team = ALL_TEAMS.find(
+    const teamIndex = ALL_TEAMS.findIndex(
       ({ uuid }) => !notAvailableTeams.includes(uuid)
     );
-    return { name: `Команда ${this.teams.length + 1}`, ...team };
+    return {
+      name:
+        this.rootStore.i18NStore.locale.teamNames[teamIndex] ||
+        `Команда ${this.teams.length + 1}`,
+      ...ALL_TEAMS[teamIndex],
+    };
   };
 
   get hasAvailableTeam(): boolean {

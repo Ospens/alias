@@ -15,6 +15,12 @@ const colors = {
     purple: "rgba(70,64,219,0.5)",
     pink: "rgba(242,82,157,0.5)",
     brown: "rgba(191,17,17,0.5)",
+    sky: "rgba(56,206,232,0.5)",
+    green: "rgba(61,217,173,0.5)",
+    orange: "rgba(255,87,0,0.5)",
+    red: "rgba(217,61,61,0.5)",
+    coffee: "rgba(85,38,0,0.5)",
+    blue: "rgba(56,143,232,0.5)",
     grey: "#C4C4C4",
   },
 

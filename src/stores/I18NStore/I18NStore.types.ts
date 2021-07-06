@@ -6,4 +6,16 @@ export interface Locale {
     overviewTitle: string;
     roundResultsTitle: string;
   };
+  teamNames: [
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string
+  ];
 }
