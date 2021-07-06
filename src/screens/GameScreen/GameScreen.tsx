@@ -11,9 +11,11 @@ import { PauseIcon } from "components/svg";
 import { colors } from "themes";
 import PauseOverlay from "screens/GameScreen/PauseOverlay";
 import type { INavigatorProps } from "routing";
+import { useLocale } from "stores";
 import styles from "./GameScreen.styles";
 
 const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
+  const locale = useLocale();
   const {
     handleTimeOver,
     currentWord,
@@ -62,20 +64,25 @@ const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
     return (
       <>
         <RectangleButton
-          title="Пропустить"
+          title={locale.actions.skip}
           onPress={handleDeclineCurrentWord}
           style={styles.declineButton}
           textStyle={styles.declineButtonTitle}
         />
         <RectangleButton
-          title="Правильно"
+          title={locale.actions.guess}
           onPress={handleGuessCurrentWord}
           style={styles.guessButton}
           textStyle={styles.guessButtonTitle}
         />
       </>
     );
-  }, [handleDeclineCurrentWord, handleGuessCurrentWord]);
+  }, [
+    handleDeclineCurrentWord,
+    handleGuessCurrentWord,
+    locale.actions.guess,
+    locale.actions.skip,
+  ]);
 
   return (
     <>

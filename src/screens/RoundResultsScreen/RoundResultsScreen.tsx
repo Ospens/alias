@@ -6,6 +6,7 @@ import { IWordsFromRound } from "stores/GameStore";
 import { useGameStore } from "routing/GameRouting.store";
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
+import { useLocale } from "stores";
 import type { RoundResultsScreenProps } from "./RoundResultsScreen.types";
 import styles from "./RoundResultsScreen.styles";
 import WordRow from "./WordRow";
@@ -15,6 +16,7 @@ const renderWordRow = ({ item }: { item: IWordsFromRound }) => {
 };
 
 const RoundResultsScreen: FC<RoundResultsScreenProps> = observer(() => {
+  const locale = useLocale();
   const { saveResults, wordsFromRound, startRound } = useGameStore();
   const navigation = useNavigation();
 
@@ -35,12 +37,12 @@ const RoundResultsScreen: FC<RoundResultsScreenProps> = observer(() => {
   const bottomPanel = useMemo(() => {
     return (
       <RectangleButton
-        title="Сохранить"
+        title={locale.actions.save}
         onPress={handleSave}
         style={styles.saveButton}
       />
     );
-  }, [handleSave]);
+  }, [handleSave, locale.actions.save]);
 
   return (
     <MainLayout bottomPanel={bottomPanel}>

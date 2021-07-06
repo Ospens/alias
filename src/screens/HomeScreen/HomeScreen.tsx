@@ -2,7 +2,7 @@ import React, { FC, useCallback, useMemo } from "react";
 import { FlatList } from "react-native";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
-import { useStore } from "stores";
+import { useLocale, useStore } from "stores";
 import Team from "components/Team";
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
@@ -14,6 +14,7 @@ import styles from "./HomeScreen.styles";
 const keyExtractor = (team: TeamItem) => team.uuid;
 
 const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
+  const locale = useLocale();
   const {
     teamsStore: { teams, createTeam, hasAvailableTeam },
   } = useStore("rootStore");
@@ -41,14 +42,14 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
           <GearIcon />
         </RectangleButton>
         <RectangleButton
-          title="Далее"
+          title={locale.actions.next}
           onPress={gotoWordsChoice}
           style={styles.nextButton}
           disabled={teams.length < 2}
         />
       </>
     );
-  }, [gotoSettings, gotoWordsChoice, teams.length]);
+  }, [gotoSettings, gotoWordsChoice, locale.actions.next, teams.length]);
 
   return (
     <MainLayout style={styles.container} bottomPanel={bottomPanel}>

@@ -7,10 +7,12 @@ import RectangleButton from "components/ReactangleButton";
 import { useGameStore } from "routing/GameRouting.store";
 import type { INavigatorProps } from "routing";
 import { ArrowIcon } from "components/svg";
+import { useLocale } from "stores";
 import styles from "./OverviewScreen.styles";
 
 const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
   ({ navigation }) => {
+    const locale = useLocale();
     const { navigate, setOptions } = navigation;
     const { startRound, gameTeams, currentTeam, winner } = useGameStore();
 
@@ -52,13 +54,13 @@ const OverviewScreen: FC<INavigatorProps<"Game">> = observer(
             <ArrowIcon />
           </RectangleButton>
           <RectangleButton
-            title="Играть"
+            title={locale.actions.play}
             onPress={gotoGame}
             style={styles.nextButton}
           />
         </>
       );
-    }, [gotoMenu, winner, gotoGame]);
+    }, [winner, gotoMenu, locale.actions.play, gotoGame]);
 
     return (
       <MainLayout style={styles.container} bottomPanel={bottomPanel}>

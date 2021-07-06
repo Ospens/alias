@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useMemo } from "react";
 import { FlatList } from "react-native";
 import { observer } from "mobx-react-lite";
-import { useStore } from "stores";
+import { useLocale, useStore } from "stores";
 import { WordSet as WordSetItem } from "stores/WordsStore";
 import type { INavigatorProps } from "routing";
 import WordSet from "components/WordSet";
@@ -14,13 +14,10 @@ const keyExtractor = (team: WordSetItem) => team.id.toString();
 
 const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
   ({ navigation }) => {
+    const locale = useLocale();
     const {
       wordsStore: { wordSets },
     } = useStore("rootStore");
-
-    const goBack = useCallback(() => {
-      navigation.goBack();
-    }, [navigation]);
 
     const gotoGame = useCallback(() => {
       navigation.navigate("Game", {
@@ -33,18 +30,27 @@ const WordSetsScreen: FC<INavigatorProps<"WordSets">> = observer(
     const bottomPanel = useMemo(() => {
       return (
         <>
-          <RectangleButton isSquare onPress={goBack} style={styles.backButton}>
+          <RectangleButton
+            isSquare
+            onPress={navigation.goBack}
+            style={styles.backButton}
+          >
             <ArrowIcon />
           </RectangleButton>
           <RectangleButton
-            title="Далее"
+            title={locale.actions.next}
             onPress={gotoGame}
             style={styles.nextButton}
             disabled={checkedGroups.length < 1}
           />
         </>
       );
-    }, [checkedGroups.length, goBack, gotoGame]);
+    }, [
+      checkedGroups.length,
+      gotoGame,
+      locale.actions.next,
+      navigation.goBack,
+    ]);
 
     return (
       <MainLayout style={styles.container} bottomPanel={bottomPanel}>

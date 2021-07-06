@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
-import { useStore } from "stores";
+import { useLocale, useStore } from "stores";
 import Switch from "components/Switch";
 import { roundDurationSelectValues } from "stores/SettingsStore";
 import SelectPicker from "components/SelectPicker";
@@ -12,6 +12,7 @@ import styles from "./SettingsScreen.styles";
 
 const SettingsScreen = observer(
   ({ navigation }: INavigatorProps<"Settings">) => {
+    const locale = useLocale();
     const {
       settingsStore: {
         penaltyForSkip,
@@ -31,12 +32,12 @@ const SettingsScreen = observer(
     const bottomPanel = useMemo(() => {
       return (
         <RectangleButton
-          title="Назад"
+          title={locale.actions.back}
           onPress={navigation.goBack}
           style={styles.buttonBack}
         />
       );
-    }, [navigation.goBack]);
+    }, [locale.actions.back, navigation.goBack]);
 
     return (
       <MainLayout style={styles.container} bottomPanel={bottomPanel}>

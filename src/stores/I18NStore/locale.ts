@@ -31,5 +31,15 @@ export const LOCALES: Record<Language, Locale> = {
       "Быстрые зебры",
       "Тихие вараны",
     ],
+    actions: {
+      next: "Далее",
+      play: "Играть",
+      back: "Назад",
+      guess: "Правильно",
+      skip: "Пропустить",
+      exit: "Выйти",
+      continue: "Продолжить",
+      save: "Сохранить",
+    },
   },
 };
