@@ -32,7 +32,7 @@ class WordsStore {
     });
 
     makeAutoObservable(this);
-    // Need to be below makeAutoObservable line
+    // Need to be after makeAutoObservable
     this.saveHandler = autorun(() => {
       storeData(
         "WORDS_STORE_GROUPS",
