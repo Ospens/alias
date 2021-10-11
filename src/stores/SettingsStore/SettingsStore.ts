@@ -1,23 +1,14 @@
-import {
-  autorun,
-  IReactionDisposer,
-  makeAutoObservable,
-  runInAction,
-} from "mobx";
+import { autorun, IReactionDisposer, makeAutoObservable, runInAction } from "mobx";
 import { getData, storeData } from "stores/AsyncStorage";
 import type { IRootStore } from "../RootStore";
-import type {
-  Language,
-  RoundDuration,
-  PointsForWin,
-} from "./SettingsStore.types";
+import type { Language, RoundDuration, PointsForWin } from "./SettingsStore.types";
 
 class SettingsStore {
   public rootStore: IRootStore;
 
   public saveHandler: null | IReactionDisposer = null;
 
-  public language: Language = "ru";
+  public language: Language = "en";
 
   public roundDuration: RoundDuration = 10;
 
@@ -38,10 +29,7 @@ class SettingsStore {
           if (settings.pointsForWin) {
             this.pointsForWin = settings.pointsForWin;
           }
-          if (
-            settings.penaltyForSkip !== null &&
-            settings.penaltyForSkip !== undefined
-          ) {
+          if (settings.penaltyForSkip !== null && settings.penaltyForSkip !== undefined) {
             this.penaltyForSkip = settings.penaltyForSkip;
           }
         });

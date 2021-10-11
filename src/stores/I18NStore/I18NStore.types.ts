@@ -15,17 +15,16 @@ export interface Locale {
     exit: string;
     continue: string;
     save: string;
+    menu: string;
   };
-  teamNames: [
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string
-  ];
+  teamNames: [string, string, string, string, string, string, string, string, string, string];
+  settings: {
+    penaltyForSkip: string;
+    pointsForWin: string;
+    roundDuration: string;
+  };
+  overview: {
+    winner: (teamName: string) => string;
+    nextTeam: (teamName: string) => string;
+  };
 }
