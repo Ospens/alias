@@ -1,7 +1,7 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
 import type { IRootStore } from "../RootStore";
 import type { Locale } from "./I18NStore.types";
-import { LOCALES } from "./locale";
+import { LOCALES } from "./locales";
 
 class I18NStore {
   public rootStore: IRootStore;
@@ -21,7 +21,7 @@ class I18NStore {
         runInAction(() => {
           this.locale = LOCALES[nextLanguage];
         });
-      }
+      },
     );
   }
 }
