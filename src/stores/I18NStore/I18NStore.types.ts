@@ -1,3 +1,11 @@
+export interface LocaleWordSet {
+  id: number;
+  name: string;
+  words: string[];
+  // checked: boolean;
+  image: any;
+}
+
 export interface Locale {
   routing: {
     homeTitle: string;
@@ -27,4 +35,5 @@ export interface Locale {
     winner: (teamName: string) => string;
     nextTeam: (teamName: string) => string;
   };
+  wordSets: LocaleWordSet[];
 }

@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { generateUUID } from "utils";
 import { ImageSourcePropType } from "react-native";
+import { LocaleWordSet } from "stores/I18NStore";
 
 class WordSet {
   public id: number;
@@ -13,13 +14,11 @@ class WordSet {
 
   public words: string[];
 
-  constructor(
-    data: Pick<WordSet, "id" | "name" | "words" | "checked" | "image">
-  ) {
+  constructor(data: LocaleWordSet) {
     this.id = data.id ?? generateUUID();
     this.name = data.name;
     this.image = data.image;
-    this.checked = data.checked || false;
+    this.checked = false;
     this.words = data.words || [];
 
     makeAutoObservable(this);

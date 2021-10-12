@@ -1,16 +1,14 @@
-import {
-  autorun,
-  IReactionDisposer,
-  makeAutoObservable,
-  runInAction,
-} from "mobx";
+import { autorun, IReactionDisposer, makeAutoObservable, runInAction } from "mobx";
 import { getData, storeData } from "stores/AsyncStorage";
 import { getRandomElement } from "utils";
 import WordSet from "./WordSet";
 import { IWord } from "./WordsStore.types";
-import { words, WORD_SETS_DATA } from "./words";
+import { words } from "./words";
+import type { IRootStore } from "../RootStore";
 
 class WordsStore {
+  public rootStore: IRootStore;
+
   public wordSets: WordSet[] = [];
 
   public allWords: IWord[] = words;
@@ -19,8 +17,10 @@ class WordsStore {
 
   private saveHandler: IReactionDisposer;
 
-  constructor() {
-    this.wordSets = WORD_SETS_DATA.map((set) => new WordSet(set));
+  constructor(rootStore: IRootStore) {
+    this.rootStore = rootStore;
+
+    this.wordSets = this.rootStore.i18NStore.locale.wordSets.map((set) => new WordSet(set));
     getData("WORDS_STORE_GROUPS").then((checkedSetIds: unknown) => {
       runInAction(() => {
         if (checkedSetIds && Array.isArray(checkedSetIds)) {
@@ -36,7 +36,7 @@ class WordsStore {
     this.saveHandler = autorun(() => {
       storeData(
         "WORDS_STORE_GROUPS",
-        this.wordSets.filter(({ checked }) => checked).map(({ id }) => id)
+        this.wordSets.filter(({ checked }) => checked).map(({ id }) => id),
       );
     });
   }
@@ -44,16 +44,14 @@ class WordsStore {
   get wordsFromCheckedGroups(): IWord[] {
     const groupIds = this.wordSets.map((group) => group.id);
     return this.allWords.filter(({ wordGroupId }) =>
-      groupIds.filter((groupId) => wordGroupId === groupId)
+      groupIds.filter((groupId) => wordGroupId === groupId),
     );
   }
 
   public getRandomUnusedWord = (excludeValues: string[] = []): IWord => {
     const usedWordsValues = this.usedWords.map((word) => word.value);
     const uniqWords = this.wordsFromCheckedGroups.filter(
-      (word) =>
-        !excludeValues.includes(word.value) &&
-        !usedWordsValues.includes(word.value)
+      (word) => !excludeValues.includes(word.value) && !usedWordsValues.includes(word.value),
     );
     let randomWord = getRandomElement(uniqWords);
     if (!randomWord) {

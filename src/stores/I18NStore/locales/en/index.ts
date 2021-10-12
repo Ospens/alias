@@ -1,4 +1,8 @@
 import type { Locale } from "stores/I18NStore";
+import booksImg from "assets/images/books.png";
+import animalsImg from "assets/images/animals.png";
+import baseAsset from "./baseAsset";
+import animalsAsset from "./animalsAsset";
 
 export const enLocale: Locale = {
   routing: {
@@ -40,4 +44,18 @@ export const enLocale: Locale = {
     winner: (teamName) => `Winner is "${teamName}"`,
     nextTeam: (teamName) => `Next team\n"${teamName}"`,
   },
+  wordSets: [
+    {
+      id: 1,
+      name: "Base asset",
+      words: baseAsset,
+      image: booksImg,
+    },
+    {
+      id: 2,
+      name: "Животные",
+      words: animalsAsset,
+      image: animalsImg,
+    },
+  ],
 };
