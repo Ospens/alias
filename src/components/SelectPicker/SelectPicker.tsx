@@ -8,6 +8,8 @@ const typedMemo: <T>(props: T) => T = memo;
 
 const blankIcon = () => null;
 
+const placeholder = {};
+
 const SelectPicker = typedMemo(
   <T,>({
     title,
@@ -31,6 +33,7 @@ const SelectPicker = typedMemo(
             value={value}
             Icon={blankIcon}
             style={pickerSelectStyles}
+            placeholder={placeholder}
           />
         </View>
       </View>
