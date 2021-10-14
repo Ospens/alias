@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { Team } from "stores/TeamsStore";
-import type { IWord, IWordsStore } from "../WordsStore";
+import type { IWordsStore } from "../WordsStore";
 import type { ITeamGameInfo, IWordsFromRound } from "./GameStore.type";
 
 class GameStore {
@@ -22,7 +22,7 @@ class GameStore {
 
   public showResults: boolean = false;
 
-  public currentWord: IWord;
+  public currentWord: string;
 
   public winner: ITeamGameInfo | undefined = undefined;
 
@@ -31,9 +31,8 @@ class GameStore {
     teams: Team[],
     penaltyForSkip: boolean,
     pointsForWin: number,
-    roundDuration: number
+    roundDuration: number,
   ) {
-    console.log("===> GameStore constructor");
     this.wordsStore = wordsStore;
     this.pointsForWin = pointsForWin;
     this.penaltyForSkip = penaltyForSkip;
@@ -63,9 +62,7 @@ class GameStore {
   }
 
   public toggleCurrentTeam = () => {
-    const team = this.gameTeams.find(
-      (t) => this.currentTeam && t.order > this.currentTeam.order
-    );
+    const team = this.gameTeams.find((t) => this.currentTeam && t.order > this.currentTeam.order);
 
     if (team) {
       this.currentTeam = team;
@@ -89,9 +86,7 @@ class GameStore {
   };
 
   public toggleWordStatus = (word: IWordsFromRound, guessed: boolean) => {
-    const wordIndex = this.wordsFromRound.findIndex(
-      (w) => w.value === word.value
-    );
+    const wordIndex = this.wordsFromRound.findIndex((w) => w.value === word.value);
     this.wordsFromRound[wordIndex].guessed = guessed;
   };
 
@@ -103,23 +98,18 @@ class GameStore {
         : this.currentTeam.points;
 
     const currentTeamIndex = this.gameTeams.findIndex(
-      (team) => team.uuid === this.currentTeam.uuid
+      (team) => team.uuid === this.currentTeam.uuid,
     );
     this.gameTeams[currentTeamIndex] = this.currentTeam;
 
     const teamsRounds = this.gameTeams.map((team) => team.rounds);
-    const isAllTeamsFinishRound = teamsRounds.every(
-      (round) => round === teamsRounds[0]
-    );
+    const isAllTeamsFinishRound = teamsRounds.every((round) => round === teamsRounds[0]);
     if (isAllTeamsFinishRound) {
       const winners = this.gameTeams
         .filter((team) => team.points >= this.pointsForWin)
         .sort((teamA, teamB) => teamB.points - teamA.points); // The higher points
       // TODO: add case when multiple teams have the same top result
-      if (
-        winners.length === 1 ||
-        (winners.length > 1 && winners[0].points !== winners[1].points)
-      ) {
+      if (winners.length === 1 || (winners.length > 1 && winners[0].points !== winners[1].points)) {
         [this.winner] = winners;
       }
     }
@@ -127,7 +117,7 @@ class GameStore {
   };
 
   public handleQueueWords = (guessed: boolean) => {
-    this.wordsFromRound.push({ ...this.currentWord, guessed });
+    this.wordsFromRound.push({ value: this.currentWord, guessed });
 
     const wordValues = this.wordsFromRound.map((w) => w.value);
     this.currentWord = this.wordsStore.getRandomUnusedWord(wordValues);

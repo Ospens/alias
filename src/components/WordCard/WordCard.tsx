@@ -8,7 +8,7 @@ const WordCard: FC<WordCardProps> = observer(({ word }) => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.word}>{word.value}</Text>
+        <Text style={styles.word}>{word}</Text>
       </View>
       <View style={styles.nextCard} />
     </View>

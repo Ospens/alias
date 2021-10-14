@@ -1,7 +1,7 @@
-import type { IWord } from "stores/WordsStore";
 import { ITeam } from "stores/TeamsStore/TeamsStore.types";
 
-export interface IWordsFromRound extends IWord {
+export interface IWordsFromRound {
+  value: string;
   guessed: boolean;
 }
 

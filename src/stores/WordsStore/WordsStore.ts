@@ -2,8 +2,6 @@ import { autorun, IReactionDisposer, makeAutoObservable, runInAction } from "mob
 import { getData, storeData } from "stores/AsyncStorage";
 import { getRandomElement } from "utils";
 import WordSet from "./WordSet";
-import { IWord } from "./WordsStore.types";
-import { words } from "./words";
 import type { IRootStore } from "../RootStore";
 
 class WordsStore {
@@ -11,9 +9,7 @@ class WordsStore {
 
   public wordSets: WordSet[] = [];
 
-  public allWords: IWord[] = words;
-
-  public usedWords: IWord[] = [];
+  public usedWords: string[] = [];
 
   private saveHandler: IReactionDisposer;
 
@@ -21,6 +17,7 @@ class WordsStore {
     this.rootStore = rootStore;
 
     this.wordSets = this.rootStore.i18NStore.locale.wordSets.list.map((set) => new WordSet(set));
+
     getData("WORDS_STORE_GROUPS").then((checkedSetIds: unknown) => {
       runInAction(() => {
         if (checkedSetIds && Array.isArray(checkedSetIds)) {
@@ -41,22 +38,33 @@ class WordsStore {
     });
   }
 
-  get wordsFromCheckedGroups(): IWord[] {
-    const groupIds = this.wordSets.map((group) => group.id);
-    return this.allWords.filter(({ wordGroupId }) =>
-      groupIds.filter((groupId) => wordGroupId === groupId),
-    );
+  get wordsFromCheckedGroups(): string[] {
+    return this.wordSets.reduce((accum, set) => {
+      if (set.checked) {
+        accum.push(...set.words);
+        return accum;
+      }
+
+      return accum;
+    }, [] as string[]);
   }
 
-  public getRandomUnusedWord = (excludeValues: string[] = []): IWord => {
-    const usedWordsValues = this.usedWords.map((word) => word.value);
-    const uniqWords = this.wordsFromCheckedGroups.filter(
-      (word) => !excludeValues.includes(word.value) && !usedWordsValues.includes(word.value),
+  public getUniqWords = (excludeValues: string[], isDiscardUsedWords = false): string[] => {
+    if (isDiscardUsedWords) {
+      this.usedWords = [];
+    }
+
+    return this.wordsFromCheckedGroups.filter(
+      (word) => !excludeValues.includes(word) && !this.usedWords.includes(word),
     );
+  };
+
+  public getRandomUnusedWord = (excludeValues: string[] = []): string => {
+    let uniqWords = this.getUniqWords(excludeValues);
+
     let randomWord = getRandomElement(uniqWords);
     if (!randomWord) {
-      console.log("refresh usedWords", this.usedWords.length);
-      this.usedWords = [];
+      uniqWords = this.getUniqWords(excludeValues, true);
       randomWord = getRandomElement(uniqWords);
     }
     if (!randomWord) {
