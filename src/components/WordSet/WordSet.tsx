@@ -8,9 +8,7 @@ import styles from "./WordSet.styles";
 import type { WordSetProps } from "./WordSet.types";
 
 const WordSet: FC<WordSetProps> = observer(({ set, containerStyle }) => {
-  const wrapperStyle = useMemo(() => [styles.container, containerStyle], [
-    containerStyle,
-  ]);
+  const wrapperStyle = useMemo(() => [styles.container, containerStyle], [containerStyle]);
 
   return (
     <TouchableOpacity onPress={set.toggleCheck} style={wrapperStyle}>
@@ -26,18 +24,12 @@ const WordSet: FC<WordSetProps> = observer(({ set, containerStyle }) => {
             <Text style={styles.wordsCount}>
               {pluralize(set.words.length, ["слово", "слова", "слов"])}
             </Text>
-            <Text style={styles.exampleWords}>
-              {set.exampleWords.join(", ")}
-            </Text>
+            <Text style={styles.exampleWords}>{set.exampleWords.join(", ")}</Text>
           </View>
         </View>
         <View style={styles.checkWrapper}>
           {set.checked ? (
-            <CheckBoxCheckedIcon
-              width={35}
-              height={35}
-              fill={colors.buttons.accept}
-            />
+            <CheckBoxCheckedIcon width={35} height={35} fill={colors.buttons.accept} />
           ) : (
             <CheckBoxUncheckedIcon width={35} height={35} fill={colors.black} />
           )}
