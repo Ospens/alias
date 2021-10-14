@@ -34,11 +34,7 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
   const bottomPanel = useMemo(() => {
     return (
       <>
-        <RectangleButton
-          onPress={gotoSettings}
-          style={styles.settingButton}
-          isSquare
-        >
+        <RectangleButton onPress={gotoSettings} style={styles.settingButton} isSquare>
           <GearIcon />
         </RectangleButton>
         <RectangleButton
@@ -58,18 +54,11 @@ const HomeScreen: FC<INavigatorProps<"Home">> = observer(({ navigation }) => {
         keyExtractor={keyExtractor}
         // TODO: when renderItem in useCallback observer changes doesn't work
         renderItem={({ item: team }) => (
-          <Team
-            key={team.uuid}
-            team={team}
-            containerStyle={styles.teamContainer}
-          />
+          <Team key={team.uuid} team={team} containerStyle={styles.teamContainer} />
         )}
       />
       {hasAvailableTeam && (
-        <RectangleButton
-          onPress={handleCreateTeam}
-          style={styles.addTeamButton}
-        >
+        <RectangleButton onPress={handleCreateTeam} style={styles.addTeamButton}>
           <PlusIcon fill={colors.buttons.accept} />
         </RectangleButton>
       )}

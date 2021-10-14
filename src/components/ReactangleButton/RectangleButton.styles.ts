@@ -20,5 +20,12 @@ export default StyleSheet.create({
   title: {
     ...fonts.types.medium,
     fontSize: 18,
+    color: colors.text.black,
+  },
+  disabled: {
+    borderColor: colors.grey,
+  },
+  disabledTitle: {
+    color: colors.grey,
   },
 });
