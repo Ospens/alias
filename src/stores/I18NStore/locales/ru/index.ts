@@ -3,6 +3,7 @@ import animalsImg from "assets/images/animals.png";
 import booksImg from "assets/images/books.png";
 import baseAsset from "./baseAsset";
 import animalsAsset from "./animalsAsset";
+import { pluralize } from "./pluralize";
 
 export const ruLocale: Locale = {
   routing: {
@@ -44,18 +45,21 @@ export const ruLocale: Locale = {
     winner: (teamName) => `Победила команда "${teamName}"`,
     nextTeam: (teamName) => `Очередь команды\n"${teamName}"`,
   },
-  wordSets: [
-    {
-      id: 1,
-      name: "Базовый набор",
-      words: baseAsset,
-      image: booksImg,
-    },
-    {
-      id: 2,
-      name: "Животные",
-      words: animalsAsset,
-      image: animalsImg,
-    },
-  ],
+  wordSets: {
+    list: [
+      {
+        id: 1,
+        name: "Base asset",
+        words: baseAsset,
+        image: booksImg,
+      },
+      {
+        id: 2,
+        name: "Animals",
+        words: animalsAsset,
+        image: animalsImg,
+      },
+    ],
+    wordsCount: (count) => pluralize(count, ["слово", "слова", "слов"]),
+  },
 };

@@ -1,1 +1,1 @@
-export default ["Word #1"];
+export default ["Lion", "Zebra"];

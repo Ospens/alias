@@ -3,11 +3,13 @@ import { ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { observer } from "mobx-react-lite";
 import { CheckBoxCheckedIcon, CheckBoxUncheckedIcon } from "components/svg";
 import { colors } from "themes";
-import { pluralize } from "utils";
+import { useLocale } from "stores";
 import styles from "./WordSet.styles";
 import type { WordSetProps } from "./WordSet.types";
 
 const WordSet: FC<WordSetProps> = observer(({ set, containerStyle }) => {
+  const locale = useLocale();
+
   const wrapperStyle = useMemo(() => [styles.container, containerStyle], [containerStyle]);
 
   return (
@@ -21,9 +23,7 @@ const WordSet: FC<WordSetProps> = observer(({ set, containerStyle }) => {
         <View style={styles.infoWrapper}>
           <Text style={styles.title}>{set.name}</Text>
           <View style={styles.subInfo}>
-            <Text style={styles.wordsCount}>
-              {pluralize(set.words.length, ["слово", "слова", "слов"])}
-            </Text>
+            <Text style={styles.wordsCount}>{locale.wordSets.wordsCount(set.words.length)}</Text>
             <Text style={styles.exampleWords}>{set.exampleWords.join(", ")}</Text>
           </View>
         </View>

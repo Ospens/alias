@@ -3,6 +3,7 @@ import booksImg from "assets/images/books.png";
 import animalsImg from "assets/images/animals.png";
 import baseAsset from "./baseAsset";
 import animalsAsset from "./animalsAsset";
+import { pluralize } from "./pluralize";
 
 export const enLocale: Locale = {
   routing: {
@@ -44,18 +45,21 @@ export const enLocale: Locale = {
     winner: (teamName) => `Winner is "${teamName}"`,
     nextTeam: (teamName) => `Next team\n"${teamName}"`,
   },
-  wordSets: [
-    {
-      id: 1,
-      name: "Base asset",
-      words: baseAsset,
-      image: booksImg,
-    },
-    {
-      id: 2,
-      name: "Животные",
-      words: animalsAsset,
-      image: animalsImg,
-    },
-  ],
+  wordSets: {
+    list: [
+      {
+        id: 1,
+        name: "Base asset",
+        words: baseAsset,
+        image: booksImg,
+      },
+      {
+        id: 2,
+        name: "Animals",
+        words: animalsAsset,
+        image: animalsImg,
+      },
+    ],
+    wordsCount: (count) => pluralize(count, "word"),
+  },
 };

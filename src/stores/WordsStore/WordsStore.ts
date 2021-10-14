@@ -20,7 +20,7 @@ class WordsStore {
   constructor(rootStore: IRootStore) {
     this.rootStore = rootStore;
 
-    this.wordSets = this.rootStore.i18NStore.locale.wordSets.map((set) => new WordSet(set));
+    this.wordSets = this.rootStore.i18NStore.locale.wordSets.list.map((set) => new WordSet(set));
     getData("WORDS_STORE_GROUPS").then((checkedSetIds: unknown) => {
       runInAction(() => {
         if (checkedSetIds && Array.isArray(checkedSetIds)) {
