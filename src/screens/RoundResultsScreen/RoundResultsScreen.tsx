@@ -29,18 +29,11 @@ const RoundResultsScreen: FC<RoundResultsScreenProps> = observer(() => {
     startRound();
   }, [saveResults, navigation, startRound]);
 
-  const wordKeyExtractor = useCallback(
-    (word: IWordsFromRound) => word.value,
-    []
-  );
+  const wordKeyExtractor = useCallback((word: IWordsFromRound) => word.value, []);
 
   const bottomPanel = useMemo(() => {
     return (
-      <RectangleButton
-        title={locale.actions.save}
-        onPress={handleSave}
-        style={styles.saveButton}
-      />
+      <RectangleButton title={locale.actions.save} onPress={handleSave} style={styles.saveButton} />
     );
   }, [handleSave, locale.actions.save]);
 

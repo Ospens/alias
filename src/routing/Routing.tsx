@@ -17,26 +17,10 @@ const Routing = observer(() => {
 
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={screenOptions.HOME}
-      />
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={screenOptions.SETTINGS}
-      />
-      <Stack.Screen
-        name="WordSets"
-        component={WordSetsScreen}
-        options={screenOptions.WORD_SETS}
-      />
-      <Stack.Screen
-        name="Game"
-        component={GameRouting}
-        options={screenOptions.GAME_ROUTING}
-      />
+      <Stack.Screen name="Home" component={HomeScreen} options={screenOptions.HOME} />
+      <Stack.Screen name="Settings" component={SettingsScreen} options={screenOptions.SETTINGS} />
+      <Stack.Screen name="WordSets" component={WordSetsScreen} options={screenOptions.WORD_SETS} />
+      <Stack.Screen name="Game" component={GameRouting} options={screenOptions.GAME_ROUTING} />
     </Stack.Navigator>
   );
 });

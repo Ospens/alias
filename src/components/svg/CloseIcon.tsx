@@ -4,13 +4,7 @@ import { colors } from "themes";
 
 const CloseIcon = memo((props: SvgProps) => {
   return (
-    <Svg
-      width={20}
-      height={20}
-      viewBox="0 0 20 20"
-      fill={colors.black}
-      {...props}
-    >
+    <Svg width={20} height={20} viewBox="0 0 20 20" fill={colors.black} {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

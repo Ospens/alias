@@ -77,12 +77,7 @@ const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
         />
       </>
     );
-  }, [
-    handleDeclineCurrentWord,
-    handleGuessCurrentWord,
-    locale.actions.guess,
-    locale.actions.skip,
-  ]);
+  }, [handleDeclineCurrentWord, handleGuessCurrentWord, locale.actions.guess, locale.actions.skip]);
 
   return (
     <>
@@ -91,21 +86,13 @@ const GameScreen = observer(({ navigation }: INavigatorProps<"Game">) => {
           <TouchableOpacity style={styles.pauseButton} onPress={pauseTimer}>
             <PauseIcon fill={colors.yellow} />
           </TouchableOpacity>
-          <Timer
-            seconds={roundDuration}
-            onExpire={handleTimeOver}
-            ref={timerRef}
-          />
+          <Timer seconds={roundDuration} onExpire={handleTimeOver} ref={timerRef} />
           <Text style={styles.score}>
-            <Text style={styles.currentScore}>
-              {`${currentTeam.points + pointsFromRound}/`}
-            </Text>
+            <Text style={styles.currentScore}>{`${currentTeam.points + pointsFromRound}/`}</Text>
             {pointsForWin}
           </Text>
         </View>
-        <View style={styles.wordCardWrapper}>
-          {currentWord && <WordCard word={currentWord} />}
-        </View>
+        <View style={styles.wordCardWrapper}>{currentWord && <WordCard word={currentWord} />}</View>
       </MainLayout>
       <PauseOverlay isPaused={isPaused} onResume={resumeTimer} />
     </>

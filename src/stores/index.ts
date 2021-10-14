@@ -10,9 +10,8 @@ export const StoresProvider = storesContext.Provider;
 
 export const useStores = () => React.useContext(storesContext);
 
-export const useStore = <T extends keyof typeof stores>(
-  store: T
-): typeof stores[T] => React.useContext(storesContext)[store];
+export const useStore = <T extends keyof typeof stores>(store: T): typeof stores[T] =>
+  React.useContext(storesContext)[store];
 
 export const useRootStore = () => React.useContext(storesContext).rootStore;
 export const useLocale = () => useRootStore().i18NStore.locale;

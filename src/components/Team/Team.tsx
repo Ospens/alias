@@ -9,20 +9,12 @@ import type { TeamProps } from "./Team.types";
 import { backgroundGradientProps } from "./Team.utils";
 
 const Team = observer(({ team, containerStyle }: TeamProps) => {
-  const gradientColors = useMemo(() => [team.color, colors.transparent], [
-    team.color,
-  ]);
+  const gradientColors = useMemo(() => [team.color, colors.transparent], [team.color]);
 
-  const wrapperStyle = useMemo(() => [styles.container, containerStyle], [
-    containerStyle,
-  ]);
+  const wrapperStyle = useMemo(() => [styles.container, containerStyle], [containerStyle]);
 
   return (
-    <LinearGradient
-      {...backgroundGradientProps}
-      colors={gradientColors}
-      style={wrapperStyle}
-    >
+    <LinearGradient {...backgroundGradientProps} colors={gradientColors} style={wrapperStyle}>
       <Text style={styles.title}>{team.name}</Text>
       <TouchableOpacity onPress={team.removeTeam}>
         <CloseIcon fill={colors.pink} />

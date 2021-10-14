@@ -4,13 +4,7 @@ import { colors } from "themes";
 
 const PauseIcon = memo((props: SvgProps) => {
   return (
-    <Svg
-      width={30}
-      height={30}
-      viewBox="0 0 30 30"
-      fill={colors.black}
-      {...props}
-    >
+    <Svg width={30} height={30} viewBox="0 0 30 30" fill={colors.black} {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

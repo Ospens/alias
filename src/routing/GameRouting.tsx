@@ -24,15 +24,8 @@ export const GameRouting = observer(() => {
   const screenOptions = getScreenOptions(locale);
 
   const gameStore = useMemo(
-    () =>
-      new GameStore(
-        wordsStore,
-        teams,
-        penaltyForSkip,
-        pointsForWin,
-        roundDuration
-      ),
-    [penaltyForSkip, pointsForWin, roundDuration, teams, wordsStore]
+    () => new GameStore(wordsStore, teams, penaltyForSkip, pointsForWin, roundDuration),
+    [penaltyForSkip, pointsForWin, roundDuration, teams, wordsStore],
   );
 
   return (
@@ -43,11 +36,7 @@ export const GameRouting = observer(() => {
           component={OverviewScreen}
           options={screenOptions.OVERVIEW}
         />
-        <GameStack.Screen
-          name="Round"
-          component={GameScreen}
-          options={screenOptions.ROUND}
-        />
+        <GameStack.Screen name="Round" component={GameScreen} options={screenOptions.ROUND} />
         <GameStack.Screen
           name="RoundResults"
           component={RoundResultsScreen}

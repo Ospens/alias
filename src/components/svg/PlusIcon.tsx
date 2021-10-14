@@ -4,13 +4,7 @@ import { colors } from "themes";
 
 const PlusIcon = memo((props: SvgProps) => {
   return (
-    <Svg
-      width={36}
-      height={36}
-      viewBox="0 0 36 36"
-      fill={colors.black}
-      {...props}
-    >
+    <Svg width={36} height={36} viewBox="0 0 36 36" fill={colors.black} {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

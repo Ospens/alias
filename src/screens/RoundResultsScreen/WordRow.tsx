@@ -12,7 +12,7 @@ const WordRow: FC<WordRowProps> = observer(({ word }) => {
     (checked: boolean) => {
       toggleWordStatus(word, checked);
     },
-    [toggleWordStatus, word]
+    [toggleWordStatus, word],
   );
 
   return (

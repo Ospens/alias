@@ -4,13 +4,7 @@ import { colors } from "themes";
 
 const GearIcon = memo((props: SvgProps) => {
   return (
-    <Svg
-      width={32}
-      height={34}
-      viewBox="0 0 32 34"
-      fill={colors.black}
-      {...props}
-    >
+    <Svg width={32} height={34} viewBox="0 0 32 34" fill={colors.black} {...props}>
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

@@ -1,9 +1,4 @@
-import {
-  makeAutoObservable,
-  runInAction,
-  autorun,
-  IReactionDisposer,
-} from "mobx";
+import { makeAutoObservable, runInAction, autorun, IReactionDisposer } from "mobx";
 import { storeData, getData } from "stores/AsyncStorage";
 import { ALL_TEAMS } from "stores/TeamsStore/TeamsStore.utils";
 import { Team } from "./Team";
@@ -36,20 +31,17 @@ class TeamsStore {
       storeData(
         "TEAMS_STORE_TEAMS",
         // store create the error. TypeError: cyclic object value
-        this.teams.map((t) => ({ ...t, store: null }))
+        this.teams.map((t) => ({ ...t, store: null })),
       );
     });
   }
 
   private generateTeamData = (): TeamData => {
     const notAvailableTeams = this.teams.map((team) => team.uuid);
-    const teamIndex = ALL_TEAMS.findIndex(
-      ({ uuid }) => !notAvailableTeams.includes(uuid)
-    );
+    const teamIndex = ALL_TEAMS.findIndex(({ uuid }) => !notAvailableTeams.includes(uuid));
     return {
       name:
-        this.rootStore.i18NStore.locale.teamNames[teamIndex] ||
-        `Команда ${this.teams.length + 1}`,
+        this.rootStore.i18NStore.locale.teamNames[teamIndex] || `Команда ${this.teams.length + 1}`,
       ...ALL_TEAMS[teamIndex],
     };
   };

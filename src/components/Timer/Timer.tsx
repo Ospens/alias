@@ -16,7 +16,7 @@ const Timer = forwardRef<TimerRef, TimerProps>(({ seconds, onExpire }, ref) => {
       pause,
       start: startTimer,
     }),
-    [pause, startTimer]
+    [pause, startTimer],
   );
 
   useEffect(() => {
