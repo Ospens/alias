@@ -6,6 +6,8 @@ import styles, { pickerSelectStyles } from "./SelectPicker.styles";
 
 const typedMemo: <T>(props: T) => T = memo;
 
+const blankIcon = () => null;
+
 const SelectPicker = typedMemo(
   <T,>({
     title,
@@ -14,10 +16,10 @@ const SelectPicker = typedMemo(
     wrapperStyle,
     onValueChange,
   }: PropsWithChildren<ISelectPicker<T>>) => {
-    const containerStyles = useMemo(
-      () => StyleSheet.flatten([styles.container, wrapperStyle]),
-      [wrapperStyle]
-    );
+    const containerStyles = useMemo(() => StyleSheet.flatten([styles.container, wrapperStyle]), [
+      wrapperStyle,
+    ]);
+
     return (
       <View style={containerStyles}>
         <Text style={styles.title}>{title}</Text>
@@ -27,12 +29,13 @@ const SelectPicker = typedMemo(
             items={items}
             useNativeAndroidPickerStyle={false}
             value={value}
+            Icon={blankIcon}
             style={pickerSelectStyles}
           />
         </View>
       </View>
     );
-  }
+  },
 );
 
 export default SelectPicker;
