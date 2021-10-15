@@ -1,4 +1,5 @@
 import type { RoundDuration, PointsForWin } from "./SettingsStore.types";
+import { Language } from "./SettingsStore.types";
 
 export const roundDurationSelectValues: {
   label: string;
@@ -18,4 +19,12 @@ export const pointsForWinSelectValues: {
   { label: "50", value: 50 },
   { label: "75", value: 75 },
   { label: "100", value: 100 },
+];
+
+export const languagesValues: {
+  label: string;
+  value: Language;
+}[] = [
+  { label: "Русский", value: "ru" },
+  { label: "English", value: "en" },
 ];

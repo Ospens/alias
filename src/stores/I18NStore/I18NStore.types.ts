@@ -29,6 +29,7 @@ export interface Locale {
     penaltyForSkip: string;
     pointsForWin: string;
     roundDuration: string;
+    languageOfWords: string;
   };
   overview: {
     winner: (teamName: string) => string;

@@ -5,7 +5,7 @@ import { useLocale, useStore } from "stores";
 import Switch from "components/Switch";
 import { roundDurationSelectValues } from "stores/SettingsStore";
 import SelectPicker from "components/SelectPicker";
-import { pointsForWinSelectValues } from "stores/SettingsStore/constants";
+import { languagesValues, pointsForWinSelectValues } from "stores/SettingsStore/constants";
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
 import styles from "./SettingsScreen.styles";
@@ -20,7 +20,9 @@ const SettingsScreen = observer(({ navigation }: INavigatorProps<"Settings">) =>
       toggleRoundDuration,
       togglePointsForWin,
       roundDuration,
+      languageOfWords,
       pointsForWin,
+      toggleLanguageOfWords,
     },
   } = useStore("rootStore");
 
@@ -72,12 +74,13 @@ const SettingsScreen = observer(({ navigation }: INavigatorProps<"Settings">) =>
         onValueChange={toggleRoundDuration}
         wrapperStyle={styles.row}
       />
-      {/* <SelectPicker */}
-      {/*  title="Язык слов" */}
-      {/*  value="Русский" */}
-      {/*  items={{ label: "Русский", value: "Русский" }} */}
-      {/*  onValueChange={() => {}} */}
-      {/* /> */}
+      <SelectPicker
+        title={locale.settings.languageOfWords}
+        value={languageOfWords}
+        items={languagesValues}
+        onValueChange={toggleLanguageOfWords}
+        size="l"
+      />
     </MainLayout>
   );
 });

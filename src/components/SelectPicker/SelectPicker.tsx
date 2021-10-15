@@ -17,10 +17,29 @@ const SelectPicker = typedMemo(
     value,
     wrapperStyle,
     onValueChange,
+    size = "m",
   }: PropsWithChildren<ISelectPicker<T>>) => {
     const containerStyles = useMemo(() => StyleSheet.flatten([styles.container, wrapperStyle]), [
       wrapperStyle,
     ]);
+
+    const pickerSelectStylesWithSize = useMemo(() => {
+      if (size === "l") {
+        return {
+          ...pickerSelectStyles,
+          inputAndroid: {
+            ...pickerSelectStyles.inputAndroid,
+            width: 200,
+          },
+          inputIOS: {
+            ...pickerSelectStyles.inputIOS,
+            width: 200,
+          },
+        };
+      }
+
+      return pickerSelectStyles;
+    }, [size]);
 
     return (
       <View style={containerStyles}>
@@ -32,7 +51,7 @@ const SelectPicker = typedMemo(
             useNativeAndroidPickerStyle={false}
             value={value}
             Icon={blankIcon}
-            style={pickerSelectStyles}
+            style={pickerSelectStylesWithSize}
             placeholder={placeholder}
           />
         </View>

@@ -8,7 +8,9 @@ class SettingsStore {
 
   public saveHandler: null | IReactionDisposer = null;
 
-  public language: Language = "en";
+  public languageApp: Language = "en";
+
+  public languageOfWords: Language = "en";
 
   public roundDuration: RoundDuration = 10;
 
@@ -20,8 +22,8 @@ class SettingsStore {
     getData("SETTINGS_STORE_SETTINGS").then((settings) => {
       if (settings) {
         runInAction(() => {
-          if (settings.language) {
-            this.language = settings.language;
+          if (settings.languageOfWords) {
+            this.languageOfWords = settings.languageOfWords;
           }
           if (settings.roundDuration) {
             this.roundDuration = settings.roundDuration;
@@ -40,7 +42,7 @@ class SettingsStore {
     // Need to be below makeAutoObservable(this) line
     this.saveHandler = autorun(() => {
       storeData("SETTINGS_STORE_SETTINGS", {
-        language: this.language,
+        languageOfWords: this.languageOfWords,
         roundDuration: this.roundDuration,
         pointsForWin: this.pointsForWin,
         penaltyForSkip: this.penaltyForSkip,
@@ -59,6 +61,10 @@ class SettingsStore {
 
   public togglePointsForWin = (value: PointsForWin) => {
     this.pointsForWin = value;
+  };
+
+  public toggleLanguageOfWords = (value: Language) => {
+    this.languageOfWords = value;
   };
 }
 

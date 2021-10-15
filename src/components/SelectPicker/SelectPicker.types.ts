@@ -11,4 +11,5 @@ export interface ISelectPicker<ValueType = any> extends PickerSelectProps {
   items: SelectItem<ValueType>[];
   wrapperStyle?: StyleProp<ViewStyle>;
   onValueChange: (value: ValueType, index: number) => void;
+  size?: "s" | "m" | "l";
 }

@@ -10,13 +10,13 @@ class I18NStore {
 
   constructor(rootStore: IRootStore) {
     this.rootStore = rootStore;
-    const { language } = this.rootStore.settingsStore;
-    this.locale = LOCALES[language];
+    const { languageOfWords } = this.rootStore.settingsStore;
+    this.locale = LOCALES[languageOfWords];
 
     makeAutoObservable(this);
 
     reaction(
-      () => this.rootStore.settingsStore.language,
+      () => this.rootStore.settingsStore.languageOfWords,
       (nextLanguage) => {
         runInAction(() => {
           this.locale = LOCALES[nextLanguage];

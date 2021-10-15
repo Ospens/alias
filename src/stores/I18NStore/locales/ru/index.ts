@@ -40,6 +40,7 @@ export const ruLocale: Locale = {
     penaltyForSkip: "Отнимать очки за не отгаданные слова",
     pointsForWin: "Очки для победы",
     roundDuration: "Длительность раунда",
+    languageOfWords: "Язык слов",
   },
   overview: {
     winner: (teamName) => `Победила команда "${teamName}"`,

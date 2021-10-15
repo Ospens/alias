@@ -40,6 +40,7 @@ export const enLocale: Locale = {
     penaltyForSkip: "Take away points for not guessed words",
     pointsForWin: "Points for win",
     roundDuration: "Round duration",
+    languageOfWords: "Language of words",
   },
   overview: {
     winner: (teamName) => `Winner is "${teamName}"`,
