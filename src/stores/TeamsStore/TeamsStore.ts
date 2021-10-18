@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction, autorun, IReactionDisposer } from "mobx";
+import { makeAutoObservable, runInAction, autorun, IReactionDisposer, reaction } from "mobx";
 import { storeData, getData } from "stores/AsyncStorage";
 import { ALL_TEAMS } from "stores/TeamsStore/TeamsStore.utils";
 import { Team } from "./Team";
@@ -30,18 +30,24 @@ class TeamsStore {
     this.saveHandler = autorun(() => {
       storeData(
         "TEAMS_STORE_TEAMS",
-        // store create the error. TypeError: cyclic object value
+        // store create an error: TypeError: cyclic object value
         this.teams.map((t) => ({ ...t, store: null })),
       );
     });
+
+    reaction(
+      () => this.rootStore.i18NStore.locale,
+      (locale) => {
+        this.updateTeams(locale.teamNames);
+      },
+    );
   }
 
   private generateTeamData = (): TeamData => {
     const notAvailableTeams = this.teams.map((team) => team.uuid);
     const teamIndex = ALL_TEAMS.findIndex(({ uuid }) => !notAvailableTeams.includes(uuid));
     return {
-      name:
-        this.rootStore.i18NStore.locale.teamNames[teamIndex] || `Команда ${this.teams.length + 1}`,
+      name: this.rootStore.i18NStore.locale.teamNames[teamIndex] || `Team ${this.teams.length + 1}`,
       ...ALL_TEAMS[teamIndex],
     };
   };
@@ -53,6 +59,13 @@ class TeamsStore {
   public createTeam = (data: TeamData = this.generateTeamData()) => {
     const team = new Team(this, data);
     this.teams.push(team);
+  };
+
+  public updateTeams = (teamNames: string[]) => {
+    this.teams.forEach((team, index) => {
+      // eslint-disable-next-line no-param-reassign
+      team.name = teamNames[index];
+    });
   };
 
   public removeTeam = (team: Team) => {

@@ -30,13 +30,13 @@ export interface Locale {
     pointsForWin: string;
     roundDuration: string;
     languageOfWords: string;
+    languageOfApp: string;
   };
   overview: {
     winner: (teamName: string) => string;
     nextTeam: (teamName: string) => string;
   };
   wordSets: {
-    list: LocaleWordSet[];
     wordsCount: (count: number) => string;
   };
 }

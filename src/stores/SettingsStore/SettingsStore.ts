@@ -1,4 +1,5 @@
 import { autorun, IReactionDisposer, makeAutoObservable, runInAction } from "mobx";
+import { NativeModules } from "react-native";
 import { getData, storeData } from "stores/AsyncStorage";
 import type { IRootStore } from "../RootStore";
 import type { Language, RoundDuration, PointsForWin } from "./SettingsStore.types";
@@ -8,7 +9,8 @@ class SettingsStore {
 
   public saveHandler: null | IReactionDisposer = null;
 
-  public languageApp: Language = "en";
+  public languageOfApp: Language =
+    NativeModules.I18nManager.localeIdentifier.split("_")[0]?.toLowerCase() || "en"; // "en_EU";
 
   public languageOfWords: Language = "en";
 
@@ -65,6 +67,10 @@ class SettingsStore {
 
   public toggleLanguageOfWords = (value: Language) => {
     this.languageOfWords = value;
+  };
+
+  public toggleLanguageOfApp = (value: Language) => {
+    this.languageOfApp = value;
   };
 }
 

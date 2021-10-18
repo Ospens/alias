@@ -19,8 +19,8 @@ class RootStore {
   constructor() {
     this.uiStore = new UIStore(this);
     this.settingsStore = new SettingsStore(this);
-    this.teamsStore = new TeamsStore(this);
     this.i18NStore = new I18NStore(this);
+    this.teamsStore = new TeamsStore(this);
     this.wordsStore = new WordsStore(this);
     makeAutoObservable(this);
   }

@@ -1,4 +1,4 @@
-import { autorun, IReactionDisposer, makeAutoObservable, runInAction } from "mobx";
+import { autorun, IReactionDisposer, makeAutoObservable, reaction, runInAction } from "mobx";
 import { getData, storeData } from "stores/AsyncStorage";
 import { getRandomElement } from "utils";
 import WordSet from "./WordSet";
@@ -16,7 +16,7 @@ class WordsStore {
   constructor(rootStore: IRootStore) {
     this.rootStore = rootStore;
 
-    this.wordSets = this.rootStore.i18NStore.locale.wordSets.list.map((set) => new WordSet(set));
+    this.wordSets = this.rootStore.i18NStore.localeWords.map((set) => new WordSet(set));
 
     getData("WORDS_STORE_GROUPS").then((checkedSetIds: unknown) => {
       runInAction(() => {
@@ -36,6 +36,15 @@ class WordsStore {
         this.wordSets.filter(({ checked }) => checked).map(({ id }) => id),
       );
     });
+
+    reaction(
+      () => this.rootStore.settingsStore.languageOfWords,
+      () => {
+        runInAction(() => {
+          this.wordSets = this.rootStore.i18NStore.localeWords.map((set) => new WordSet(set));
+        });
+      },
+    );
   }
 
   get wordsFromCheckedGroups(): string[] {

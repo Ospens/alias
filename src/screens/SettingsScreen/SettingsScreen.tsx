@@ -21,8 +21,10 @@ const SettingsScreen = observer(({ navigation }: INavigatorProps<"Settings">) =>
       togglePointsForWin,
       roundDuration,
       languageOfWords,
+      languageOfApp,
       pointsForWin,
       toggleLanguageOfWords,
+      toggleLanguageOfApp,
     },
   } = useStore("rootStore");
 
@@ -79,6 +81,15 @@ const SettingsScreen = observer(({ navigation }: INavigatorProps<"Settings">) =>
         value={languageOfWords}
         items={languagesValues}
         onValueChange={toggleLanguageOfWords}
+        wrapperStyle={styles.row}
+        size="l"
+      />
+      <SelectPicker
+        title={locale.settings.languageOfApp}
+        value={languageOfApp}
+        items={languagesValues}
+        onValueChange={toggleLanguageOfApp}
+        wrapperStyle={styles.row}
         size="l"
       />
     </MainLayout>

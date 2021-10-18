@@ -1,9 +1,7 @@
 import type { Locale } from "stores/I18NStore";
-import booksImg from "assets/images/books.png";
-import animalsImg from "assets/images/animals.png";
-import baseAsset from "./baseAsset";
-import animalsAsset from "./animalsAsset";
 import { pluralize } from "./pluralize";
+
+export { wordSets as enWordSets } from "./wordSets";
 
 export const enLocale: Locale = {
   routing: {
@@ -41,26 +39,13 @@ export const enLocale: Locale = {
     pointsForWin: "Points for win",
     roundDuration: "Round duration",
     languageOfWords: "Language of words",
+    languageOfApp: "Language of app",
   },
   overview: {
     winner: (teamName) => `Winner is "${teamName}"`,
     nextTeam: (teamName) => `Next team\n"${teamName}"`,
   },
   wordSets: {
-    list: [
-      {
-        id: 1,
-        name: "Base asset",
-        words: baseAsset,
-        image: booksImg,
-      },
-      {
-        id: 2,
-        name: "Animals",
-        words: animalsAsset,
-        image: animalsImg,
-      },
-    ],
     wordsCount: (count) => pluralize(count, "word"),
   },
 };
