@@ -27,6 +27,9 @@ class SettingsStore {
           if (settings.languageOfWords) {
             this.languageOfWords = settings.languageOfWords;
           }
+          if (settings.languageOfApp) {
+            this.languageOfApp = settings.languageOfApp;
+          }
           if (settings.roundDuration) {
             this.roundDuration = settings.roundDuration;
           }
@@ -45,6 +48,7 @@ class SettingsStore {
     this.saveHandler = autorun(() => {
       storeData("SETTINGS_STORE_SETTINGS", {
         languageOfWords: this.languageOfWords,
+        languageOfApp: this.languageOfApp,
         roundDuration: this.roundDuration,
         pointsForWin: this.pointsForWin,
         penaltyForSkip: this.penaltyForSkip,
