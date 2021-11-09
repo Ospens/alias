@@ -58,22 +58,20 @@ class WordsStore {
     }, [] as string[]);
   }
 
-  public getUniqWords = (excludeValues: string[], isDiscardUsedWords = false): string[] => {
+  public getUniqWords = (isDiscardUsedWords = false): string[] => {
     if (isDiscardUsedWords) {
-      this.usedWords = [];
+      this.usedWords = this.usedWords.slice(-20); // Keep the most recent words
     }
 
-    return this.wordsFromCheckedGroups.filter(
-      (word) => !excludeValues.includes(word) && !this.usedWords.includes(word),
-    );
+    return this.wordsFromCheckedGroups.filter((word) => !this.usedWords.includes(word));
   };
 
-  public getRandomUnusedWord = (excludeValues: string[] = []): string => {
-    let uniqWords = this.getUniqWords(excludeValues);
+  public getRandomUnusedWord = (): string => {
+    let uniqWords = this.getUniqWords();
 
     let randomWord = getRandomElement(uniqWords);
     if (!randomWord) {
-      uniqWords = this.getUniqWords(excludeValues, true);
+      uniqWords = this.getUniqWords(true);
       randomWord = getRandomElement(uniqWords);
     }
     if (!randomWord) {

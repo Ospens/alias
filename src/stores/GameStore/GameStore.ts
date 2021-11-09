@@ -119,8 +119,7 @@ class GameStore {
   public handleQueueWords = (guessed: boolean) => {
     this.wordsFromRound.push({ value: this.currentWord, guessed });
 
-    const wordValues = this.wordsFromRound.map((w) => w.value);
-    this.currentWord = this.wordsStore.getRandomUnusedWord(wordValues);
+    this.currentWord = this.wordsStore.getRandomUnusedWord();
 
     if (this.timeOver) {
       this.showResults = true;
