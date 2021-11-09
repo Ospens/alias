@@ -40,6 +40,7 @@ export const enLocale: Locale = {
     roundDuration: "Round duration",
     languageOfWords: "Language of words",
     languageOfApp: "Language of app",
+    rateApp: "Rate the app",
   },
   overview: {
     winner: (teamName) => `Winner is "${teamName}"`,

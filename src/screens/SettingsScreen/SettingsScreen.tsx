@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react";
+import { Linking, Platform, Text, TouchableOpacity } from "react-native";
 import { observer } from "mobx-react-lite";
 import type { INavigatorProps } from "routing";
 import { useLocale, useStore } from "stores";
@@ -9,6 +10,23 @@ import { languagesValues, pointsForWinSelectValues } from "stores/SettingsStore/
 import MainLayout from "components/MainLayout";
 import RectangleButton from "components/ReactangleButton";
 import styles from "./SettingsScreen.styles";
+
+const openPlatformMarket = () => {
+  // TODO: add real links
+  const marketAppLink = Platform.OS === "ios" ? "" : "market://details?id=myandroidappid";
+
+  Linking.canOpenURL(marketAppLink)
+    .then((supported) => {
+      if (supported) {
+        Linking.openURL(marketAppLink);
+      } else {
+        const marketWebsite =
+          Platform.OS === "ios" ? `` : "https://play.google.com/store?hl=ru&tab=r8";
+        Linking.openURL(marketWebsite);
+      }
+    })
+    .catch((err) => console.error(err));
+};
 
 const SettingsScreen = observer(({ navigation }: INavigatorProps<"Settings">) => {
   const locale = useLocale();
@@ -92,6 +110,11 @@ const SettingsScreen = observer(({ navigation }: INavigatorProps<"Settings">) =>
         wrapperStyle={styles.row}
         size="l"
       />
+
+      {/* Need to be at the bottom place always */}
+      <TouchableOpacity onPress={openPlatformMarket}>
+        <Text style={styles.rateAppText}>{locale.settings.rateApp}</Text>
+      </TouchableOpacity>
     </MainLayout>
   );
 });

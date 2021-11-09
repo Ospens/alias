@@ -31,6 +31,7 @@ export interface Locale {
     roundDuration: string;
     languageOfWords: string;
     languageOfApp: string;
+    rateApp: string;
   };
   overview: {
     winner: (teamName: string) => string;

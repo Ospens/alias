@@ -40,6 +40,7 @@ export const ruLocale: Locale = {
     roundDuration: "Длительность раунда",
     languageOfWords: "Язык слов",
     languageOfApp: "Язык приложения",
+    rateApp: "Оценить приложение",
   },
   overview: {
     winner: (teamName) => `Победила команда "${teamName}"`,
