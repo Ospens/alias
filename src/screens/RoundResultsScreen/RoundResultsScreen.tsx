@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC, useState, useCallback, useMemo, useEffect } from "react";
 import { View, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react-lite";
@@ -17,8 +17,17 @@ const renderWordRow = ({ item }: { item: IWordsFromRound }) => {
 
 const RoundResultsScreen: FC<RoundResultsScreenProps> = observer(() => {
   const locale = useLocale();
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
+
   const { saveResults, wordsFromRound, startRound } = useGameStore();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    // Improve UX
+    setTimeout(() => {
+      setIsSaveButtonDisabled(false);
+    }, 1000);
+  }, []);
 
   const handleSave = useCallback(() => {
     saveResults();
@@ -33,9 +42,14 @@ const RoundResultsScreen: FC<RoundResultsScreenProps> = observer(() => {
 
   const bottomPanel = useMemo(() => {
     return (
-      <RectangleButton title={locale.actions.save} onPress={handleSave} style={styles.saveButton} />
+      <RectangleButton
+        title={locale.actions.save}
+        onPress={handleSave}
+        style={styles.saveButton}
+        disabled={isSaveButtonDisabled}
+      />
     );
-  }, [handleSave, locale.actions.save]);
+  }, [isSaveButtonDisabled, handleSave, locale.actions.save]);
 
   return (
     <MainLayout bottomPanel={bottomPanel}>
