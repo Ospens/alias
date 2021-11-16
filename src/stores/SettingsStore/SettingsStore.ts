@@ -1,8 +1,13 @@
 import { autorun, IReactionDisposer, makeAutoObservable, runInAction } from "mobx";
-import { NativeModules } from "react-native";
+import { NativeModules, Platform } from "react-native";
 import { getData, storeData } from "stores/AsyncStorage";
 import type { IRootStore } from "../RootStore";
 import type { Language, RoundDuration, PointsForWin } from "./SettingsStore.types";
+
+const locale = Platform.select({
+  ios: NativeModules.SettingsManager?.settings?.AppleLocale || NativeModules.SettingsManager?.settings?.AppleLanguages[0],
+  android: NativeModules.I18nManager.localeIdentifier,
+})
 
 class SettingsStore {
   public rootStore: IRootStore;
@@ -10,7 +15,7 @@ class SettingsStore {
   public saveHandler: null | IReactionDisposer = null;
 
   public languageOfApp: Language =
-    NativeModules.I18nManager.localeIdentifier.split("_")[0]?.toLowerCase() || "en"; // "en_EU";
+    locale.split("_")[0]?.toLowerCase() || "en"; // "en_EU";
 
   public languageOfWords: Language = "en";
 
