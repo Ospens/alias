@@ -54,6 +54,8 @@ const ${NAME}: FC<${NAME}Props> = memo(() => {
   );
 });
 
+${NAME}.displayName = '${NAME}';
+
 export default ${NAME};
 ```
 
@@ -76,6 +78,8 @@ const ${NAME}: FC<${NAME}Props> = observer(() => {
     </View>
   );
 });
+
+${NAME}.displayName = '${NAME}';
 
 export default ${NAME};
 
